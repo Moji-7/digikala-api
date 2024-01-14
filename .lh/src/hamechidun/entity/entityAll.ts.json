@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/hamechidun/entity/entityAll.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1704529422040,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1704529422040,
+            "name": "Commit-0",
+            "content": "import {Entity, PrimaryColumn, Column, PrimaryGeneratedColumn} from \"typeorm\";\r\n\r\n@Entity()\r\nclass Order {\r\n    @PrimaryColumn()\r\n    order_id: number;\r\n\r\n    @Column(\"json\")\r\n    order_content: any; // JSON type\r\n}\r\n\r\n@Entity()\r\nexport class PopulateOrdersSummary {\r\n    @PrimaryGeneratedColumn()\r\n    id: number;\r\n    @Column(\"decimal\", {precision: 20, scale: 0})\r\n    orders_sum_price: number;\r\n\r\n    @Column(\"decimal\", {precision: 20, scale: 0})\r\n    orders_max_price: number;\r\n\r\n    @Column(\"decimal\", {precision: 20, scale: 0})\r\n    orders_average_price: number;\r\n\r\n    @Column()\r\n    orders_count: number;\r\n}\r\n\r\n\r\n@Entity()\r\nexport class PopulateOrdersSellersMost {\r\n    @PrimaryColumn()\r\n    seller_id: number;\r\n\r\n    @PrimaryColumn()\r\n    seller_title: string;\r\n\r\n    @PrimaryColumn()\r\n    seller_url: string;\r\n\r\n    @Column()\r\n    repetition_count: number;\r\n}\r\n\r\n\r\n@Entity()\r\nexport class PopulateOrdersProductsMost{\r\n    @PrimaryColumn()\r\n    product_id: number;\r\n\r\n    @Column()\r\n    title_fa: string;  \r\n\r\n    @Column()\r\n    product_count: number;\r\n}\r\n\r\n@Entity()\r\nexport class PopulateOrderProductPriceExpensive {\r\n    @PrimaryColumn()\r\n    product_id: number;\r\n\r\n    @Column()\r\n    title_fa: string;  \r\n    \r\n    @Column()\r\n    quantity: number;\r\n\r\n    @Column(\"decimal\", {precision: 10, scale: 0})\r\n    rrp_price: number;\r\n\r\n    @Column(\"decimal\", {precision: 10, scale: 0})\r\n    selling_price: number;\r\n\r\n    @Column(\"decimal\", {precision: 5, scale: 0})\r\n    discount_percent: number;\r\n}\r\n@Entity()\r\nexport class populateOrdersProductsCategoriesInfo {\r\n\r\n        @PrimaryGeneratedColumn()\r\n        id: number;\r\n    \r\n        @Column()\r\n        item_category2: string;\r\n    \r\n        @Column()\r\n        item_category3: string;\r\n    \r\n        @Column()\r\n        count: number;\r\n    \r\n        @Column()\r\n        max_price: number;\r\n    \r\n        @Column()\r\n        avg_price: number;\r\n    \r\n        @Column()\r\n        total_price: number;\r\n    \r\n        @Column()\r\n        avg_discount: number;\r\n    }\r\n    \r\n"
+        }
+    ]
+}

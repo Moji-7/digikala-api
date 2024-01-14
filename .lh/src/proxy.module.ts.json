@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/proxy.module.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1702538573056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702543780500,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';\r\n import { createProxyMiddleware } from 'http-proxy-middleware';\r\n-import { RequestHandler } from 'express'; // Import the RequestHandler type from express\r\n \r\n // Define the proxy options\r\n const options = {\r\n   target: 'https://api.digikala.com', // The target server to proxy to\r\n@@ -10,10 +9,10 @@\n     '^/api': '', // Remove the /api prefix from the request path\r\n   },\r\n };\r\n \r\n-// Create the proxy middleware and declare its type as RequestHandler\r\n-const proxy: RequestHandler = createProxyMiddleware(options);\r\n+// Create the proxy middleware\r\n+const proxy = createProxyMiddleware(options);\r\n \r\n @Module({})\r\n export class ProxyModule {\r\n   configure(consumer: MiddlewareConsumer) {\r\n"
+                },
+                {
+                    "date": 1702543792525,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,11 +12,11 @@\n \r\n // Create the proxy middleware\r\n const proxy = createProxyMiddleware(options);\r\n \r\n-@Module({})\r\n-export class ProxyModule {\r\n-  configure(consumer: MiddlewareConsumer) {\r\n-    // Register the proxy middleware for all /api routes\r\n-    consumer.apply(proxy).forRoutes({ path: '/api/*', method: RequestMethod.ALL });\r\n-  }\r\n-}\r\n+// @Module({})\r\n+// export class ProxyModule {\r\n+//   configure(consumer: MiddlewareConsumer) {\r\n+//     // Register the proxy middleware for all /api routes\r\n+//     consumer.apply(proxy).forRoutes({ path: '/api/*', method: RequestMethod.ALL });\r\n+//   }\r\n+// }\r\n"
+                }
+            ],
+            "date": 1702538573056,
+            "name": "Commit-0",
+            "content": "import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';\r\nimport { createProxyMiddleware } from 'http-proxy-middleware';\r\nimport { RequestHandler } from 'express'; // Import the RequestHandler type from express\r\n\r\n// Define the proxy options\r\nconst options = {\r\n  target: 'https://api.digikala.com', // The target server to proxy to\r\n  changeOrigin: true, // Change the origin header to match the target server\r\n  pathRewrite: {\r\n    '^/api': '', // Remove the /api prefix from the request path\r\n  },\r\n};\r\n\r\n// Create the proxy middleware and declare its type as RequestHandler\r\nconst proxy: RequestHandler = createProxyMiddleware(options);\r\n\r\n@Module({})\r\nexport class ProxyModule {\r\n  configure(consumer: MiddlewareConsumer) {\r\n    // Register the proxy middleware for all /api routes\r\n    consumer.apply(proxy).forRoutes({ path: '/api/*', method: RequestMethod.ALL });\r\n  }\r\n}\r\n"
+        }
+    ]
+}

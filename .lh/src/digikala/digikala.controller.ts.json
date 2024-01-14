@@ -1,0 +1,38 @@
+{
+    "sourceFile": "src/digikala/digikala.controller.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1702546715134,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702547304001,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n import { Controller, Get, Query, Inject } from '@nestjs/common';\n-import { ProxyService } from './proxy.service';\n+import { ProxyService } from './proxy/proxy.service';\n \n+\n @Controller('digikala')\n export class DigikalaController {\n   constructor(@Inject(ProxyService) private proxyService: ProxyService) {}\n \n"
+                },
+                {
+                    "date": 1702548244219,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,29 +1,43 @@\n-import { Controller, Get, Query, Inject } from '@nestjs/common';\n-import { ProxyService } from './proxy/proxy.service';\n+// import { Controller, Get, Query, Inject } from '@nestjs/common';\n+// import { ProxyService } from './proxy/proxy.service';\n \n \n+// @Controller('digikala')\n+// export class DigikalaController {\n+//   constructor(@Inject(ProxyService) private proxyService: ProxyService) {}\n+\n+//   @Get('search')\n+//   async searchdigikala(\n+//     @Query('q') q: string,\n+//     @Query('page') page: number,\n+//     @Query('sort') sort: string,\n+//   ) {\n+//     // Define the request options\n+//     const config = {\n+//       method: 'GET',\n+//       url: '/search', // This will be rewritten by the proxyService\n+//       params: {\n+//         q, // The search term\n+//         page, // The page number\n+//         sort, // The sort order\n+//       },\n+//     };\n+\n+//     // Make the request using the proxyService and return the response data\n+//     return this.proxyService.proxyRequest(config);\n+//   }\n+// }\n+\n+import { Controller, Get, Inject } from '@nestjs/common';\n+import { ProxyService } from './proxy.service';\n+\n @Controller('digikala')\n export class DigikalaController {\n   constructor(@Inject(ProxyService) private proxyService: ProxyService) {}\n \n-  @Get('search')\n-  async searchdigikala(\n-    @Query('q') q: string,\n-    @Query('page') page: number,\n-    @Query('sort') sort: string,\n-  ) {\n-    // Define the request options\n-    const config = {\n-      method: 'GET',\n-      url: '/search', // This will be rewritten by the proxyService\n-      params: {\n-        q, // The search term\n-        page, // The page number\n-        sort, // The sort order\n-      },\n-    };\n-\n+  @Get('products')\n+  async getProducts() {\n     // Make the request using the proxyService and return the response data\n-    return this.proxyService.proxyRequest(config);\n+    return this.proxyService.getProducts();\n   }\n }\n"
+                },
+                {
+                    "date": 1702548320274,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n @Controller('digikala')\n export class DigikalaController {\n   constructor(@Inject(ProxyService) private proxyService: ProxyService) {}\n \n-  @Get('products')\n+  @Get('search')\n   async getProducts() {\n     // Make the request using the proxyService and return the response data\n     return this.proxyService.getProducts();\n   }\n"
+                },
+                {
+                    "date": 1702710426654,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,12 +29,13 @@\n // }\n \n import { Controller, Get, Inject } from '@nestjs/common';\n import { ProxyService } from './proxy.service';\n+import { DigikalaService } from './digikala.service';\n \n @Controller('digikala')\n export class DigikalaController {\n-  constructor(@Inject(ProxyService) private proxyService: ProxyService) {}\n+  constructor(@Inject(DigikalaService) private proxyService: DigikalaService) {}\n \n   @Get('search')\n   async getProducts() {\n     // Make the request using the proxyService and return the response data\n"
+                },
+                {
+                    "date": 1702971856551,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,7 +38,12 @@\n \n   @Get('search')\n   async getProducts() {\n     // Make the request using the proxyService and return the response data\n-    return this.proxyService.getProducts();\n+    return this.proxyService.search();\n+  }  \n+  @Get('ordersme')\n+  async getOrdersMe() {\n+    // Make the request using the proxyService and return the response data\n+    return this.proxyService.getOrdersMe();\n   }\n }\n"
+                }
+            ],
+            "date": 1702546715134,
+            "name": "Commit-0",
+            "content": "import { Controller, Get, Query, Inject } from '@nestjs/common';\nimport { ProxyService } from './proxy.service';\n\n@Controller('digikala')\nexport class DigikalaController {\n  constructor(@Inject(ProxyService) private proxyService: ProxyService) {}\n\n  @Get('search')\n  async searchdigikala(\n    @Query('q') q: string,\n    @Query('page') page: number,\n    @Query('sort') sort: string,\n  ) {\n    // Define the request options\n    const config = {\n      method: 'GET',\n      url: '/search', // This will be rewritten by the proxyService\n      params: {\n        q, // The search term\n        page, // The page number\n        sort, // The sort order\n      },\n    };\n\n    // Make the request using the proxyService and return the response data\n    return this.proxyService.proxyRequest(config);\n  }\n}\n"
+        }
+    ]
+}

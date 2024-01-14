@@ -1,0 +1,86 @@
+{
+    "sourceFile": "src/app.module.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 17,
+            "patches": [
+                {
+                    "date": 1702543799955,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702543831931,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,12 @@\n import { Module } from '@nestjs/common';\n import { AppController } from './app.controller';\n import { AppService } from './app.service';\n+import { ProxyService } from './proxy.service';\n //import { ProxyModule } from './proxy.module';\n \n @Module({\n  // imports: [ProxyModule], // Import the proxy module\n   controllers: [AppController],\n-  providers: [AppService],\n+  providers: [AppService,ProxyService],\n })\n export class AppModule {}\n"
+                },
+                {
+                    "date": 1702544327971,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,12 @@\n import { Module } from '@nestjs/common';\n import { AppController } from './app.controller';\n import { AppService } from './app.service';\n-import { ProxyService } from './proxy.service';\n+//import { ProxyService } from './proxy.service';\n //import { ProxyModule } from './proxy.module';\n \n @Module({\n  // imports: [ProxyModule], // Import the proxy module\n   controllers: [AppController],\n-  providers: [AppService,ProxyService],\n+  providers: [AppService],\n })\n export class AppModule {}\n"
+                },
+                {
+                    "date": 1702546450588,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,22 @@\n import { Module } from '@nestjs/common';\n+\n import { AppController } from './app.controller';\n import { AppService } from './app.service';\n+import { HttpModule } from '@nestjs/axios';\n //import { ProxyService } from './proxy.service';\n //import { ProxyModule } from './proxy.module';\n \n @Module({\n- // imports: [ProxyModule], // Import the proxy module\n+  imports: [\n+    HttpModule.register({\n+      baseURL: 'https://api.digikala.com',\n+      timeout: 5000,\n+      headers: {\n+        'Content-Type': 'application/json',\n+      },\n+    }),\n+  ],\n   controllers: [AppController],\n   providers: [AppService],\n })\n export class AppModule {}\n"
+                },
+                {
+                    "date": 1702546733201,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,18 +4,13 @@\n import { AppService } from './app.service';\n import { HttpModule } from '@nestjs/axios';\n //import { ProxyService } from './proxy.service';\n //import { ProxyModule } from './proxy.module';\n+import { DigikalaModule } from './digikala/digikala.module';\n \n @Module({\n   imports: [\n-    HttpModule.register({\n-      baseURL: 'https://api.digikala.com',\n-      timeout: 5000,\n-      headers: {\n-        'Content-Type': 'application/json',\n-      },\n-    }),\n+    DigikalaModule,\n   ],\n   controllers: [AppController],\n   providers: [AppService],\n })\n"
+                },
+                {
+                    "date": 1702711017997,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,11 +7,11 @@\n //import { ProxyModule } from './proxy.module';\n import { DigikalaModule } from './digikala/digikala.module';\n \n @Module({\n-  imports: [\n-    DigikalaModule,\n-  ],\n+  // imports: [\n+  //   DigikalaModule,\n+  // ],\n   controllers: [AppController],\n   providers: [AppService],\n })\n export class AppModule {}\n"
+                },
+                {
+                    "date": 1702711082294,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,11 +7,11 @@\n //import { ProxyModule } from './proxy.module';\n import { DigikalaModule } from './digikala/digikala.module';\n \n @Module({\n-  // imports: [\n-  //   DigikalaModule,\n-  // ],\n+  imports: [\n+    DigikalaModule,\n+  ],\n   controllers: [AppController],\n   providers: [AppService],\n })\n export class AppModule {}\n"
+                },
+                {
+                    "date": 1704690659140,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,33 @@\n import { Module } from '@nestjs/common';\n-\n+import { TypeOrmModule } from '@nestjs/typeorm';\n import { AppController } from './app.controller';\n import { AppService } from './app.service';\n import { HttpModule } from '@nestjs/axios';\n //import { ProxyService } from './proxy.service';\n //import { ProxyModule } from './proxy.module';\n import { DigikalaModule } from './digikala/digikala.module';\n-\n+ import { MyCacheModule } from './myCache/myCache.module'; \n+import { HamechidunModule } from './hamechidun/hamechidun.module';\n @Module({\n   imports: [\n+    TypeOrmModule.forRoot({\n+      type: 'mysql',\n+      host: '127.0.0.1',\n+      port: 3306,\n+      username: 'root',\n+      password: 'root',\n+      database: 'digikala',\n+      entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n+      autoLoadEntities: true,\n+      synchronize: true,\n+      logging: true, // Enable query logging\n+    }),\n+    \n     DigikalaModule,\n+    //MyCacheModule,\n+    HamechidunModule   \n   ],\n-  controllers: [AppController],\n-  providers: [AppService],\n+ // controllers: [AppController],\n+ // providers: [AppService],\n })\n export class AppModule {}\n"
+                },
+                {
+                    "date": 1704691350322,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-      logging: true, // Enable query logging\n+     // logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                },
+                {
+                    "date": 1704691508124,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-     // logging: true, // Enable query logging\n+      logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                },
+                {
+                    "date": 1704775553168,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-      logging: true, // Enable query logging\n+      //logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                },
+                {
+                    "date": 1704794773149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-      //logging: true, // Enable query logging\n+      logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                },
+                {
+                    "date": 1704796671271,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-      logging: true, // Enable query logging\n+     // logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                },
+                {
+                    "date": 1704888379822,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-     // logging: true, // Enable query logging\n+      logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                },
+                {
+                    "date": 1704888675760,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-      logging: true, // Enable query logging\n+     // logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                },
+                {
+                    "date": 1704891997667,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-     // logging: true, // Enable query logging\n+      logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                },
+                {
+                    "date": 1704953399627,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-      logging: true, // Enable query logging\n+        logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                },
+                {
+                    "date": 1704953408319,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-        logging: true, // Enable query logging\n+      //  logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                }
+            ],
+            "date": 1702543799955,
+            "name": "Commit-0",
+            "content": "import { Module } from '@nestjs/common';\nimport { AppController } from './app.controller';\nimport { AppService } from './app.service';\n//import { ProxyModule } from './proxy.module';\n\n@Module({\n // imports: [ProxyModule], // Import the proxy module\n  controllers: [AppController],\n  providers: [AppService],\n})\nexport class AppModule {}\n"
+        }
+    ]
+}

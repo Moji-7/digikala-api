@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/hamechidun/tests/ramda.test.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1704620415457,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1704620415457,
+            "name": "Commit-0",
+            "content": "const R = require('ramda');\r\n\r\n// Sample data\r\nconst data = [\r\n  {\r\n    \"item_category2\": \"Electronics\",\r\n    \"item_category3\": \"Laptops\",\r\n    \"count\": 1,\r\n    \"max_price\": 549900,\r\n    \"avg_price\": 549900,\r\n    \"total_price\": 549900,\r\n    \"avg_discount\": 45.00\r\n  },\r\n  {\r\n    \"item_category2\": \"Electronics\",\r\n    \"item_category3\": \"mobile\",\r\n    \"count\": 1,\r\n    \"max_price\": 1599000,\r\n    \"avg_price\": 1599000,\r\n    \"total_price\": 1599000,\r\n    \"avg_discount\": 15.00\r\n  },\r\n  {\r\n    \"item_category2\": \"Electronics\",\r\n    \"item_category3\": \"mobile\",\r\n    \"count\": 1,\r\n    \"max_price\": 291000,\r\n    \"avg_price\": 291000,\r\n    \"total_price\": 291000,\r\n    \"avg_discount\": 18.00\r\n  }\r\n];\r\n\r\n// Function to group the data and perform calculations\r\nfunction calculateGroupedData(data) {\r\n  const groupedData = R.groupBy(R.prop('item_category2'), data);\r\n\r\n  const result = R.mapObjIndexed((group) => {\r\n    return {\r\n      count: R.sum(R.pluck('count', group)),\r\n      max_price: R.apply(Math.max, R.pluck('max_price', group)),\r\n      avg_price: R.mean(R.pluck('avg_price', group)),\r\n      total_price: R.sum(R.pluck('total_price', group)),\r\n      avg_discount: R.mean(R.pluck('avg_discount', group))\r\n    };\r\n  }, groupedData);\r\n\r\n  return result;\r\n}\r\n\r\n// Jest test\r\ntest('calculateGroupedData should correctly group the data and perform calculations', () => {\r\n  // Expected result\r\n  const expectedResult = {\r\n    Electronics: {\r\n      count: 3,\r\n      max_price: 1599000,\r\n      avg_price: (549900 + 1599000 + 291000) / 3,\r\n      total_price: 2430900,\r\n      avg_discount: (45.00 + 15.00 + 18.00) / 3\r\n    }\r\n  };\r\n\r\n  // Call the function\r\n  const result = calculateGroupedData(data);\r\n\r\n  // Check if the result matches the expected result\r\n  expect(result).toEqual(expectedResult);\r\n});\r\n"
+        }
+    ]
+}

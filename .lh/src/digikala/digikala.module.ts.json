@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/digikala/digikala.module.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1702546761187,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702548309350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n \n @Module({\n   imports: [\n     HttpModule.register({\n-      baseURL: 'https://api.digikala.com',\n+      baseURL: 'https://api.digikala.com/v1',\n       timeout: 5000,\n       headers: {\n         'Content-Type': 'application/json',\n       },\n"
+                },
+                {
+                    "date": 1702710346835,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n import { Module } from '@nestjs/common';\n import { DigikalaController } from './digikala.controller';\n import { DigikalaService } from './digikala.service';\n import { HttpModule } from '@nestjs/axios';\n+import { ProxyService } from './proxy.service';\n \n @Module({\n   imports: [\n     HttpModule.register({\n@@ -13,7 +14,7 @@\n       },\n     }),\n   ],\n   controllers: [DigikalaController],\n-  providers: [DigikalaService],\n+  providers: [DigikalaService,ProxyService],\n })\n export class DigikalaModule {}\n"
+                }
+            ],
+            "date": 1702546761187,
+            "name": "Commit-0",
+            "content": "import { Module } from '@nestjs/common';\nimport { DigikalaController } from './digikala.controller';\nimport { DigikalaService } from './digikala.service';\nimport { HttpModule } from '@nestjs/axios';\n\n@Module({\n  imports: [\n    HttpModule.register({\n      baseURL: 'https://api.digikala.com',\n      timeout: 5000,\n      headers: {\n        'Content-Type': 'application/json',\n      },\n    }),\n  ],\n  controllers: [DigikalaController],\n  providers: [DigikalaService],\n})\nexport class DigikalaModule {}\n"
+        }
+    ]
+}

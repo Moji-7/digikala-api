@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/app.controller.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1702543902306,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702544316602,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,23 +1,23 @@\n-import { Controller, Get } from '@nestjs/common';\n-import { AppService } from './app.service';\n-import { ProxyService } from './proxy.service';\n+// import { AxiosRequestConfig } from 'axios';\n+// import { Controller, Get } from '@nestjs/common';\n+// import { ProxyService } from './proxy.service';\n \n \n-@Controller()\n-export class AppController {\n-  //constructor(private readonly appService: AppService) {}\n-  constructor(private proxyService: ProxyService) {}\n+// @Controller()\n+// export class AppController {\n+//   //constructor(private readonly appService: AppService) {}\n+//   constructor(private proxyService: ProxyService) {}\n \n \n-async getProducts() {\n-  // Define the request options\n-  const config: AxiosRequestConfig = {\n-    method: 'GET',\n-    url: '/api/products', // This will be rewritten by the proxyService\n-  };\n+// async getProducts() {\n+//   // Define the request options\n+//   const config: AxiosRequestConfig = {\n+//     method: 'GET',\n+//     url: '/api/products', // This will be rewritten by the proxyService\n+//   };\n \n-  // Make the request using the proxyService and return the response data\n-  return this.proxyService.proxyRequest(config);\n-}\n+//   // Make the request using the proxyService and return the response data\n+//   return this.proxyService.proxyRequest(config);\n+// }\n \n-}\n+// }\n"
+                },
+                {
+                    "date": 1702544338666,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,23 +1,12 @@\n-// import { AxiosRequestConfig } from 'axios';\n-// import { Controller, Get } from '@nestjs/common';\n-// import { ProxyService } from './proxy.service';\n+import { Controller, Get } from '@nestjs/common';\n+import { AppService } from './app.service';\n \n+@Controller()\n+export class AppController {\n+  constructor(private readonly appService: AppService) {}\n \n-// @Controller()\n-// export class AppController {\n-//   //constructor(private readonly appService: AppService) {}\n-//   constructor(private proxyService: ProxyService) {}\n-\n-\n-// async getProducts() {\n-//   // Define the request options\n-//   const config: AxiosRequestConfig = {\n-//     method: 'GET',\n-//     url: '/api/products', // This will be rewritten by the proxyService\n-//   };\n-\n-//   // Make the request using the proxyService and return the response data\n-//   return this.proxyService.proxyRequest(config);\n-// }\n-\n-// }\n+  @Get()\n+  getHello(): string {\n+    return this.appService.getHello();\n+  }\n+}\n"
+                }
+            ],
+            "date": 1702543902306,
+            "name": "Commit-0",
+            "content": "import { Controller, Get } from '@nestjs/common';\nimport { AppService } from './app.service';\nimport { ProxyService } from './proxy.service';\n\n\n@Controller()\nexport class AppController {\n  //constructor(private readonly appService: AppService) {}\n  constructor(private proxyService: ProxyService) {}\n\n\nasync getProducts() {\n  // Define the request options\n  const config: AxiosRequestConfig = {\n    method: 'GET',\n    url: '/api/products', // This will be rewritten by the proxyService\n  };\n\n  // Make the request using the proxyService and return the response data\n  return this.proxyService.proxyRequest(config);\n}\n\n}\n"
+        }
+    ]
+}

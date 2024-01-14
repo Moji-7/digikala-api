@@ -1,0 +1,46 @@
+{
+    "sourceFile": "src/main.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1702544556524,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1702544664979,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,7 +19,7 @@\n       },\n     }),\n   );\n \n-  await app.listen(3000);\n+  await app.listen(3330);\n }\n bootstrap();\n"
+                },
+                {
+                    "date": 1702544705402,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,7 +19,7 @@\n       },\n     }),\n   );\n \n-  await app.listen(3330);\n+  await app.listen(3222);\n }\n bootstrap();\n"
+                },
+                {
+                    "date": 1702546391456,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,13 +13,13 @@\n       },\n       secure: false,\n       onProxyReq: (proxyReq, req, res) => {\n         console.log(\n-          ` [Global Functional Middlware]: Proxying ${req} request originally made to '${req}'...`,\n+          ` [Global Functional Middlware]: Proxying ${req.method} request originally made to '${req.originalUrl}'...`,\n         );\n       },\n     }),\n   );\n \n-  await app.listen(3222);\n+  await app.listen(3000);\n }\n bootstrap();\n"
+                },
+                {
+                    "date": 1702709990576,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n       },\n       secure: false,\n       onProxyReq: (proxyReq, req, res) => {\n         console.log(\n-          ` [Global Functional Middlware]: Proxying ${req.method} request originally made to '${req.originalUrl}'...`,\n+          ` [Global Functional Middlware]: Proxying ${req} request originally made to '${req}'...`,\n         );\n       },\n     }),\n   );\n"
+                },
+                {
+                    "date": 1702710623506,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,7 +19,7 @@\n       },\n     }),\n   );\n \n-  await app.listen(3000);\n+  await app.listen(3222);\n }\n bootstrap();\n"
+                },
+                {
+                    "date": 1702710906448,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,23 +3,23 @@\n import * as proxy from 'http-proxy-middleware';\n async function bootstrap() {\n   const app = await NestFactory.create(AppModule);\n \n-  app.use(\n-    '/api/v1/todos-api',\n-    proxy.createProxyMiddleware({\n-      target: 'http://localhost:8090/api',\n-      pathRewrite: {\n-        '/api/v1/todos-api': '',\n-      },\n-      secure: false,\n-      onProxyReq: (proxyReq, req, res) => {\n-        console.log(\n-          ` [Global Functional Middlware]: Proxying ${req} request originally made to '${req}'...`,\n-        );\n-      },\n-    }),\n-  );\n+  // app.use(\n+  //   '/api/v1/todos-api',\n+  //   proxy.createProxyMiddleware({\n+  //     target: 'http://localhost:8090/api',\n+  //     pathRewrite: {\n+  //       '/api/v1/todos-api': '',\n+  //     },\n+  //     secure: false,\n+  //     onProxyReq: (proxyReq, req, res) => {\n+  //       console.log(\n+  //         ` [Global Functional Middlware]: Proxying ${req} request originally made to '${req}'...`,\n+  //       );\n+  //     },\n+  //   }),\n+  // );\n \n   await app.listen(3222);\n }\n bootstrap();\n"
+                },
+                {
+                    "date": 1702715843203,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import { NestFactory } from '@nestjs/core';\n import { AppModule } from './app.module';\n import * as proxy from 'http-proxy-middleware';\n async function bootstrap() {\n-  const app = await NestFactory.create(AppModule);\n+  const app = await NestFactory.create(AppModule,{cors: true});\n \n   // app.use(\n   //   '/api/v1/todos-api',\n   //   proxy.createProxyMiddleware({\n"
+                }
+            ],
+            "date": 1702544556524,
+            "name": "Commit-0",
+            "content": "import { NestFactory } from '@nestjs/core';\nimport { AppModule } from './app.module';\nimport * as proxy from 'http-proxy-middleware';\nasync function bootstrap() {\n  const app = await NestFactory.create(AppModule);\n\n  app.use(\n    '/api/v1/todos-api',\n    proxy.createProxyMiddleware({\n      target: 'http://localhost:8090/api',\n      pathRewrite: {\n        '/api/v1/todos-api': '',\n      },\n      secure: false,\n      onProxyReq: (proxyReq, req, res) => {\n        console.log(\n          ` [Global Functional Middlware]: Proxying ${req} request originally made to '${req}'...`,\n        );\n      },\n    }),\n  );\n\n  await app.listen(3000);\n}\nbootstrap();\n"
+        }
+    ]
+}

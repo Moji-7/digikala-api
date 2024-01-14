@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/hamechidun/hamechidun.module.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1704628964286,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1704629409494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,9 @@\n import { HamechidunService } from './hamechidun.service';\n import { TopSellingProduct } from './entity/TopSellingProduct';\n import { PopulateOrdersSummary,PopulateOrdersSellersMost, PopulateOrdersProductsMost, PopulateOrderProductPriceExpensive } from './entity/entityAll';\n import { OrderItemService } from './orderItems.service';\n+import { OrderItem } from './entity/OrderItem';\n \n \n @Module({\n   imports: [\n@@ -13,9 +14,10 @@\n       TopSellingProduct,\n       PopulateOrdersSummary,\n       PopulateOrdersSellersMost,\n       PopulateOrdersProductsMost,\n-      PopulateOrderProductPriceExpensive\n+      PopulateOrderProductPriceExpensive,\n+      OrderItem\n     ]), // Register the entity with TypeORM\n   ],\n   controllers: [HamechidunController],\n   providers: [HamechidunService,OrderItemService]\n"
+                }
+            ],
+            "date": 1704628964286,
+            "name": "Commit-0",
+            "content": "import { Module } from '@nestjs/common';\nimport { TypeOrmModule } from '@nestjs/typeorm';\nimport { HamechidunController } from './hamechidun.controller';\nimport { HamechidunService } from './hamechidun.service';\nimport { TopSellingProduct } from './entity/TopSellingProduct';\nimport { PopulateOrdersSummary,PopulateOrdersSellersMost, PopulateOrdersProductsMost, PopulateOrderProductPriceExpensive } from './entity/entityAll';\nimport { OrderItemService } from './orderItems.service';\n\n\n@Module({\n  imports: [\n    TypeOrmModule.forFeature([\n      TopSellingProduct,\n      PopulateOrdersSummary,\n      PopulateOrdersSellersMost,\n      PopulateOrdersProductsMost,\n      PopulateOrderProductPriceExpensive\n    ]), // Register the entity with TypeORM\n  ],\n  controllers: [HamechidunController],\n  providers: [HamechidunService,OrderItemService]\n})\nexport class HamechidunModule {}\n"
+        }
+    ]
+}
