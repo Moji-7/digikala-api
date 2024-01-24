@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 8,
             "patches": [
                 {
                     "date": 1704628964286,
@@ -12,6 +12,34 @@
                 {
                     "date": 1704629409494,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,9 @@\n import { HamechidunService } from './hamechidun.service';\n import { TopSellingProduct } from './entity/TopSellingProduct';\n import { PopulateOrdersSummary,PopulateOrdersSellersMost, PopulateOrdersProductsMost, PopulateOrderProductPriceExpensive } from './entity/entityAll';\n import { OrderItemService } from './orderItems.service';\n+import { OrderItem } from './entity/OrderItem';\n \n \n @Module({\n   imports: [\n@@ -13,9 +14,10 @@\n       TopSellingProduct,\n       PopulateOrdersSummary,\n       PopulateOrdersSellersMost,\n       PopulateOrdersProductsMost,\n-      PopulateOrderProductPriceExpensive\n+      PopulateOrderProductPriceExpensive,\n+      OrderItem\n     ]), // Register the entity with TypeORM\n   ],\n   controllers: [HamechidunController],\n   providers: [HamechidunService,OrderItemService]\n"
+                },
+                {
+                    "date": 1705819517297,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n import { TopSellingProduct } from './entity/TopSellingProduct';\n import { PopulateOrdersSummary,PopulateOrdersSellersMost, PopulateOrdersProductsMost, PopulateOrderProductPriceExpensive } from './entity/entityAll';\n import { OrderItemService } from './orderItems.service';\n import { OrderItem } from './entity/OrderItem';\n+import { IncrediblesEntity } from './entity/Incredibles';\n \n \n @Module({\n   imports: [\n@@ -15,9 +16,10 @@\n       PopulateOrdersSummary,\n       PopulateOrdersSellersMost,\n       PopulateOrdersProductsMost,\n       PopulateOrderProductPriceExpensive,\n-      OrderItem\n+      OrderItem,\n+      IncrediblesEntity\n     ]), // Register the entity with TypeORM\n   ],\n   controllers: [HamechidunController],\n   providers: [HamechidunService,OrderItemService]\n"
+                },
+                {
+                    "date": 1705819548471,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,10 @@\n import { PopulateOrdersSummary,PopulateOrdersSellersMost, PopulateOrdersProductsMost, PopulateOrderProductPriceExpensive } from './entity/entityAll';\n import { OrderItemService } from './orderItems.service';\n import { OrderItem } from './entity/OrderItem';\n import { IncrediblesEntity } from './entity/Incredibles';\n+import { IncrediblesService } from './incredibles.service';\n+import { IncrediblesController } from './incredibles.controller';\n \n \n @Module({\n   imports: [\n@@ -20,8 +22,8 @@\n       OrderItem,\n       IncrediblesEntity\n     ]), // Register the entity with TypeORM\n   ],\n-  controllers: [HamechidunController],\n-  providers: [HamechidunService,OrderItemService]\n+  controllers: [HamechidunController,IncrediblesController],\n+  providers: [HamechidunService,OrderItemService,IncrediblesService]\n })\n export class HamechidunModule {}\n"
+                },
+                {
+                    "date": 1705830272285,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,10 @@\n import { OrderItem } from './entity/OrderItem';\n import { IncrediblesEntity } from './entity/Incredibles';\n import { IncrediblesService } from './incredibles.service';\n import { IncrediblesController } from './incredibles.controller';\n+import { ProductService } from './product.service';\n+import { ProductController } from './product.controller';\n \n \n @Module({\n   imports: [\n@@ -19,11 +21,12 @@\n       PopulateOrdersSellersMost,\n       PopulateOrdersProductsMost,\n       PopulateOrderProductPriceExpensive,\n       OrderItem,\n-      IncrediblesEntity\n+      IncrediblesEntity,\n+      Product\n     ]), // Register the entity with TypeORM\n   ],\n-  controllers: [HamechidunController,IncrediblesController],\n-  providers: [HamechidunService,OrderItemService,IncrediblesService]\n+  controllers: [HamechidunController,IncrediblesController,ProductController],\n+  providers: [HamechidunService,OrderItemService,IncrediblesService,ProductService]\n })\n export class HamechidunModule {}\n"
+                },
+                {
+                    "date": 1705830302990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,8 +10,9 @@\n import { IncrediblesService } from './incredibles.service';\n import { IncrediblesController } from './incredibles.controller';\n import { ProductService } from './product.service';\n import { ProductController } from './product.controller';\n+import { ProductEntity } from './entity/product.entity';\n \n \n @Module({\n   imports: [\n@@ -22,9 +23,9 @@\n       PopulateOrdersProductsMost,\n       PopulateOrderProductPriceExpensive,\n       OrderItem,\n       IncrediblesEntity,\n-      Product\n+      ProductEntity\n     ]), // Register the entity with TypeORM\n   ],\n   controllers: [HamechidunController,IncrediblesController,ProductController],\n   providers: [HamechidunService,OrderItemService,IncrediblesService,ProductService]\n"
+                },
+                {
+                    "date": 1706085976554,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,7 +27,7 @@\n       ProductEntity\n     ]), // Register the entity with TypeORM\n   ],\n   controllers: [HamechidunController,IncrediblesController,ProductController],\n-  providers: [HamechidunService,OrderItemService,IncrediblesService,ProductService]\n+  providers: [HamechidunService,OrderItemService,IncrediblesService,ProductService,]\n })\n export class HamechidunModule {}\n"
+                },
+                {
+                    "date": 1706085981623,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n import { IncrediblesController } from './incredibles.controller';\n import { ProductService } from './product.service';\n import { ProductController } from './product.controller';\n import { ProductEntity } from './entity/product.entity';\n+import { ProcessingService } from './proccessing/hamechidun-process.service';\n \n \n @Module({\n   imports: [\n@@ -27,7 +28,7 @@\n       ProductEntity\n     ]), // Register the entity with TypeORM\n   ],\n   controllers: [HamechidunController,IncrediblesController,ProductController],\n-  providers: [HamechidunService,OrderItemService,IncrediblesService,ProductService,]\n+  providers: [HamechidunService,OrderItemService,IncrediblesService,ProductService,ProcessingService]\n })\n export class HamechidunModule {}\n"
+                },
+                {
+                    "date": 1706086132927,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n import { IncrediblesController } from './incredibles.controller';\n import { ProductService } from './product.service';\n import { ProductController } from './product.controller';\n import { ProductEntity } from './entity/product.entity';\n-import { ProcessingService } from './proccessing/hamechidun-process.service';\n+import { ProcessingService } from './proccessing/hamechidun.process.service';\n \n \n @Module({\n   imports: [\n"
                 }
             ],
             "date": 1704628964286,

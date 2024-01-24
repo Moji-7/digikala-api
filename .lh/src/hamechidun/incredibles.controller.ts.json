@@ -1,0 +1,54 @@
+{
+    "sourceFile": "src/hamechidun/incredibles.controller.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 9,
+            "patches": [
+                {
+                    "date": 1705820607274,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705820612799,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n export class IncrediblesController {\r\n   constructor(private readonly incrediblesService: IncrediblesService) {}\r\n \r\n   \r\n-  @Get('getall')\r\n+  @Get('all')\r\n   async findAll(): Promise<IncrediblesEntity[]> {\r\n     return this.incrediblesService.findAll();\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1706087230078,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,5 +12,13 @@\n   @Get('all')\r\n   async findAll(): Promise<IncrediblesEntity[]> {\r\n     return this.incrediblesService.findAll();\r\n   }\r\n-}\r\n+  // create a new GET endpoint to get the join results\r\n+  @Get('with-products')\r\n+  async findWithProducts(\r\n+    @Query('orderBy') orderBy: string, // get the orderBy query parameter, if any\r\n+  ): Promise<any[]> {\r\n+    // call the service method and pass the orderBy parameter, if any\r\n+    return this.incrediblesService.findWithProducts(orderBy);\r\n+  }\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1706087423052,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n // Incredibles Controller in Nest.js\r\n-import { Controller, Get } from '@nestjs/common';\r\n+import { Controller, Get, Query } from '@nestjs/common';\r\n import { IncrediblesService } from './incredibles.service';\r\n import { IncrediblesEntity } from './entity/Incredibles';\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1706087600595,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,7 +18,7 @@\n   async findWithProducts(\r\n     @Query('orderBy') orderBy: string, // get the orderBy query parameter, if any\r\n   ): Promise<any[]> {\r\n     // call the service method and pass the orderBy parameter, if any\r\n-    return this.incrediblesService.findWithProducts(orderBy);\r\n+    return this.incrediblesService.findWithProducts();\r\n   }\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1706087876487,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,10 @@\n   }\r\n   // create a new GET endpoint to get the join results\r\n   @Get('with-products')\r\n   async findWithProducts(\r\n-    @Query('orderBy') orderBy: string, // get the orderBy query parameter, if any\r\n+    @Query('productId') productId: string, // get the orderBy query parameter, if any\r\n   ): Promise<any[]> {\r\n     // call the service method and pass the orderBy parameter, if any\r\n-    return this.incrediblesService.findWithProducts();\r\n+    return this.incrediblesService.findWithProducts(productId);\r\n   }\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1706087961499,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n   }\r\n   // create a new GET endpoint to get the join results\r\n   @Get('with-products')\r\n   async findWithProducts(\r\n-    @Query('productId') productId: string, // get the orderBy query parameter, if any\r\n+    @Query('productId') productId: number, // get the orderBy query parameter, if any\r\n   ): Promise<any[]> {\r\n     // call the service method and pass the orderBy parameter, if any\r\n     return this.incrediblesService.findWithProducts(productId);\r\n   }\r\n"
+                },
+                {
+                    "date": 1706091443579,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,7 +18,9 @@\n   async findWithProducts(\r\n     @Query('productId') productId: number, // get the orderBy query parameter, if any\r\n   ): Promise<any[]> {\r\n     // call the service method and pass the orderBy parameter, if any\r\n-    return this.incrediblesService.findWithProducts(productId);\r\n+ return  this.incrediblesService.findWithProducts(productId);\r\n+ \r\n+\r\n   }\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1706091639056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,14 +2,12 @@\n import { Controller, Get, Query } from '@nestjs/common';\r\n import { IncrediblesService } from './incredibles.service';\r\n import { IncrediblesEntity } from './entity/Incredibles';\r\n \r\n-\r\n @Controller('incredibles')\r\n export class IncrediblesController {\r\n   constructor(private readonly incrediblesService: IncrediblesService) {}\r\n \r\n-  \r\n   @Get('all')\r\n   async findAll(): Promise<IncrediblesEntity[]> {\r\n     return this.incrediblesService.findAll();\r\n   }\r\n@@ -18,9 +16,7 @@\n   async findWithProducts(\r\n     @Query('productId') productId: number, // get the orderBy query parameter, if any\r\n   ): Promise<any[]> {\r\n     // call the service method and pass the orderBy parameter, if any\r\n- return  this.incrediblesService.findWithProducts(productId);\r\n- \r\n-\r\n+    return this.incrediblesService.findWithProducts(productId);\r\n   }\r\n\\ No newline at end of file\n-}\n+}\r\n"
+                },
+                {
+                    "date": 1706099957525,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n   // create a new GET endpoint to get the join results\r\n   @Get('with-products')\r\n   async findWithProducts(\r\n     @Query('productId') productId: number, // get the orderBy query parameter, if any\r\n-  ): Promise<any[]> {\r\n+  ): Promise<IIncrediblesWithProducts[]> {\r\n     // call the service method and pass the orderBy parameter, if any\r\n     return this.incrediblesService.findWithProducts(productId);\r\n   }\r\n\\ No newline at end of file\n-}\n+}\r\n"
+                }
+            ],
+            "date": 1705820607274,
+            "name": "Commit-0",
+            "content": "// Incredibles Controller in Nest.js\r\nimport { Controller, Get } from '@nestjs/common';\r\nimport { IncrediblesService } from './incredibles.service';\r\nimport { IncrediblesEntity } from './entity/Incredibles';\r\n\r\n\r\n@Controller('incredibles')\r\nexport class IncrediblesController {\r\n  constructor(private readonly incrediblesService: IncrediblesService) {}\r\n\r\n  \r\n  @Get('getall')\r\n  async findAll(): Promise<IncrediblesEntity[]> {\r\n    return this.incrediblesService.findAll();\r\n  }\r\n}\r\n"
+        }
+    ]
+}

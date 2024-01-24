@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/hamechidun/DTO/IIncredibles.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1705818331653,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705818337219,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n // Define TypeScript type based on MySQL schema\r\n-type Incredibles = {\r\n+type IIncredibles = {\r\n     id: number;\r\n     title_fa: string | null;\r\n     title_en: string | null;\r\n     url: string | null;\r\n"
+                }
+            ],
+            "date": 1705818331653,
+            "name": "Commit-0",
+            "content": "// Define TypeScript type based on MySQL schema\r\ntype Incredibles = {\r\n    id: number;\r\n    title_fa: string | null;\r\n    title_en: string | null;\r\n    url: string | null;\r\n    brand: string | null;\r\n    category: string | null;\r\n    item_category2: string | null;\r\n    item_category3: string | null;\r\n    item_category4: string | null;\r\n    item_category5: string | null;\r\n    main_image_url: string | null;\r\n    is_fast_shipping: number | null;\r\n    is_ship_by_seller: number | null;\r\n    min_price_in_last_month: number | null;\r\n    seller_id: number | null;\r\n    seller_title: string | null;\r\n    seller_url: string | null;\r\n    selling_price: number | null;\r\n    rrp_price: number | null;\r\n    order_limit: number | null;\r\n    is_incredible: number | null;\r\n    discount_percent: number | null;\r\n    shipment_description: string | null;\r\n    has_lead_time: number | null;\r\n  };\r\n  "
+        }
+    ]
+}

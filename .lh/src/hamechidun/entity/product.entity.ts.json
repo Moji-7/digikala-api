@@ -1,0 +1,34 @@
+{
+    "sourceFile": "src/hamechidun/entity/product.entity.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1705830219419,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705830284464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n import { Entity, Column, PrimaryColumn } from 'typeorm';\r\n \r\n @Entity(\"products\")\r\n-export class Product {\r\n+export class ProductEntity {\r\n   @PrimaryColumn()\r\n   id: number;\r\n \r\n   @Column()\r\n"
+                },
+                {
+                    "date": 1705833394226,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,10 @@\n @Entity(\"products\")\r\n export class ProductEntity {\r\n   @PrimaryColumn()\r\n   id: number;\r\n+  @Column({ type: 'numeric' })\r\n+  productId: number;\r\n \r\n   @Column()\r\n   seller_id: number;\r\n \r\n"
+                },
+                {
+                    "date": 1705833950747,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,12 +3,14 @@\n import { Entity, Column, PrimaryColumn } from 'typeorm';\r\n \r\n @Entity(\"products\")\r\n export class ProductEntity {\r\n+\r\n   @PrimaryColumn()\r\n   id: number;\r\n+\r\n   @Column({ type: 'numeric' })\r\n-  productId: number;\r\n+  product_id: number;\r\n \r\n   @Column()\r\n   seller_id: number;\r\n \r\n"
+                },
+                {
+                    "date": 1705834455955,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \r\n   @PrimaryColumn()\r\n   id: number;\r\n \r\n-  @Column({ type: 'numeric' })\r\n+  @Column()\r\n   product_id: number;\r\n \r\n   @Column()\r\n   seller_id: number;\r\n"
+                }
+            ],
+            "date": 1705830219419,
+            "name": "Commit-0",
+            "content": "// product.entity.ts\r\n\r\nimport { Entity, Column, PrimaryColumn } from 'typeorm';\r\n\r\n@Entity(\"products\")\r\nexport class Product {\r\n  @PrimaryColumn()\r\n  id: number;\r\n\r\n  @Column()\r\n  seller_id: number;\r\n\r\n  @Column()\r\n  seller_title: string;\r\n\r\n  @Column()\r\n  seller_url: string;\r\n\r\n  @Column()\r\n  selling_price: number;\r\n\r\n  @Column()\r\n  rrp_price: number;\r\n\r\n  @Column()\r\n  order_limit: number;\r\n\r\n  @Column()\r\n  is_incredible: boolean;\r\n\r\n  @Column()\r\n  discount_percent: number;\r\n}\r\n"
+        }
+    ]
+}

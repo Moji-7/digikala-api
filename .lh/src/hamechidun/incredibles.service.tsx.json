@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/hamechidun/incredibles.service.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1705818410541,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705819062141,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n // Incredibles Service in Nest.js\r\n import { Injectable } from '@nestjs/common';\r\n import { InjectRepository } from '@nestjs/typeorm';\r\n import { Repository } from 'typeorm';\r\n-import { IncrediblesEntity } from './incredibles.entity';\r\n+import { IncrediblesEntity } from './entity/Incredibles';\r\n \r\n @Injectable()\r\n export class IncrediblesService {\r\n   constructor(\r\n"
+                }
+            ],
+            "date": 1705818410541,
+            "name": "Commit-0",
+            "content": "// Incredibles Service in Nest.js\r\nimport { Injectable } from '@nestjs/common';\r\nimport { InjectRepository } from '@nestjs/typeorm';\r\nimport { Repository } from 'typeorm';\r\nimport { IncrediblesEntity } from './incredibles.entity';\r\n\r\n@Injectable()\r\nexport class IncrediblesService {\r\n  constructor(\r\n    @InjectRepository(IncrediblesEntity)\r\n    private incrediblesRepository: Repository<IncrediblesEntity>,\r\n  ) {}\r\n\r\n  async findAll(): Promise<IncrediblesEntity[]> {\r\n    return this.incrediblesRepository.find();\r\n  }\r\n}\r\n"
+        }
+    ]
+}

@@ -6,6 +6,13 @@ import { TopSellingProduct } from './entity/TopSellingProduct';
 import { PopulateOrdersSummary,PopulateOrdersSellersMost, PopulateOrdersProductsMost, PopulateOrderProductPriceExpensive } from './entity/entityAll';
 import { OrderItemService } from './orderItems.service';
 import { OrderItem } from './entity/OrderItem';
+import { IncrediblesEntity } from './entity/Incredibles';
+import { IncrediblesService } from './incredibles.service';
+import { IncrediblesController } from './incredibles.controller';
+import { ProductService } from './product.service';
+import { ProductController } from './product.controller';
+import { ProductEntity } from './entity/product.entity';
+import { ProcessingService } from './proccessing/hamechidun.process.service';
 
 
 @Module({
@@ -16,10 +23,12 @@ import { OrderItem } from './entity/OrderItem';
       PopulateOrdersSellersMost,
       PopulateOrdersProductsMost,
       PopulateOrderProductPriceExpensive,
-      OrderItem
+      OrderItem,
+      IncrediblesEntity,
+      ProductEntity
     ]), // Register the entity with TypeORM
   ],
-  controllers: [HamechidunController],
-  providers: [HamechidunService,OrderItemService]
+  controllers: [HamechidunController,IncrediblesController,ProductController],
+  providers: [HamechidunService,OrderItemService,IncrediblesService,ProductService,ProcessingService]
 })
 export class HamechidunModule {}

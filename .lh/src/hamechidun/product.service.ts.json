@@ -1,0 +1,62 @@
+{
+    "sourceFile": "src/hamechidun/product.service.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 11,
+            "patches": [
+                {
+                    "date": 1705830188169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705830365813,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,15 +2,16 @@\n \r\n import { Injectable } from '@nestjs/common';\r\n import { InjectRepository } from '@nestjs/typeorm';\r\n import { Repository } from 'typeorm';\r\n-import { Product } from './product.entity';\r\n \r\n+import { ProductEntity } from './entity/product.entity';\r\n+\r\n @Injectable()\r\n export class ProductService {\r\n   constructor(\r\n     @InjectRepository(Product)\r\n-    private productRepository: Repository<Product>,\r\n+    private productRepository: Repository<ProductEntity>,\r\n   ) {}\r\n \r\n   async findAll(): Promise<Product[]> {\r\n     return this.productRepository.find();\r\n"
+                },
+                {
+                    "date": 1705830375577,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,12 +8,12 @@\n \r\n @Injectable()\r\n export class ProductService {\r\n   constructor(\r\n-    @InjectRepository(Product)\r\n+    @InjectRepository(ProductEntity)\r\n     private productRepository: Repository<ProductEntity>,\r\n   ) {}\r\n \r\n-  async findAll(): Promise<Product[]> {\r\n+  async findAll(): Promise<ProductEntity[]> {\r\n     return this.productRepository.find();\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705830755142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,5 +15,8 @@\n \r\n   async findAll(): Promise<ProductEntity[]> {\r\n     return this.productRepository.find();\r\n   }\r\n+  async findById(id: number): Promise<Product> {\r\n+    return this.productRepository.findOne(id);\r\n+  }\r\n }\r\n"
+                },
+                {
+                    "date": 1705833211951,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,7 +16,7 @@\n   async findAll(): Promise<ProductEntity[]> {\r\n     return this.productRepository.find();\r\n   }\r\n   async findById(id: number): Promise<Product> {\r\n-    return this.productRepository.findOne(id);\r\n+    return this.productRepository.findOneBy({id:id}));\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705833218628,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,7 +16,7 @@\n   async findAll(): Promise<ProductEntity[]> {\r\n     return this.productRepository.find();\r\n   }\r\n   async findById(id: number): Promise<Product> {\r\n-    return this.productRepository.findOneBy({id:id}));\r\n+    return this.productRepository.findOneBy({id:id});\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705833422019,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,8 @@\n \r\n   async findAll(): Promise<ProductEntity[]> {\r\n     return this.productRepository.find();\r\n   }\r\n-  async findById(id: number): Promise<Product> {\r\n-    return this.productRepository.findOneBy({id:id});\r\n+  async findById(iproductId: number): Promise<Product> {\r\n+    return this.productRepository.findOneBy({productId:productId});\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705833939293,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,8 @@\n \r\n   async findAll(): Promise<ProductEntity[]> {\r\n     return this.productRepository.find();\r\n   }\r\n-  async findById(iproductId: number): Promise<Product> {\r\n+  async findById(productId: number): Promise<Product> {\r\n     return this.productRepository.findOneBy({productId:productId});\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705833956308,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,7 +16,7 @@\n   async findAll(): Promise<ProductEntity[]> {\r\n     return this.productRepository.find();\r\n   }\r\n   async findById(productId: number): Promise<Product> {\r\n-    return this.productRepository.findOneBy({productId:productId});\r\n+    return this.productRepository.findOneBy({product_id:productId});\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705834313501,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,7 +16,7 @@\n   async findAll(): Promise<ProductEntity[]> {\r\n     return this.productRepository.find();\r\n   }\r\n   async findById(productId: number): Promise<Product> {\r\n-    return this.productRepository.findOneBy({product_id:productId});\r\n+    return this.productRepository.findBy({product_id:productId});\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705834330453,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,8 @@\n \r\n   async findAll(): Promise<ProductEntity[]> {\r\n     return this.productRepository.find();\r\n   }\r\n-  async findById(productId: number): Promise<Product> {\r\n+  async findByProductId(productId: number): Promise<Product> {\r\n     return this.productRepository.findBy({product_id:productId});\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705834352076,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,8 @@\n \r\n   async findAll(): Promise<ProductEntity[]> {\r\n     return this.productRepository.find();\r\n   }\r\n-  async findByProductId(productId: number): Promise<Product> {\r\n+  async findByProductId(productId: number): Promise<ProductEntity[]> {\r\n     return this.productRepository.findBy({product_id:productId});\r\n   }\r\n }\r\n"
+                }
+            ],
+            "date": 1705830188169,
+            "name": "Commit-0",
+            "content": "// product.service.ts\r\n\r\nimport { Injectable } from '@nestjs/common';\r\nimport { InjectRepository } from '@nestjs/typeorm';\r\nimport { Repository } from 'typeorm';\r\nimport { Product } from './product.entity';\r\n\r\n@Injectable()\r\nexport class ProductService {\r\n  constructor(\r\n    @InjectRepository(Product)\r\n    private productRepository: Repository<Product>,\r\n  ) {}\r\n\r\n  async findAll(): Promise<Product[]> {\r\n    return this.productRepository.find();\r\n  }\r\n}\r\n"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/hamechidun/DTO/product.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1705830236730,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705833406572,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n interface Product {\r\n     id: number;\r\n+    productId: number;\r\n     seller_id: number;\r\n     seller_title: string;\r\n     seller_url: string;\r\n     selling_price: number;\r\n"
+                },
+                {
+                    "date": 1705833939440,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n interface Product {\r\n     id: number;\r\n-    productId: number;\r\n+    product_id: number;\r\n     seller_id: number;\r\n     seller_title: string;\r\n     seller_url: string;\r\n     selling_price: number;\r\n"
+                }
+            ],
+            "date": 1705830236730,
+            "name": "Commit-0",
+            "content": "interface Product {\r\n    id: number;\r\n    seller_id: number;\r\n    seller_title: string;\r\n    seller_url: string;\r\n    selling_price: number;\r\n    rrp_price: number;\r\n    order_limit: number;\r\n    is_incredible: boolean;\r\n    discount_percent: number;\r\n}\r\n"
+        }
+    ]
+}

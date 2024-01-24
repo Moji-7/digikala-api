@@ -1,0 +1,66 @@
+{
+    "sourceFile": "src/hamechidun/product.controller.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 12,
+            "patches": [
+                {
+                    "date": 1705830188190,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705830336943,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n @Controller('products')\r\n export class ProductController {\r\n   constructor(private readonly productService: ProductService) {}\r\n \r\n-  @Get()\r\n+  @Get(\"all\")\r\n   async findAll(): Promise<Product[]> {\r\n     return this.productService.findAll();\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705830355214,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,16 @@\n // product.controller.ts\r\n \r\n import { Controller, Get } from '@nestjs/common';\r\n import { ProductService } from './product.service';\r\n-import { Product } from './product.entity';\r\n+import { ProductEntity } from './entity/product.entity';\r\n \r\n+\r\n @Controller('products')\r\n export class ProductController {\r\n   constructor(private readonly productService: ProductService) {}\r\n \r\n   @Get(\"all\")\r\n-  async findAll(): Promise<Product[]> {\r\n+  async findAll(): Promise<ProductEntity[]> {\r\n     return this.productService.findAll();\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705830632952,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n // product.controller.ts\r\n \r\n-import { Controller, Get } from '@nestjs/common';\r\n+import { Controller, Get, HttpCode, Query, Res } from '@nestjs/common';\r\n import { ProductService } from './product.service';\r\n import { ProductEntity } from './entity/product.entity';\r\n \r\n \r\n@@ -12,5 +12,12 @@\n   @Get(\"all\")\r\n   async findAll(): Promise<ProductEntity[]> {\r\n     return this.productService.findAll();\r\n   }\r\n+  @HttpCode(200) // specify the HTTP status code\r\n+  async getData(\r\n+    @Query('productid') productid: string,\r\n+    @Res() res: Response, // inject the response object\r\n+  ) : Promise<ProductEntity[]> {\r\n+    return this.productService.findAll();\r\n+  }\r\n }\r\n"
+                },
+                {
+                    "date": 1705830755178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n // product.controller.ts\r\n \r\n-import { Controller, Get, HttpCode, Query, Res } from '@nestjs/common';\r\n+import { Controller, Get, HttpCode, Param, Query, Res } from '@nestjs/common';\r\n import { ProductService } from './product.service';\r\n import { ProductEntity } from './entity/product.entity';\r\n \r\n \r\n@@ -12,12 +12,16 @@\n   @Get(\"all\")\r\n   async findAll(): Promise<ProductEntity[]> {\r\n     return this.productService.findAll();\r\n   }\r\n-  @HttpCode(200) // specify the HTTP status code\r\n-  async getData(\r\n-    @Query('productid') productid: string,\r\n-    @Res() res: Response, // inject the response object\r\n-  ) : Promise<ProductEntity[]> {\r\n-    return this.productService.findAll();\r\n+//   @HttpCode(200) // specify the HTTP status code\r\n+//   async getData(\r\n+//     @Query('productid') productid: string,\r\n+//     @Res() res: Response, // inject the response object\r\n+//   ) : Promise<ProductEntity[]> {\r\n+//     return this.productService.findAll();\r\n+//   }\r\n+  @Get(':id')\r\n+  async findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {\r\n+    return this.productService.findById(id);\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705833152366,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n // product.controller.ts\r\n \r\n-import { Controller, Get, HttpCode, Param, Query, Res } from '@nestjs/common';\r\n+import { Controller, Get, HttpCode, Param, ParseIntPipe, Query, Res } from '@nestjs/common';\r\n import { ProductService } from './product.service';\r\n import { ProductEntity } from './entity/product.entity';\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1705833432431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,8 @@\n //   ) : Promise<ProductEntity[]> {\r\n //     return this.productService.findAll();\r\n //   }\r\n   @Get(':id')\r\n-  async findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {\r\n-    return this.productService.findById(id);\r\n+  async findById(@Param('productId', ParseIntPipe) productId: number): Promise<Product> {\r\n+    return this.productService.findById(productId);\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705834313516,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n //     @Res() res: Response, // inject the response object\r\n //   ) : Promise<ProductEntity[]> {\r\n //     return this.productService.findAll();\r\n //   }\r\n-  @Get(':id')\r\n+  @Get(':productId')\r\n   async findById(@Param('productId', ParseIntPipe) productId: number): Promise<Product> {\r\n-    return this.productService.findById(productId);\r\n+    return this.productService.findAll(productId);\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705834321368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,7 +21,7 @@\n //     return this.productService.findAll();\r\n //   }\r\n   @Get(':productId')\r\n   async findById(@Param('productId', ParseIntPipe) productId: number): Promise<Product> {\r\n-    return this.productService.findAll(productId);\r\n+    return this.productService.findById(productId);\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705834336055,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,8 @@\n //   ) : Promise<ProductEntity[]> {\r\n //     return this.productService.findAll();\r\n //   }\r\n   @Get(':productId')\r\n-  async findById(@Param('productId', ParseIntPipe) productId: number): Promise<Product> {\r\n-    return this.productService.findById(productId);\r\n+  async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<Product> {\r\n+    return this.productService.findByProductId(productId);\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705834359844,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,8 @@\n //   ) : Promise<ProductEntity[]> {\r\n //     return this.productService.findAll();\r\n //   }\r\n   @Get(':productId')\r\n-  async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<Product> {\r\n+  async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<Product[]> {\r\n     return this.productService.findByProductId(productId);\r\n   }\r\n }\r\n"
+                },
+                {
+                    "date": 1705834670704,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,5 +23,9 @@\n   @Get(':productId')\r\n   async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<Product[]> {\r\n     return this.productService.findByProductId(productId);\r\n   }\r\n+   @Get(':productId')\r\n+  async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<Product[]> {\r\n+    return this.productService.findByProductId(productId);\r\n+  }\r\n }\r\n"
+                },
+                {
+                    "date": 1705836979852,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,12 +19,9 @@\n //     @Res() res: Response, // inject the response object\r\n //   ) : Promise<ProductEntity[]> {\r\n //     return this.productService.findAll();\r\n //   }\r\n-  @Get(':productId')\r\n-  async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<Product[]> {\r\n-    return this.productService.findByProductId(productId);\r\n-  }\r\n+\r\n    @Get(':productId')\r\n   async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<Product[]> {\r\n     return this.productService.findByProductId(productId);\r\n   }\r\n"
+                }
+            ],
+            "date": 1705830188190,
+            "name": "Commit-0",
+            "content": "// product.controller.ts\r\n\r\nimport { Controller, Get } from '@nestjs/common';\r\nimport { ProductService } from './product.service';\r\nimport { Product } from './product.entity';\r\n\r\n@Controller('products')\r\nexport class ProductController {\r\n  constructor(private readonly productService: ProductService) {}\r\n\r\n  @Get()\r\n  async findAll(): Promise<Product[]> {\r\n    return this.productService.findAll();\r\n  }\r\n}\r\n"
+        }
+    ]
+}

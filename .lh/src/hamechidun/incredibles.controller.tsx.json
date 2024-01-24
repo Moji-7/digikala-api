@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/hamechidun/incredibles.controller.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1705818410542,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705818438115,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,10 @@\n // Incredibles Controller in Nest.js\r\n import { Controller, Get } from '@nestjs/common';\r\n import { IncrediblesService } from './incredibles.service';\r\n-import { IncrediblesEntity } from './incredibles.entity';\r\n+import { IncrediblesEntity } from './entity/Incredibles';\r\n \r\n+\r\n @Controller('incredibles')\r\n export class IncrediblesController {\r\n   constructor(private readonly incrediblesService: IncrediblesService) {}\r\n \r\n"
+                }
+            ],
+            "date": 1705818410542,
+            "name": "Commit-0",
+            "content": "// Incredibles Controller in Nest.js\r\nimport { Controller, Get } from '@nestjs/common';\r\nimport { IncrediblesService } from './incredibles.service';\r\nimport { IncrediblesEntity } from './incredibles.entity';\r\n\r\n@Controller('incredibles')\r\nexport class IncrediblesController {\r\n  constructor(private readonly incrediblesService: IncrediblesService) {}\r\n\r\n  @Get()\r\n  async findAll(): Promise<IncrediblesEntity[]> {\r\n    return this.incrediblesService.findAll();\r\n  }\r\n}\r\n"
+        }
+    ]
+}

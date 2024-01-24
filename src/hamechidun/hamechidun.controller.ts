@@ -1,3 +1,4 @@
+import { IncrediblesController } from './incredibles.controller';
 import {
   Controller,
   Get,
@@ -12,7 +13,6 @@ import {
 
 import { ApiQuery } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-const R = require('ramda');
 
 import { HamechidunService } from './hamechidun.service';
 import { TopSellingProduct } from './entity/TopSellingProduct';
@@ -28,6 +28,8 @@ import { OrderItem } from './entity/OrderItem';
 import { OrderItemService } from './orderItems.service';
 import { ObjectLiteral } from 'typeorm';
 import { OrderItemDto } from './DTO/OrderItemDto';
+import { ProcessingService } from './proccessing/hamechidun.process.service';
+import { IncrediblesService } from './incredibles.service';
 
 @UseFilters(RedisExceptionFilter)
 @Controller('hamechidun')
@@ -35,6 +37,8 @@ export class HamechidunController {
   constructor(
     private readonly hamechidunService: HamechidunService,
     private readonly orderItemService: OrderItemService,
+    private readonly incrediblesService: IncrediblesService,
+    private readonly proccessingService: ProcessingService,
   ) {}
   private readonly logger = new Logger(HamechidunController.name);
 
@@ -67,8 +71,6 @@ export class HamechidunController {
     return this.hamechidunService.get_populate_order_product_price_expensive();
   }
 
-
-  
   // orders_grouping_by_categories_2_3 = (data, categoryField,is_item_category3) => {
   //   const groupedData = R.groupBy(R.prop(categoryField), data);
 
@@ -88,55 +90,30 @@ export class HamechidunController {
   //   }, R.values(groupedData));
   //   return result;
   // };
-  
-   orders_grouping_by_categories_2_3 = (data, categoryField, is_item_category3) => {
-    const groupedData = R.groupBy(R.prop(categoryField), data);
-  
-    const result = R.map((group) => {
-      const categoryTitle = R.head(group)[categoryField];
-      const parentCategory = is_item_category3 ? R.head(group)["item_category2"] : null;
-      return {
-        category: {
-          name: categoryField,
-          title: categoryTitle,
-          parent: parentCategory,
-          count: R.sum(R.pluck('count', group)),
-          max_price: R.apply(Math.max, R.pluck('max_price', group)),
-          avg_price: R.mean(R.pluck('avg_price', group)),
-          total_price: R.sum(R.pluck('total_price', group)),
-          avg_discount: R.mean(R.pluck('avg_discount', group)),
-          childs: []  
-        }
-      };
-    }, R.values(groupedData));
-    return result;
-  };
-  
-   fillChildsArray = (category2, category3) => {
+
+  fillChildsArray = (category2, category3) => {
     return category2.map((cat2) => {
       const parentTitle = cat2.category.title;
-      const matchingCategory3 = category3.filter((cat3) => cat3.category.parent === parentTitle);
+      const matchingCategory3 = category3.filter(
+        (cat3) => cat3.category.parent === parentTitle,
+      );
       const childs = matchingCategory3.map((match) => {
         return {
           name: match.category.name,
           title: match.category.title,
           count: match.category.count,
           total_price: match.category.total_price,
-          parent: match.category.parent
+          parent: match.category.parent,
         };
       });
       return {
         category: {
           ...cat2.category,
-          childs: childs
-        }
+          childs: childs,
+        },
       };
     });
   };
-  
-
-  
-  
 
   @Get('populate_orders_products_categories_info')
   @HttpCode(200) // specify the HTTP status code
@@ -150,19 +127,30 @@ export class HamechidunController {
         item_category2 ?? null,
         item_category3 ?? null,
       );
-      const orderGroupedCategory_2 = this.orders_grouping_by_categories_2_3(order_orderItems_grouping,"item_category2",false);
-      const orderGroupedCategory_3 = this.orders_grouping_by_categories_2_3(order_orderItems_grouping,"item_category3",true);
-        // Usage
-  const filledOrderGroupedCategory_2 = this.fillChildsArray(orderGroupedCategory_2, orderGroupedCategory_3);
-  
-      // use the send method to return the response with two parts
-      res.send({
-        orderGroupedCategory_2: filledOrderGroupedCategory_2,
-        orderGroupedCategory_3: orderGroupedCategory_3,
-      });
-    }
-  
+    const orderGroupedCategory_2 =
+      this.proccessingService.OrdersGroupingByCategories23(
+        order_orderItems_grouping,
+        'item_category2',
+        false,
+      );
+    const orderGroupedCategory_3 =
+      this.proccessingService.OrdersGroupingByCategories23(
+        order_orderItems_grouping,
+        'item_category3',
+        true,
+      );
+    // Usage
+    const filledOrderGroupedCategory_2 = this.fillChildsArray(
+      orderGroupedCategory_2,
+      orderGroupedCategory_3,
+    );
 
+    // use the send method to return the response with two parts
+    res.send({
+      orderGroupedCategory_2: filledOrderGroupedCategory_2,
+      orderGroupedCategory_3: orderGroupedCategory_3,
+    });
+  }
 
   @Get('orderItem')
   @ApiQuery({ name: 'quantity', type: Number, required: false })
@@ -232,4 +220,12 @@ export class HamechidunController {
     );
   }
 
+  @Get('with-products')
+  async IncrediblesWithSameProducts(
+    @Query('productId') productId: number, // get the orderBy query parameter, if any
+  ): Promise<IIncrediblesWithProducts[]> {
+    const res = await this.incrediblesService.findWithProducts(productId);
+    //console.log(res)
+    return this.proccessingService.IncrediblesWithSameProducts(res);
+  }
 }

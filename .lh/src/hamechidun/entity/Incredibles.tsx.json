@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/hamechidun/entity/Incredibles.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1705818366314,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1705818366314,
+            "name": "Commit-0",
+            "content": "// Incredibles Entity using TypeORM\r\nimport { Entity, PrimaryColumn, Column } from 'typeorm';\r\n\r\n@Entity()\r\nexport class IncrediblesEntity {\r\n  @PrimaryColumn()\r\n  id: number;\r\n\r\n  @Column({ nullable: true, length: 255 })\r\n  title_fa: string;\r\n\r\n  @Column({ nullable: true, length: 255 })\r\n  title_en: string;\r\n\r\n  @Column({ nullable: true, length: 255 })\r\n  url: string;\r\n\r\n  // ... other columns\r\n\r\n  @Column({ nullable: true, length: 255 })\r\n  shipment_description: string;\r\n\r\n  @Column({ nullable: true })\r\n  has_lead_time: number;\r\n}\r\n"
+        }
+    ]
+}

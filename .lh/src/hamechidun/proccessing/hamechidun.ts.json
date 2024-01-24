@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/hamechidun/proccessing/hamechidun.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1706084752008,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1706084761014,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-orders_grouping_by_categories_2_3 = (\r\n+export const orders_grouping_by_categories_2_3 = (\r\n     data,\r\n     categoryField,\r\n     is_item_category3,\r\n   ) => {\r\n"
+                }
+            ],
+            "date": 1706084752008,
+            "name": "Commit-0",
+            "content": "orders_grouping_by_categories_2_3 = (\r\n    data,\r\n    categoryField,\r\n    is_item_category3,\r\n  ) => {\r\n    const groupedData = R.groupBy(R.prop(categoryField), data);\r\n    const result = R.map((group) => {\r\n      const categoryTitle = R.head(group)[categoryField];\r\n      const parentCategory = is_item_category3\r\n        ? R.head(group)['item_category2']\r\n        : null;\r\n      return {\r\n        category: {\r\n          name: categoryField,\r\n          title: categoryTitle,\r\n          parent: parentCategory,\r\n          count: R.sum(R.pluck('count', group)),\r\n          max_price: R.apply(Math.max, R.pluck('max_price', group)),\r\n          avg_price: Math.round(R.mean(R.pluck('avg_price', group))),\r\n          total_price: R.sum(R.pluck('total_price', group)),\r\n          avg_discount: Math.round(R.mean(R.pluck('avg_discount', group))),\r\n          childs: [],\r\n        },\r\n      };\r\n    }, R.values(groupedData));\r\n    return result;\r\n  };"
+        }
+    ]
+}

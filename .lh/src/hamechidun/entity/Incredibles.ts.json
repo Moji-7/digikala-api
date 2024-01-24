@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/hamechidun/entity/Incredibles.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1705820048348,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1705820158808,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n // Incredibles Entity using TypeORM\r\n import { Entity, PrimaryColumn, Column } from 'typeorm';\r\n \r\n-@Entity('Incredibles')\r\n+@Entity('incredibles')\r\n export class IncrediblesEntity {\r\n   @PrimaryColumn()\r\n   id: number;\r\n \r\n"
+                },
+                {
+                    "date": 1705821020418,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,11 +14,63 @@\n \r\n   @Column({ nullable: true, length: 255 })\r\n   url: string;\r\n \r\n-  // ... other columns\r\n+  @Column({ nullable: true, length: 255 })\r\n+  brand: string;\r\n \r\n   @Column({ nullable: true, length: 255 })\r\n+  category: string;\r\n+\r\n+  @Column({ nullable: true, length: 255 })\r\n+  item_category2: string;\r\n+\r\n+  @Column({ nullable: true, length: 255 })\r\n+  item_category3: string;\r\n+\r\n+  @Column({ nullable: true, length: 255 })\r\n+  item_category4: string;\r\n+\r\n+  @Column({ nullable: true, length: 255 })\r\n+  item_category5: string;\r\n+\r\n+  @Column({ nullable: true, length: 255 })\r\n+  main_image_url: string;\r\n+\r\n+  @Column({ nullable: true })\r\n+  is_fast_shipping: number;\r\n+\r\n+  @Column({ nullable: true })\r\n+  is_ship_by_seller: number;\r\n+\r\n+  @Column({ nullable: true })\r\n+  min_price_in_last_month: number;\r\n+\r\n+  @Column({ nullable: true })\r\n+  seller_id: number;\r\n+\r\n+  @Column({ nullable: true, length: 255 })\r\n+  seller_title: string;\r\n+\r\n+  @Column({ nullable: true, length: 255 })\r\n+  seller_url: string;\r\n+\r\n+  @Column({ nullable: true })\r\n+  selling_price: number;\r\n+\r\n+  @Column({ nullable: true })\r\n+  rrp_price: number;\r\n+\r\n+  @Column({ nullable: true })\r\n+  order_limit: number;\r\n+\r\n+  @Column({ nullable: true })\r\n+  is_incredible: number;\r\n+\r\n+  @Column({ nullable: true })\r\n+  discount_percent: number;\r\n+\r\n+  @Column({ nullable: true, length: 255 })\r\n   shipment_description: string;\r\n \r\n   @Column({ nullable: true })\r\n   has_lead_time: number;\r\n"
+                },
+                {
+                    "date": 1706087230076,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -74,4 +74,5 @@\n \r\n   @Column({ nullable: true })\r\n   has_lead_time: number;\r\n }\r\n+\r\n"
+                }
+            ],
+            "date": 1705820048348,
+            "name": "Commit-0",
+            "content": "// Incredibles Entity using TypeORM\r\nimport { Entity, PrimaryColumn, Column } from 'typeorm';\r\n\r\n@Entity('Incredibles')\r\nexport class IncrediblesEntity {\r\n  @PrimaryColumn()\r\n  id: number;\r\n\r\n  @Column({ nullable: true, length: 255 })\r\n  title_fa: string;\r\n\r\n  @Column({ nullable: true, length: 255 })\r\n  title_en: string;\r\n\r\n  @Column({ nullable: true, length: 255 })\r\n  url: string;\r\n\r\n  // ... other columns\r\n\r\n  @Column({ nullable: true, length: 255 })\r\n  shipment_description: string;\r\n\r\n  @Column({ nullable: true })\r\n  has_lead_time: number;\r\n}\r\n"
+        }
+    ]
+}

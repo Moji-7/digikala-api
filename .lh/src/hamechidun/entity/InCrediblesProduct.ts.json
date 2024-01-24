@@ -1,0 +1,54 @@
+{
+    "sourceFile": "src/hamechidun/entity/InCrediblesProduct.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 9,
+            "patches": [
+                {
+                    "date": 1706091639056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1706092042145,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-type IncrediblesType = {\r\n+type IIncrediblesWithProducts = {\r\n     Incredibles_ID: number;\r\n     Incredibles_Selling_Price: number;\r\n     Products_Selling_Price: number;\r\n };\r\n"
+                },
+                {
+                    "date": 1706093170316,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,4 +2,10 @@\n     Incredibles_ID: number;\r\n     Incredibles_Selling_Price: number;\r\n     Products_Selling_Price: number;\r\n };\r\n+\r\n+interface IIncrediblesPrice {\r\n+    increPrice: number;\r\n+    prices: { value: number }[];\r\n+  }\r\n+  \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1706093245237,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n     Incredibles_Selling_Price: number;\r\n     Products_Selling_Price: number;\r\n };\r\n \r\n-interface IIncrediblesPrice {\r\n+type IIncrediblesPrice ={\r\n     increPrice: number;\r\n     prices: { value: number }[];\r\n   }\r\n   \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1706093573782,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,8 @@\n     Products_Selling_Price: number;\r\n };\r\n \r\n type IIncrediblesPrice ={\r\n-    increPrice: number;\r\n-    prices: { value: number }[];\r\n+    incrediblePrice: number;\r\n+    otherPrices: { value: number }[];\r\n   }\r\n   \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1706094814569,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,13 @@\n type IIncrediblesWithProducts = {\r\n     Incredibles_ID: number;\r\n     Incredibles_Selling_Price: number;\r\n     Products_Selling_Price: number;\r\n-};\r\n+    Products_discount_percent: number;\r\n+    Products_seller_title: string;\r\n+    Products_seller_id: string;\r\n+  };\r\n+  \r\n \r\n type IIncrediblesPrice ={\r\n     incrediblePrice: number;\r\n     otherPrices: { value: number }[];\r\n"
+                },
+                {
+                    "date": 1706094990916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,21 @@\n-type IIncrediblesWithProducts = {\r\n-    Incredibles_ID: number;\r\n-    Incredibles_Selling_Price: number;\r\n+type IProductsDetails = {\r\n     Products_Selling_Price: number;\r\n     Products_discount_percent: number;\r\n     Products_seller_title: string;\r\n     Products_seller_id: string;\r\n   };\r\n   \r\n+  type IncredibleDetails = {\r\n+    Incredibles_ID: number;\r\n+    Incredibles_Selling_Price: number;\r\n+  };\r\n+  \r\n+  type IIncrediblesWithProducts = {\r\n+    Incredible: IncredibleDetails;\r\n+    Product_Details: IProductsDetails;\r\n+  };\r\n+  \r\n \r\n type IIncrediblesPrice ={\r\n     incrediblePrice: number;\r\n     otherPrices: { value: number }[];\r\n"
+                },
+                {
+                    "date": 1706095091946,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,20 +4,20 @@\n     Products_seller_title: string;\r\n     Products_seller_id: string;\r\n   };\r\n   \r\n-  type IncredibleDetails = {\r\n+  type IIncredibleInfo = {\r\n     Incredibles_ID: number;\r\n     Incredibles_Selling_Price: number;\r\n   };\r\n   \r\n   type IIncrediblesWithProducts = {\r\n-    Incredible: IncredibleDetails;\r\n+    Incredible: IIncredibleDetails;\r\n     Product_Details: IProductsDetails;\r\n   };\r\n   \r\n \r\n-type IIncrediblesPrice ={\r\n-    incrediblePrice: number;\r\n-    otherPrices: { value: number }[];\r\n+type IIncrediblesWithPrice ={\r\n+    incrediblePrice: IIncredibleInfo;\r\n+    otherPrices: { value: IProductsDetails }[];\r\n   }\r\n   \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1706095109081,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n     Incredibles_Selling_Price: number;\r\n   };\r\n   \r\n   type IIncrediblesWithProducts = {\r\n-    Incredible: IIncredibleDetails;\r\n+    Incredible: IIncredibleInfo;\r\n     Product_Details: IProductsDetails;\r\n   };\r\n   \r\n \r\n"
+                },
+                {
+                    "date": 1706095467558,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,13 +11,6 @@\n   };\r\n   \r\n   type IIncrediblesWithProducts = {\r\n     Incredible: IIncredibleInfo;\r\n-    Product_Details: IProductsDetails;\r\n+    Product_Details: IProductsDetails[];\r\n   };\r\n-  \r\n-\r\n-type IIncrediblesWithPrice ={\r\n-    incrediblePrice: IIncredibleInfo;\r\n-    otherPrices: { value: IProductsDetails }[];\r\n-  }\r\n\\ No newline at end of file\n-  \n"
+                }
+            ],
+            "date": 1706091639056,
+            "name": "Commit-0",
+            "content": "type IncrediblesType = {\r\n    Incredibles_ID: number;\r\n    Incredibles_Selling_Price: number;\r\n    Products_Selling_Price: number;\r\n};\r\n"
+        }
+    ]
+}
