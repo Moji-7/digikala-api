@@ -15,7 +15,7 @@ export class IncrediblesController {
   @Get('with-products')
   async findWithProducts(
     @Query('productId') productId: number, // get the orderBy query parameter, if any
-  ): Promise<IIncrediblesWithProducts[]> {
+  ): Promise<IIncrediblesWithOtherAll[]> {
     // call the service method and pass the orderBy parameter, if any
     return this.incrediblesService.findWithProducts(productId);
   }

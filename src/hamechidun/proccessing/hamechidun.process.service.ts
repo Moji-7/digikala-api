@@ -43,33 +43,34 @@ export class ProcessingService {
   //const transformData = (data: any[]): IIncrediblesPrice[] => {
   public IncrediblesWithSameProducts = (
     data: any[],
-  ): IIncrediblesWithProducts[] => {
-    const groupedData = R.groupBy(R.prop('id'), data);
+  ): IIncrediblesWithOtherAll[] => {
+    const groupedData = R.groupBy(R.prop('inc_id'), data);
     const result = R.mapObjIndexed((val, key) => ({
-      Incredible: R.pick(
+      incredible: R.pick(
         [
-          'id',
-          'min_price_in_last_month',
-          'selling_price',
-          'discount_percent',
-          'rrp_price',
-          'seller_title',
-          'seller_id',
+          'inc_id',
+          'title_fa',
+          'inc_minPriceInLastMonth',
+          'inc_price',
+          'inc_discountPercent',
+          'inc_rrpPrice',
+          'inc_sellerTitle',
+          'inc_sellerId',
         ],
         R.head(val),
       ) as IIncredibleInfo,
-      Product_Details: R.map(
+      otherSellers: R.map(
         (v) =>
           R.pick(
             [
-              'product_selling_price',
-              'product_discount_percent',
-              'product_rrp_price',
-              'product_seller_id',
-              'product_seller_id',
+              'price',
+              'discountPercent',
+              'rrpPrice',
+              'sellerId',
+              'sellerTitle',
             ],
             v,
-          ) as IProductsDetails,
+          ) as any,
         val,
       ),
     }))(groupedData);

@@ -1,28 +1,28 @@
-type IProductsDetails = {
-  price: IPrice;
-  seller: ISeller;
-};
-
 type IIncredibleInfo = {
   id: number;
   price: IPrice;
   seller: ISeller;
 };
+type ISellersProductInfo = {
+  price: IPrice;
+  seller: ISeller;
+};
 
-type IIncrediblesWithProducts = {
+
+type IIncrediblesWithOtherAll = {
   incredible: IIncredibleInfo;
-  Products: IProductsDetails[];
+  sellersProductInfo: ISellersProductInfo[];
 };
 
 type ISeller = {
-    seller_id: string;
-  seller_title: string;
+  sellerId: string;
+  sellerTitle: string;
 };
 type IPrice = {
-  min_price_in_last_month: number;
-  selling_price: number;
-  discount_percent: number;
-  rrp_price: number;
+  minPriceInLastMonth: number;
+  sellingPrice: number;
+  discountPercent: number;
+  rrpPrice: number;
 };
 // // change the type definitions to match the data array
 // type IProductsDetails = {

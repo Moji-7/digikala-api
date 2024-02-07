@@ -12,7 +12,16 @@ import { IncrediblesController } from './incredibles.controller';
 import { ProductService } from './product.service';
 import { ProductController } from './product.controller';
 import { ProductEntity } from './entity/product.entity';
+// import { CommentsEntity,CommentsDataset } from './entity/comments.entity';
+// import { CommentsController } from './comments.controller';
+ import { CommentsService } from './comments.service';
+
+// proccessing and proccessed
+
 import { ProcessingService } from './proccessing/hamechidun.process.service';
+import { ProccessedService } from './proccessed/hamechidun.processed.service';
+import { CommentsDataset, CommentsEntity } from './entity/comments.entity';
+
 
 
 @Module({
@@ -25,10 +34,14 @@ import { ProcessingService } from './proccessing/hamechidun.process.service';
       PopulateOrderProductPriceExpensive,
       OrderItem,
       IncrediblesEntity,
-      ProductEntity
+      ProductEntity,
+      CommentsEntity,CommentsDataset
     ]), // Register the entity with TypeORM
   ],
   controllers: [HamechidunController,IncrediblesController,ProductController],
-  providers: [HamechidunService,OrderItemService,IncrediblesService,ProductService,ProcessingService]
+  providers: [HamechidunService,
+    ProcessingService,ProccessedService,
+    OrderItemService,IncrediblesService,ProductService,CommentsService
+  ]
 })
 export class HamechidunModule {}

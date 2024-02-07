@@ -28,8 +28,18 @@ import { OrderItem } from './entity/OrderItem';
 import { OrderItemService } from './orderItems.service';
 import { ObjectLiteral } from 'typeorm';
 import { OrderItemDto } from './DTO/OrderItemDto';
-import { ProcessingService } from './proccessing/hamechidun.process.service';
 import { IncrediblesService } from './incredibles.service';
+import { CommentsDataset } from './entity/comments.entity';
+
+import { ProcessingService } from './proccessing/hamechidun.process.service';
+import { ProccessedService } from './proccessed/hamechidun.processed.service';
+// import { ProccessedService } from './proccessed/hamechidun.processed.service';
+
+
+interface CommentsResponse {
+  dataset: CommentsDataset[];
+  count: number;
+}
 
 @UseFilters(RedisExceptionFilter)
 @Controller('hamechidun')
@@ -39,6 +49,7 @@ export class HamechidunController {
     private readonly orderItemService: OrderItemService,
     private readonly incrediblesService: IncrediblesService,
     private readonly proccessingService: ProcessingService,
+   private readonly processedService: ProccessedService,
   ) {}
   private readonly logger = new Logger(HamechidunController.name);
 
@@ -220,12 +231,24 @@ export class HamechidunController {
     );
   }
 
-  @Get('with-products')
+  @Get('otherSellers')
   async IncrediblesWithSameProducts(
     @Query('productId') productId: number, // get the orderBy query parameter, if any
-  ): Promise<IIncrediblesWithProducts[]> {
+  ): Promise<any[]> {
     const res = await this.incrediblesService.findWithProducts(productId);
-    //console.log(res)
+    //console.log(JSON.stringify(res))
     return this.proccessingService.IncrediblesWithSameProducts(res);
   }
+
+  
+ 
+  
+  @Get('commentsdataset')
+  async comments(
+    @Query('productId') productId: number, // get the orderBy query parameter, if any
+  ): Promise<CommentsResponse> {
+    const [dataset, count] = await this.processedService.getCommentsDataset(productId, 1, 3);
+    return { dataset, count };
+  }
+  
 }
