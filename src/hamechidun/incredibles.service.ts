@@ -21,7 +21,7 @@ export class IncrediblesService {
     const raw = await this.incrediblesRepository
       .createQueryBuilder('incredibles') // create a query builder with an alias
       .select([
-        'incredibles.id AS inc_id',
+        'incredibles.id AS product_id',
         'incredibles.title_fa AS title_fa',
         'incredibles.min_price_in_last_month AS inc_minPriceInLastMonth',
         'incredibles.selling_price AS inc_price',

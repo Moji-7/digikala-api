@@ -44,11 +44,11 @@ export class ProcessingService {
   public IncrediblesWithSameProducts = (
     data: any[],
   ): IIncrediblesWithOtherAll[] => {
-    const groupedData = R.groupBy(R.prop('inc_id'), data);
+    const groupedData = R.groupBy(R.prop('product_id'), data);
     const result = R.mapObjIndexed((val, key) => ({
       incredible: R.pick(
         [
-          'inc_id',
+          'product_id',
           'title_fa',
           'inc_minPriceInLastMonth',
           'inc_price',

@@ -8,6 +8,8 @@ import { HttpModule } from '@nestjs/axios';
 import { DigikalaModule } from './digikala/digikala.module';
  import { MyCacheModule } from './myCache/myCache.module'; 
 import { HamechidunModule } from './hamechidun/hamechidun.module';
+import { EyeModule } from './eye/eye.module';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -25,8 +27,11 @@ import { HamechidunModule } from './hamechidun/hamechidun.module';
     
     DigikalaModule,
     //MyCacheModule,
-    HamechidunModule   
+    HamechidunModule,
+    EyeModule   
   ],
+  controllers: [],
+  providers: [],
  // controllers: [AppController],
  // providers: [AppService],
 })

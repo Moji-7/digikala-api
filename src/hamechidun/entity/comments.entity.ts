@@ -58,6 +58,9 @@ export class CommentsEntity {
 
     @Column({ type: "json", nullable: true })
     data: any;
+    
+     @Column({ type: "json", nullable: true })
+     most_liked: any;
   
     @Column({ type: "timestamp", nullable: true, default: () => "CURRENT_TIMESTAMP" })
     created_at: Date;
