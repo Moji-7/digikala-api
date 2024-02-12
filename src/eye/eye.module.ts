@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {  EyeProduct } from './Eye.entity';
+import {  EyeProduct } from './EyeProduct.entity';
 import { EyeController } from './eye.controller';
 import { EyeService } from './eye.service';
 

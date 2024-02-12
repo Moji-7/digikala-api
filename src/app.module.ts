@@ -22,7 +22,7 @@ import { EyeModule } from './eye/eye.module';
       entities: [__dirname + '/**/*.entity*{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: true,
-      //  logging: true, // Enable query logging
+        logging: true, // Enable query logging
     }),
     
     DigikalaModule,

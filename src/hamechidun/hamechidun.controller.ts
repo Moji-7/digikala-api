@@ -36,7 +36,7 @@ import { ProccessedService } from './proccessed/hamechidun.processed.service';
 // import { ProccessedService } from './proccessed/hamechidun.processed.service';
 
 
-interface CommentsResponse {
+interface CommentsDatasetResponse {
   dataset: CommentsDataset[];
   count: number;
 }
@@ -246,7 +246,7 @@ export class HamechidunController {
   @Get('commentsdataset')
   async comments(
     @Query('productId') productId: number, // get the orderBy query parameter, if any
-  ): Promise<CommentsResponse> {
+  ): Promise<CommentsDatasetResponse> {
     const [dataset, count] = await this.processedService.getCommentsDataset(productId, 1, 3);
     return { dataset, count };
   }
