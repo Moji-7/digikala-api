@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 22,
+            "activePatchIndex": 35,
             "patches": [
                 {
                     "date": 1702547391072,
@@ -96,6 +96,58 @@
                 {
                     "date": 1702974135580,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,16 +21,19 @@\n     }\n   }\n   async getOrdersMe() {\n     try {\n-      const headers= {\n-       \n-        \"Cookie\": \"Digikala:User:Token:new=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMjg2NzkxLCJleHBpcmVfdGltZSI6MTcwNTQ5OTgxMSwicGF5bG9hZCI6W10sInBhc3N3b3JkX3ZlcnNpb24iOjEsInR5cGUiOiJ0b2tlbiJ9.1PO-JDop48Fa4OOxEJA-wnILjKZ34HnsV3WOc14KJew;\",\n-        \"TE\": \" trailers\"\n-      }\n+      const headers = {\n+        Cookie:\n+          'Digikala:User:Token:new=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMjg2NzkxLCJleHBpcmVfdGltZSI6MTcwNTQ5OTgxMSwicGF5bG9hZCI6W10sInBhc3N3b3JkX3ZlcnNpb24iOjEsInR5cGUiOiJ0b2tlbiJ9.1PO-JDop48Fa4OOxEJA-wnILjKZ34HnsV3WOc14KJew;',\n+      };\n       // Make a GET request to the /products endpoint\n       const response = await firstValueFrom(\n-        this.httpService.get('profile/orders/?activeTab=sent&page=2&status=sent', { headers }))\n+        this.httpService.get(\n+          'profile/orders/?activeTab=sent&page=2&status=sent',\n+          { headers },\n+        ),\n+      );\n       return response.data;\n     } catch (error) {\n       // Handle the error\n       throw error;\n"
+                },
+                {
+                    "date": 1707825744368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n   async getOrdersMe() {\n     try {\n       const headers = {\n         Cookie:\n-          'Digikala:User:Token:new=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMjg2NzkxLCJleHBpcmVfdGltZSI6MTcwNTQ5OTgxMSwicGF5bG9hZCI6W10sInBhc3N3b3JkX3ZlcnNpb24iOjEsInR5cGUiOiJ0b2tlbiJ9.1PO-JDop48Fa4OOxEJA-wnILjKZ34HnsV3WOc14KJew;',\n+          'Digikala:User:Token:new=e5yJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMjg2NzkxLCJleHBpcmVfdGltZSI6MTcwNTQ5OTgxMSwicGF5bG9hZCI6W10sInBhc3N3b3JkX3ZlcnNpb24iOjEsInR5cGUiOiJ0b2tlbiJ9.1PO-JDop48Fa4OOxEJA-wnILjKZ34HnsV3WOc14KJew;',\n       };\n       // Make a GET request to the /products endpoint\n       const response = await firstValueFrom(\n         this.httpService.get(\n"
+                },
+                {
+                    "date": 1707826619838,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,13 +19,25 @@\n       // Handle the error\n       throw error;\n     }\n   }\n+   async searchProduct() {\n+    try {\n+      // Make a GET request to the /products endpoint\n+      const response = await this.httpService\n+        .get('https://api.digikala.com/v1/search/?q=%D9%87%D8%A7%D8%AA%20%DA%86%D8%A7%DA%A9%D9%84%D8%AA&page=1')\n+        .toPromise();\n+      return response.data;\n+    } catch (error) {\n+      // Handle the error\n+      throw error;\n+    }\n+  }\n   async getOrdersMe() {\n     try {\n       const headers = {\n         Cookie:\n-          'Digikala:User:Token:new=e5yJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMjg2NzkxLCJleHBpcmVfdGltZSI6MTcwNTQ5OTgxMSwicGF5bG9hZCI6W10sInBhc3N3b3JkX3ZlcnNpb24iOjEsInR5cGUiOiJ0b2tlbiJ9.1PO-JDop48Fa4OOxEJA-wnILjKZ34HnsV3WOc14KJew;',\n+          'Digikala:User:Token:new=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMjg2NzkxLCJleHBpcmVfdGltZSI6MTcwNTQ5OTgxMSwicGF5bG9hZCI6W10sInBhc3N3b3JkX3ZlcnNpb24iOjEsInR5cGUiOiJ0b2tlbiJ9.1PO-JDop48Fa4OOxEJA-wnILjKZ34HnsV3WOc14KJew;',\n       };\n       // Make a GET request to the /products endpoint\n       const response = await firstValueFrom(\n         this.httpService.get(\n"
+                },
+                {
+                    "date": 1707826932192,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,11 @@\n       // Make a GET request to the /products endpoint\n       const response = await this.httpService\n         .get('https://api.digikala.com/v1/search/?q=%D9%87%D8%A7%D8%AA%20%DA%86%D8%A7%DA%A9%D9%84%D8%AA&page=1')\n         .toPromise();\n-      return response.data;\n+        const products = response.data.products.map((product) => product);\n+\n+      return products;\n     } catch (error) {\n       // Handle the error\n       throw error;\n     }\n"
+                },
+                {
+                    "date": 1707827034947,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,10 @@\n import { HttpService } from '@nestjs/axios';\n import { Inject, Injectable } from '@nestjs/common';\n import { firstValueFrom, lastValueFrom } from 'rxjs';\n \n+const _ = require('lodash');\n+\n // Inject the HttpService in your service or controller\n @Injectable()\n export class DigikalaService {\n   constructor(@Inject(HttpService) private httpService: HttpService) {}\n"
+                },
+                {
+                    "date": 1707827083003,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,11 +27,11 @@\n       // Make a GET request to the /products endpoint\n       const response = await this.httpService\n         .get('https://api.digikala.com/v1/search/?q=%D9%87%D8%A7%D8%AA%20%DA%86%D8%A7%DA%A9%D9%84%D8%AA&page=1')\n         .toPromise();\n-        const products = response.data.products.map((product) => product);\n+        const productArray = _.get(response, 'data.products', []);\n \n-      return products;\n+      return productArray;\n     } catch (error) {\n       // Handle the error\n       throw error;\n     }\n"
+                },
+                {
+                    "date": 1707827104858,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n       // Make a GET request to the /products endpoint\n       const response = await this.httpService\n         .get('https://api.digikala.com/v1/search/?q=%D9%87%D8%A7%D8%AA%20%DA%86%D8%A7%DA%A9%D9%84%D8%AA&page=1')\n         .toPromise();\n-        const productArray = _.get(response, 'data.products', []);\n+        const productArray = _.get(response, 'data', []);\n \n       return productArray;\n     } catch (error) {\n       // Handle the error\n"
+                },
+                {
+                    "date": 1707827182862,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n       // Make a GET request to the /products endpoint\n       const response = await this.httpService\n         .get('https://api.digikala.com/v1/search/?q=%D9%87%D8%A7%D8%AA%20%DA%86%D8%A7%DA%A9%D9%84%D8%AA&page=1')\n         .toPromise();\n-        const productArray = _.get(response, 'data', []);\n+        const productArray = _.get(response, 'data.products', []);\n \n       return productArray;\n     } catch (error) {\n       // Handle the error\n"
+                },
+                {
+                    "date": 1707827202489,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n       // Make a GET request to the /products endpoint\n       const response = await this.httpService\n         .get('https://api.digikala.com/v1/search/?q=%D9%87%D8%A7%D8%AA%20%DA%86%D8%A7%DA%A9%D9%84%D8%AA&page=1')\n         .toPromise();\n-        const productArray = _.get(response, 'data.products', []);\n+        const productArray = _.get(response, 'data.data', []);\n \n       return productArray;\n     } catch (error) {\n       // Handle the error\n"
+                },
+                {
+                    "date": 1707827213945,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n       // Make a GET request to the /products endpoint\n       const response = await this.httpService\n         .get('https://api.digikala.com/v1/search/?q=%D9%87%D8%A7%D8%AA%20%DA%86%D8%A7%DA%A9%D9%84%D8%AA&page=1')\n         .toPromise();\n-        const productArray = _.get(response, 'data.data', []);\n+        const productArray = _.get(response, 'data.data.products', []);\n \n       return productArray;\n     } catch (error) {\n       // Handle the error\n"
+                },
+                {
+                    "date": 1707827919279,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n import { HttpService } from '@nestjs/axios';\n import { Inject, Injectable } from '@nestjs/common';\n import { firstValueFrom, lastValueFrom } from 'rxjs';\n+import { SearchProductQuery } from 'src/hamechidun/DTO/product';\n \n const _ = require('lodash');\n \n // Inject the HttpService in your service or controller\n@@ -21,16 +22,19 @@\n       // Handle the error\n       throw error;\n     }\n   }\n-   async searchProduct() {\n+  async searchProduct(searchProductQuery: SearchProductQuery) {\n     try {\n-      // Make a GET request to the /products endpoint\n-      const response = await this.httpService\n-        .get('https://api.digikala.com/v1/search/?q=%D9%87%D8%A7%D8%AA%20%DA%86%D8%A7%DA%A9%D9%84%D8%AA&page=1')\n-        .toPromise();\n-        const productArray = _.get(response, 'data.data.products', []);\n+      const { inputValue, page } = searchProductQuery;\n+      const encodedInputValue = encodeURIComponent(inputValue);\n \n+      // Construct the URL with the inputValue and page\n+      const url = `https://api.digikala.com/v1/search/?q=${encodedInputValue}&page=${page}`;\n+\n+      // Make a GET request to the constructed URL\n+      const response = await this.httpService.get(url).toPromise();\n+      const productArray = _.get(response, 'data.data.products', []);\n       return productArray;\n     } catch (error) {\n       // Handle the error\n       throw error;\n"
+                },
+                {
+                    "date": 1707887325036,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,16 +26,15 @@\n   async searchProduct(searchProductQuery: SearchProductQuery) {\n     try {\n       const { inputValue, page } = searchProductQuery;\n       const encodedInputValue = encodeURIComponent(inputValue);\n-\n-      // Construct the URL with the inputValue and page\n       const url = `https://api.digikala.com/v1/search/?q=${encodedInputValue}&page=${page}`;\n \n       // Make a GET request to the constructed URL\n       const response = await this.httpService.get(url).toPromise();\n       const productArray = _.get(response, 'data.data.products', []);\n-      return productArray;\n+\n+      return { products: productArray };\n     } catch (error) {\n       // Handle the error\n       throw error;\n     }\n"
+                },
+                {
+                    "date": 1707887352169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,10 +31,9 @@\n \n       // Make a GET request to the constructed URL\n       const response = await this.httpService.get(url).toPromise();\n       const productArray = _.get(response, 'data.data.products', []);\n-\n-      return { products: productArray };\n+      retur6n { products: productArray };\n     } catch (error) {\n       // Handle the error\n       throw error;\n     }\n"
+                },
+                {
+                    "date": 1707887369750,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n \n       // Make a GET request to the constructed URL\n       const response = await this.httpService.get(url).toPromise();\n       const productArray = _.get(response, 'data.data.products', []);\n-      retur6n { products: productArray };\n+      return { products: productArray };\n     } catch (error) {\n       // Handle the error\n       throw error;\n     }\n"
                 }
             ],
             "date": 1702547391072,

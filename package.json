@@ -33,6 +33,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "ioredis": "^5.3.2",
+    "lodash": "^4.17.21",
     "mysql": "npm:mysql2@^3.6.5",
     "mysql2": "^3.6.5",
     "ramda": "^0.29.1",

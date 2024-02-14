@@ -22,7 +22,7 @@ export class ProductController {
 //   }
 
     @Get(':productId')
-    async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<Product[]> {
+    async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<ProductEntity[]> {
         return this.productService.findByProductId(productId);
     }
 }

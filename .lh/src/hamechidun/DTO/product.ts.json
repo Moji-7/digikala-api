@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1705830236730,
@@ -16,6 +16,14 @@
                 {
                     "date": 1705833939440,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n interface Product {\r\n     id: number;\r\n-    productId: number;\r\n+    product_id: number;\r\n     seller_id: number;\r\n     seller_title: string;\r\n     seller_url: string;\r\n     selling_price: number;\r\n"
+                },
+                {
+                    "date": 1707827608330,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,17 @@\n interface Product {\r\n-    id: number;\r\n-    product_id: number;\r\n-    seller_id: number;\r\n-    seller_title: string;\r\n-    seller_url: string;\r\n-    selling_price: number;\r\n-    rrp_price: number;\r\n-    order_limit: number;\r\n-    is_incredible: boolean;\r\n-    discount_percent: number;\r\n+  id: number;\r\n+  product_id: number;\r\n+  seller_id: number;\r\n+  seller_title: string;\r\n+  seller_url: string;\r\n+  selling_price: number;\r\n+  rrp_price: number;\r\n+  order_limit: number;\r\n+  is_incredible: boolean;\r\n+  discount_percent: number;\r\n }\r\n+\r\n+type SearchProductQuery = {\r\n+  inputValue: string;\r\n+  page: number;\r\n+};\r\n"
+                },
+                {
+                    "date": 1707827614910,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,8 +10,8 @@\n   is_incredible: boolean;\r\n   discount_percent: number;\r\n }\r\n \r\n-type SearchProductQuery = {\r\n+export type SearchProductQuery = {\r\n   inputValue: string;\r\n   page: number;\r\n };\r\n"
                 }
             ],
             "date": 1705830236730,

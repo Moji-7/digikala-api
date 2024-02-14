@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1702546715134,
@@ -28,6 +28,22 @@
                 {
                     "date": 1702971856551,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,7 +38,12 @@\n \n   @Get('search')\n   async getProducts() {\n     // Make the request using the proxyService and return the response data\n-    return this.proxyService.getProducts();\n+    return this.proxyService.search();\n+  }  \n+  @Get('ordersme')\n+  async getOrdersMe() {\n+    // Make the request using the proxyService and return the response data\n+    return this.proxyService.getOrdersMe();\n   }\n }\n"
+                },
+                {
+                    "date": 1707826642672,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,12 +36,17 @@\n export class DigikalaController {\n   constructor(@Inject(DigikalaService) private proxyService: DigikalaService) {}\n \n   @Get('search')\n-  async getProducts() {\n+  async get() {\n     // Make the request using the proxyService and return the response data\n     return this.proxyService.search();\n   }  \n+  @Get('searchProduct')\n+  async getProducts() {\n+    // Make the request using the proxyService and return the response data\n+    return this.proxyService.searchProduct();\n+  }  \n   @Get('ordersme')\n   async getOrdersMe() {\n     // Make the request using the proxyService and return the response data\n     return this.proxyService.getOrdersMe();\n"
+                },
+                {
+                    "date": 1707827584340,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,12 +27,15 @@\n //     return this.proxyService.proxyRequest(config);\n //   }\n // }\n \n-import { Controller, Get, Inject } from '@nestjs/common';\n+import { Controller, Get, Inject, Query } from '@nestjs/common';\n import { ProxyService } from './proxy.service';\n import { DigikalaService } from './digikala.service';\n+import { ApiQuery } from '@nestjs/swagger';\n \n+\n+\n @Controller('digikala')\n export class DigikalaController {\n   constructor(@Inject(DigikalaService) private proxyService: DigikalaService) {}\n \n@@ -40,12 +43,16 @@\n   async get() {\n     // Make the request using the proxyService and return the response data\n     return this.proxyService.search();\n   }  \n+\n+ \n   @Get('searchProduct')\n-  async getProducts() {\n+  @ApiQuery({ name: 'inputValue', type: String, required: false })\n+  @ApiQuery({ name: 'page', type: Number, required: true })\n+    async getProducts(@Query() searchProductQuery: SearchProductQuery): Promise<any[]> {\n     // Make the request using the proxyService and return the response data\n-    return this.proxyService.searchProduct();\n+    return this.proxyService.searchProduct(searchProductQuery);\n   }  \n   @Get('ordersme')\n   async getOrdersMe() {\n     // Make the request using the proxyService and return the response data\n"
+                },
+                {
+                    "date": 1707827715778,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,8 +31,9 @@\n import { Controller, Get, Inject, Query } from '@nestjs/common';\n import { ProxyService } from './proxy.service';\n import { DigikalaService } from './digikala.service';\n import { ApiQuery } from '@nestjs/swagger';\n+import { SearchProductQuery } from 'src/hamechidun/DTO/product';\n \n \n \n @Controller('digikala')\n"
+                },
+                {
+                    "date": 1707887451708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,9 @@\n  \n   @Get('searchProduct')\n   @ApiQuery({ name: 'inputValue', type: String, required: false })\n   @ApiQuery({ name: 'page', type: Number, required: true })\n-    async getProducts(@Query() searchProductQuery: SearchProductQuery): Promise<any[]> {\n+    async getProducts(@Query() searchProductQuery: SearchProductQuery): Promise<any> {\n     // Make the request using the proxyService and return the response data\n     return this.proxyService.searchProduct(searchProductQuery);\n   }  \n   @Get('ordersme')\n"
                 }
             ],
             "date": 1702546715134,

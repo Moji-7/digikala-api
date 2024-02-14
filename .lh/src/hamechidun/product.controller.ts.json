@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 12,
+            "activePatchIndex": 13,
             "patches": [
                 {
                     "date": 1705830188190,
@@ -56,6 +56,10 @@
                 {
                     "date": 1705836979852,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,12 +19,9 @@\n //     @Res() res: Response, // inject the response object\r\n //   ) : Promise<ProductEntity[]> {\r\n //     return this.productService.findAll();\r\n //   }\r\n-  @Get(':productId')\r\n-  async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<Product[]> {\r\n-    return this.productService.findByProductId(productId);\r\n-  }\r\n+\r\n    @Get(':productId')\r\n   async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<Product[]> {\r\n     return this.productService.findByProductId(productId);\r\n   }\r\n"
+                },
+                {
+                    "date": 1707887799425,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n //   ) : Promise<ProductEntity[]> {\r\n //     return this.productService.findAll();\r\n //   }\r\n \r\n-   @Get(':productId')\r\n-  async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<Product[]> {\r\n-    return this.productService.findByProductId(productId);\r\n-  }\r\n+    @Get(':productId')\r\n+    async findByProductId(@Param('productId', ParseIntPipe) productId: number): Promise<ProductEntity[]> {\r\n+        return this.productService.findByProductId(productId);\r\n+    }\r\n }\r\n"
                 }
             ],
             "date": 1705830188190,
