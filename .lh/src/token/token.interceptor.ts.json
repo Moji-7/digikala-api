@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/token/token.interceptor.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1708234782932,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1708234805800,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from \"@nestjs/common\";\r\n import { Observable, tap } from \"rxjs\";\r\n-import { TokenService } from \"../interceptors/token.service\";\r\n+import { TokenService } from \"./token.service\";\r\n \r\n @Injectable()\r\n export class TokenInterceptor implements NestInterceptor {\r\n   constructor(private readonly tokenService: TokenService) {}\r\n"
+                },
+                {
+                    "date": 1708234947451,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   constructor(private readonly tokenService: TokenService) {}\r\n \r\n   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {\r\n     const request = context.switchToHttp().getRequest(); // Get the request object\r\n-    const token = request.headers.authorization; // Extract token from headers\r\n+    const token = request.headers.Authorization; // Extract token from headers\r\n \r\n     this.tokenService.setToken(token); // Now you can use the token\r\n \r\n     return next.handle().pipe(\r\n"
+                },
+                {
+                    "date": 1708235308477,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   constructor(private readonly tokenService: TokenService) {}\r\n \r\n   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {\r\n     const request = context.switchToHttp().getRequest(); // Get the request object\r\n-    const token = request.headers.Authorization; // Extract token from headers\r\n+    const token = request.headers['authorization']; // Extract token from headers\r\n \r\n     this.tokenService.setToken(token); // Now you can use the token\r\n \r\n     return next.handle().pipe(\r\n"
+                },
+                {
+                    "date": 1708240818767,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,10 +7,12 @@\n   constructor(private readonly tokenService: TokenService) {}\r\n \r\n   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {\r\n     const request = context.switchToHttp().getRequest(); // Get the request object\r\n-    const token = request.headers['authorization']; // Extract token from headers\r\n-\r\n+    const token={\r\n+      userId:request.headers['authorization'],\r\n+      pipelinesIds:\"1,2,3\"\r\n+      }\r\n     this.tokenService.setToken(token); // Now you can use the token\r\n \r\n     return next.handle().pipe(\r\n       tap(() => {\r\n"
+                },
+                {
+                    "date": 1708240866053,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from \"@nestjs/common\";\r\n import { Observable, tap } from \"rxjs\";\r\n import { TokenService } from \"./token.service\";\r\n+import { Token } from \"src/hamechidun/DTO/token\";\r\n \r\n @Injectable()\r\n export class TokenInterceptor implements NestInterceptor {\r\n   constructor(private readonly tokenService: TokenService) {}\r\n@@ -10,9 +11,9 @@\n     const request = context.switchToHttp().getRequest(); // Get the request object\r\n     const token={\r\n       userId:request.headers['authorization'],\r\n       pipelinesIds:\"1,2,3\"\r\n-      }\r\n+      } as Token\r\n     this.tokenService.setToken(token); // Now you can use the token\r\n \r\n     return next.handle().pipe(\r\n       tap(() => {\r\n"
+                },
+                {
+                    "date": 1708240990729,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {\r\n     const request = context.switchToHttp().getRequest(); // Get the request object\r\n     const token={\r\n-      userId:request.headers['authorization'],\r\n+      userId:11015166,//request.headers['authorization'],\r\n       pipelinesIds:\"1,2,3\"\r\n       } as Token\r\n     this.tokenService.setToken(token); // Now you can use the token\r\n \r\n"
+                }
+            ],
+            "date": 1708234782932,
+            "name": "Commit-0",
+            "content": "import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from \"@nestjs/common\";\r\nimport { Observable, tap } from \"rxjs\";\r\nimport { TokenService } from \"../interceptors/token.service\";\r\n\r\n@Injectable()\r\nexport class TokenInterceptor implements NestInterceptor {\r\n  constructor(private readonly tokenService: TokenService) {}\r\n\r\n  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {\r\n    const request = context.switchToHttp().getRequest(); // Get the request object\r\n    const token = request.headers.authorization; // Extract token from headers\r\n\r\n    this.tokenService.setToken(token); // Now you can use the token\r\n\r\n    return next.handle().pipe(\r\n      tap(() => {\r\n        this.tokenService.setToken(null); // Remove after request completion\r\n      }),\r\n    );\r\n  }\r\n}"
+        }
+    ]
+}

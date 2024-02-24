@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/token/token.service.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1708234758058,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1708240866052,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,16 @@\n import { Injectable } from \"@nestjs/common\";\n+import { Token } from \"src/hamechidun/DTO/token\";\n \n // token.service.ts\n @Injectable()\n export class TokenService {\n-  private token: string;\n+  private token: Token;\n \n-  setToken(token: string) {\n+  setToken(token: Token) {\n     this.token = token;\n   }\n \n-  getToken(): string {\n+  getToken(): Token {\n     return this.token;\n   }\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1708234758058,
+            "name": "Commit-0",
+            "content": "import { Injectable } from \"@nestjs/common\";\n\n// token.service.ts\n@Injectable()\nexport class TokenService {\n  private token: string;\n\n  setToken(token: string) {\n    this.token = token;\n  }\n\n  getToken(): string {\n    return this.token;\n  }\n}"
+        }
+    ]
+}

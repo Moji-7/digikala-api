@@ -12,7 +12,7 @@ export class EyeService {
     private eyeProductRepository: Repository<EyeProduct>,
   ) {}
 
-  async saveEyeProduct(eye: EyeProduct): Promise<EyeProduct> {
+  async saveEyeProduct(eye: EyeProduct[]): Promise<EyeProduct[]> {
     return await this.eyeProductRepository.save(eye);
   }
 

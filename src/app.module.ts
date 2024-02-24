@@ -9,6 +9,10 @@ import { DigikalaModule } from './digikala/digikala.module';
  import { MyCacheModule } from './myCache/myCache.module'; 
 import { HamechidunModule } from './hamechidun/hamechidun.module';
 import { EyeModule } from './eye/eye.module';
+import { AuthService } from './AuthService';
+import { HttpServiceAuthInterceptor } from './AuthInterceptor';
+import { TokenModule } from './token/token.module';
+import { PipelineModule } from './pipeline/pipeline.module';
 
 @Module({
   imports: [
@@ -22,16 +26,19 @@ import { EyeModule } from './eye/eye.module';
       entities: [__dirname + '/**/*.entity*{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: true,
-        logging: true, // Enable query logging
+      //  logging: true, // Enable query logging
     }),
     
     DigikalaModule,
     //MyCacheModule,
     HamechidunModule,
-    EyeModule   
+    EyeModule,
+    TokenModule,
+    PipelineModule   
   ],
   controllers: [],
   providers: [],
+  exports: [], 
  // controllers: [AppController],
  // providers: [AppService],
 })

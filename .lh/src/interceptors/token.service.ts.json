@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/interceptors/token.service.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1708233570989,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1708233576562,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,6 @@\n+import { Injectable } from \"@nestjs/common\";\r\n+\r\n // token.service.ts\r\n @Injectable()\r\n export class TokenService {\r\n   private token: string;\r\n"
+                }
+            ],
+            "date": 1708233570989,
+            "name": "Commit-0",
+            "content": "// token.service.ts\r\n@Injectable()\r\nexport class TokenService {\r\n  private token: string;\r\n\r\n  setToken(token: string) {\r\n    this.token = token;\r\n  }\r\n\r\n  getToken(): string {\r\n    return this.token;\r\n  }\r\n}"
+        }
+    ]
+}

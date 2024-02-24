@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/BearerToken.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1708232257903,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1708232257903,
+            "name": "Commit-0",
+            "content": "import { createParamDecorator, ExecutionContext } from '@nestjs/common';\r\n\r\nexport const BearerToken = createParamDecorator(\r\n  (data: unknown, ctx: ExecutionContext) => {\r\n    const request = ctx.switchToHttp().getRequest();\r\n    const authorizationHeader = request.headers['authorization'];\r\n    if (authorizationHeader && authorizationHeader.startsWith('Bearer ')) {\r\n      return authorizationHeader.slice(7);\r\n    }\r\n    return null;\r\n  },\r\n);\r\n"
+        }
+    ]
+}

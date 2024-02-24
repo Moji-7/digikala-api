@@ -4,30 +4,51 @@ import {
   Delete,
   Get,
   NotFoundException,
+  Param,
   Post,
   Query,
+  Req,
+  UseInterceptors,
 } from '@nestjs/common';
 import { EyeProduct } from './EyeProduct.entity';
 import { EyeService } from './eye.service';
 import { ApiQuery } from '@nestjs/swagger';
-import { EyeProductParams, EyeProductResponse } from './EyeProduct.dto';
+import {
+  EyeProductDTO,
+  EyeProductParams,
+  EyeProductResponse,
+  mapToEyeProducts,
+  mapToEyeProductsDTO,
+} from './EyeProduct.dto';
+import { TokenService } from 'src/token/token.service';
+
+// import { HttpServiceAuthInterceptor } from 'src/AuthInterceptor';
+// import { AuthService } from 'src/AuthService';
+// import { Request } from 'express';
 
 @Controller('eye')
 export class EyeController {
-  constructor(private readonly eyeService: EyeService) {}
+  constructor(
+    // private authService: AuthService,
+    private readonly tokenService: TokenService,
+    private readonly eyeService: EyeService,
+  ) {}
 
-  //   http://localhost:3222/eye/EyeProduct
-  //   {
-  //     "userId": 1,
-  //     "productId": 123,
-  //     "productTile":"کرم کلینیک",
-  //     "info": "Sample info",
-  //     "pipelinesIds": "1,2,3"
-  //   }
-  @Post('EyeProduct')
-  async create(@Body() eye: EyeProduct): Promise<EyeProduct> {
-    return await this.eyeService.saveEyeProduct(eye);
+  @Post('submitItems')
+  async create(@Body() payloadArray: any): Promise<EyeProductDTO[]> {
+    const token = this.tokenService.getToken(); // Retrieve from service
+    const eyeProducts = mapToEyeProducts(
+      payloadArray,
+      token.userId,
+      token.pipelinesIds,
+    );
+    await this.eyeService.saveEyeProduct(eyeProducts);
+    return mapToEyeProductsDTO(eyeProducts, token.userId, token.pipelinesIds);
   }
+  // saveMultipleItems(@Body() payloadArray: SaveEyeProductDto[]): Observable<EyeProduct[]> {
+  //   const eyeProducts = mapToEyeProducts(payloadArray);
+  //   return new Observable((observer) => observer.next(eyeProducts));
+  // }
 
   //http://localhost:3222/eye/?page=1&length=10&productId=123
   @Get('')
@@ -51,13 +72,12 @@ export class EyeController {
     return { eyeProducts, count };
   }
   //http://localhost:3222/eye/?page=1&length=10&productId=123
-  @Delete('')
+  @Delete('/:productId')
   async delete(
-    @Query() params: EyeProductParams,
+    @Param('productId') productId: number,
   ): Promise<{ success: boolean }> {
-    params.page = 1;
-    params.length = 1;
-    const [eyeProducts, count] = await this.eyeService.getEyeProduct(params);
+    const searchParams = { page: 1, length: 1 } as EyeProductParams;
+    const [eyeProducts, count] = await this.eyeService.getEyeProduct(searchParams);
 
     if (count > 0) {
       const res = await this.eyeService.delete(eyeProducts[0].productId);

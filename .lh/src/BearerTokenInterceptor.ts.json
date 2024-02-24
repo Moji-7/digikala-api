@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/BearerTokenInterceptor.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1708232047490,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1708235857235,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,9 @@\n \r\n   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {\r\n     const ctx = context.switchToHttp();\r\n     const authorizationHeader = ctx.getRequest().headers['authorization'];\r\n+    console.log(authorizationHeader)\r\n \r\n     if (authorizationHeader && authorizationHeader.startsWith('Bearer ')) {\r\n       const token = authorizationHeader.slice(7);\r\n       this.httpService.axiosRef.defaults.headers.common['authorization'] = `Bearer ${token}`;\r\n"
+                },
+                {
+                    "date": 1708235993420,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,21 +0,0 @@\n-import { HttpService } from \"@nestjs/axios\";\r\n-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from \"@nestjs/common\";\r\n-import { Observable } from \"rxjs\";\r\n-\r\n-@Injectable()\r\n-export class BearerTokenInterceptor implements NestInterceptor {\r\n-  constructor(private httpService: HttpService) {}\r\n-\r\n-  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {\r\n-    const ctx = context.switchToHttp();\r\n-    const authorizationHeader = ctx.getRequest().headers['authorization'];\r\n-    console.log(authorizationHeader)\r\n-\r\n-    if (authorizationHeader && authorizationHeader.startsWith('Bearer ')) {\r\n-      const token = authorizationHeader.slice(7);\r\n-      this.httpService.axiosRef.defaults.headers.common['authorization'] = `Bearer ${token}`;\r\n-    }\r\n-\r\n-    return next.handle();\r\n-  }\r\n-}\r\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1708232047490,
+            "name": "Commit-0",
+            "content": "import { HttpService } from \"@nestjs/axios\";\r\nimport { CallHandler, ExecutionContext, Injectable, NestInterceptor } from \"@nestjs/common\";\r\nimport { Observable } from \"rxjs\";\r\n\r\n@Injectable()\r\nexport class BearerTokenInterceptor implements NestInterceptor {\r\n  constructor(private httpService: HttpService) {}\r\n\r\n  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {\r\n    const ctx = context.switchToHttp();\r\n    const authorizationHeader = ctx.getRequest().headers['authorization'];\r\n\r\n    if (authorizationHeader && authorizationHeader.startsWith('Bearer ')) {\r\n      const token = authorizationHeader.slice(7);\r\n      this.httpService.axiosRef.defaults.headers.common['authorization'] = `Bearer ${token}`;\r\n    }\r\n\r\n    return next.handle();\r\n  }\r\n}\r\n"
+        }
+    ]
+}

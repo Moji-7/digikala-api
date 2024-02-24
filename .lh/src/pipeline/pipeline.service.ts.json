@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/pipeline/pipeline.service.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1708353091802,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1708353091802,
+            "name": "Commit-0",
+            "content": "import { Injectable } from '@nestjs/common';\n\n@Injectable()\nexport class PipelineService {\n  async getPipelineById(pipelineID: string) {\n    // Add your logic here to fetch and return the pipeline by ID\n    return `Fetching pipeline with ID ${pipelineID}`;\n  }\n}\n"
+        }
+    ]
+}

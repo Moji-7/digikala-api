@@ -1,3 +1,4 @@
+import { Expose } from "class-transformer";
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
 @Entity("eye_product")
@@ -15,18 +16,20 @@ export class EyeProduct {
     })
     userId: number;
 
+    @Expose({ name: 'id' })
     @Column("int", {
         nullable: false,
         name: "productId"
     })
     productId: number;
 
+    @Expose({ name: 'title_fa' })
     @Column("varchar", {
         nullable: true,
         length: 255,
         name: "productTitle"
     })
-    productTitle: string | null;
+    titleFa: string | null;
 
     @Column("varchar", {
         nullable: true,
@@ -48,4 +51,5 @@ export class EyeProduct {
         name: "created_at"
     })
     created_at: Date | null;
+
 }

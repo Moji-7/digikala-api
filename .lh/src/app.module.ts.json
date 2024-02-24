@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 17,
+            "activePatchIndex": 22,
             "patches": [
                 {
                     "date": 1702543799955,
@@ -76,6 +76,26 @@
                 {
                     "date": 1704953408319,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-        logging: true, // Enable query logging\n+      //  logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                },
+                {
+                    "date": 1708231560671,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,12 @@\n //import { ProxyModule } from './proxy.module';\n import { DigikalaModule } from './digikala/digikala.module';\n  import { MyCacheModule } from './myCache/myCache.module'; \n import { HamechidunModule } from './hamechidun/hamechidun.module';\n+import { EyeModule } from './eye/eye.module';\n+import { AuthService } from './AuthService';\n+import { HttpServiceAuthInterceptor } from './AuthInterceptor';\n+\n @Module({\n   imports: [\n     TypeOrmModule.forRoot({\n       type: 'mysql',\n@@ -24,10 +28,13 @@\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n-    HamechidunModule   \n+    HamechidunModule,\n+    EyeModule   \n   ],\n+  controllers: [],\n+  providers: [],\n  // controllers: [AppController],\n  // providers: [AppService],\n })\n export class AppModule {}\n"
+                },
+                {
+                    "date": 1708233847553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,8 +10,9 @@\n import { HamechidunModule } from './hamechidun/hamechidun.module';\n import { EyeModule } from './eye/eye.module';\n import { AuthService } from './AuthService';\n import { HttpServiceAuthInterceptor } from './AuthInterceptor';\n+import { TokenService } from './interceptors/token.service';\n \n @Module({\n   imports: [\n     TypeOrmModule.forRoot({\n@@ -32,9 +33,9 @@\n     HamechidunModule,\n     EyeModule   \n   ],\n   controllers: [],\n-  providers: [],\n+  providers: [TokenService],\n  // controllers: [AppController],\n  // providers: [AppService],\n })\n export class AppModule {}\n"
+                },
+                {
+                    "date": 1708234045742,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,8 +34,9 @@\n     EyeModule   \n   ],\n   controllers: [],\n   providers: [TokenService],\n+  exports: [TokenService], \n  // controllers: [AppController],\n  // providers: [AppService],\n })\n export class AppModule {}\n"
+                },
+                {
+                    "date": 1708234782961,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n import { EyeModule } from './eye/eye.module';\n import { AuthService } from './AuthService';\n import { HttpServiceAuthInterceptor } from './AuthInterceptor';\n import { TokenService } from './interceptors/token.service';\n+import { TokenModule } from './token/token.module';\n \n @Module({\n   imports: [\n     TypeOrmModule.forRoot({\n@@ -30,13 +31,14 @@\n     \n     DigikalaModule,\n     //MyCacheModule,\n     HamechidunModule,\n-    EyeModule   \n+    EyeModule,\n+    TokenModule   \n   ],\n   controllers: [],\n-  providers: [TokenService],\n-  exports: [TokenService], \n+  providers: [],\n+  exports: [], \n  // controllers: [AppController],\n  // providers: [AppService],\n })\n export class AppModule {}\n"
+                },
+                {
+                    "date": 1708234875634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,8 @@\n import { HamechidunModule } from './hamechidun/hamechidun.module';\n import { EyeModule } from './eye/eye.module';\n import { AuthService } from './AuthService';\n import { HttpServiceAuthInterceptor } from './AuthInterceptor';\n-import { TokenService } from './interceptors/token.service';\n import { TokenModule } from './token/token.module';\n \n @Module({\n   imports: [\n"
                 }
             ],
             "date": 1702543799955,

@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/utility/delay.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1708353370260,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1708353487926,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n \r\n-function delay(seconds: number = 1, resultStatus: boolean = true): Promise<void> {\r\n+export function delay(seconds: number = 1, resultStatus: boolean = true): Promise<void> {\r\n     return new Promise((resolve, reject) => {\r\n       setTimeout(() => {\r\n         if (resultStatus) {\r\n           resolve();\r\n"
+                }
+            ],
+            "date": 1708353370260,
+            "name": "Commit-0",
+            "content": "\r\nfunction delay(seconds: number = 1, resultStatus: boolean = true): Promise<void> {\r\n    return new Promise((resolve, reject) => {\r\n      setTimeout(() => {\r\n        if (resultStatus) {\r\n          resolve();\r\n        } else {\r\n          reject(new Error('Promise rejected'));\r\n        }\r\n      }, seconds * 1000);\r\n    });\r\n  }\r\n  "
+        }
+    ]
+}

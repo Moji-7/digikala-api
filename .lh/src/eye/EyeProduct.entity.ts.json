@@ -1,0 +1,66 @@
+{
+    "sourceFile": "src/eye/EyeProduct.entity.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 12,
+            "patches": [
+                {
+                    "date": 1708236930882,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1708237065669,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+import { Expose } from \"class-transformer\";\r\n import {Entity, PrimaryGeneratedColumn, Column} from \"typeorm\";\r\n \r\n @Entity(\"eye_product\")\r\n export class EyeProduct {\r\n@@ -8,14 +9,15 @@\n         name: \"productId\"\r\n     })\r\n     productId: number;\r\n \r\n+    @Expose({ name: 'title_fa' })\r\n     @Column(\"varchar\", {\r\n         nullable: true,\r\n         length: 255,\r\n         name: \"productTitle\"\r\n     })\r\n-    titleFa: string; // Use the same key as in payloadArray\r\n+    title_fa: string | null;\r\n \r\n     @Column(\"varchar\", {\r\n         nullable: true,\r\n         length: 255,\r\n"
+                },
+                {
+                    "date": 1708237127876,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,22 @@\n \r\n @Entity(\"eye_product\")\r\n export class EyeProduct {\r\n \r\n+    @PrimaryGeneratedColumn({\r\n+        type: \"int\",\r\n+        name: \"id\"\r\n+    })\r\n+    id: number;\r\n+\r\n     @Column(\"int\", {\r\n         nullable: false,\r\n+        name: \"userId\"\r\n+    })\r\n+    userId: number;\r\n+\r\n+    @Column(\"int\", {\r\n+        nullable: false,\r\n         name: \"productId\"\r\n     })\r\n     productId: number;\r\n \r\n"
+                },
+                {
+                    "date": 1708237162630,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n         nullable: true,\r\n         length: 255,\r\n         name: \"productTitle\"\r\n     })\r\n-    title_fa: string | null;\r\n+    titleFa: string | null;\r\n \r\n     @Column(\"varchar\", {\r\n         nullable: true,\r\n         length: 255,\r\n"
+                },
+                {
+                    "date": 1708237212186,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n         name: \"productId\"\r\n     })\r\n     productId: number;\r\n \r\n-    @Expose({ name: 'title_fa' })\r\n+\r\n     @Column(\"varchar\", {\r\n         nullable: true,\r\n         length: 255,\r\n         name: \"productTitle\"\r\n"
+                },
+                {
+                    "date": 1708237227322,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n         name: \"productId\"\r\n     })\r\n     productId: number;\r\n \r\n-\r\n+    @Expose({ name: 'title_fa' })\r\n     @Column(\"varchar\", {\r\n         nullable: true,\r\n         length: 255,\r\n         name: \"productTitle\"\r\n"
+                },
+                {
+                    "date": 1708237253538,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n         nullable: true,\r\n         length: 255,\r\n         name: \"productTitle\"\r\n     })\r\n-    titleFa: string | null;\r\n+    titleFaa: string | null;\r\n \r\n     @Column(\"varchar\", {\r\n         nullable: true,\r\n         length: 255,\r\n"
+                },
+                {
+                    "date": 1708237276147,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n         nullable: true,\r\n         length: 255,\r\n         name: \"productTitle\"\r\n     })\r\n-    titleFaa: string | null;\r\n+    titleFa: string | null;\r\n \r\n     @Column(\"varchar\", {\r\n         nullable: true,\r\n         length: 255,\r\n"
+                },
+                {
+                    "date": 1708237792714,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,26 +3,15 @@\n \r\n @Entity(\"eye_product\")\r\n export class EyeProduct {\r\n \r\n-    @PrimaryGeneratedColumn({\r\n-        type: \"int\",\r\n-        name: \"id\"\r\n-    })\r\n-    id: number;\r\n \r\n     @Column(\"int\", {\r\n         nullable: false,\r\n         name: \"userId\"\r\n     })\r\n     userId: number;\r\n \r\n-    @Column(\"int\", {\r\n-        nullable: false,\r\n-        name: \"productId\"\r\n-    })\r\n-    productId: number;\r\n-\r\n     @Expose({ name: 'title_fa' })\r\n     @Column(\"varchar\", {\r\n         nullable: true,\r\n         length: 255,\r\n"
+                },
+                {
+                    "date": 1708237870441,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,15 +3,26 @@\n \r\n @Entity(\"eye_product\")\r\n export class EyeProduct {\r\n \r\n+    @PrimaryGeneratedColumn({\r\n+        type: \"int\",\r\n+        name: \"id\"\r\n+    })\r\n+    id: number;\r\n \r\n     @Column(\"int\", {\r\n         nullable: false,\r\n         name: \"userId\"\r\n     })\r\n     userId: number;\r\n \r\n+    @Column(\"int\", {\r\n+        nullable: false,\r\n+        name: \"productId\"\r\n+    })\r\n+    productId: number;\r\n+\r\n     @Expose({ name: 'title_fa' })\r\n     @Column(\"varchar\", {\r\n         nullable: true,\r\n         length: 255,\r\n"
+                },
+                {
+                    "date": 1708240506492,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,9 @@\n         name: \"userId\"\r\n     })\r\n     userId: number;\r\n \r\n+    @Expose({ name: 'id' })\r\n     @Column(\"int\", {\r\n         nullable: false,\r\n         name: \"productId\"\r\n     })\r\n"
+                },
+                {
+                    "date": 1708335735483,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,5 +50,8 @@\n         default: () => \"CURRENT_TIMESTAMP\",\r\n         name: \"created_at\"\r\n     })\r\n     created_at: Date | null;\r\n+    \r\n+    @Exclude()\r\n+    [key: string]: any; // This will exclude all other properties\r\n }\r\n"
+                },
+                {
+                    "date": 1708335930781,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,8 +50,6 @@\n         default: () => \"CURRENT_TIMESTAMP\",\r\n         name: \"created_at\"\r\n     })\r\n     created_at: Date | null;\r\n-    \r\n-    @Exclude()\r\n-    [key: string]: any; // This will exclude all other properties\r\n+\r\n }\r\n"
+                }
+            ],
+            "date": 1708236930882,
+            "name": "Commit-0",
+            "content": "import {Entity, PrimaryGeneratedColumn, Column} from \"typeorm\";\r\n\r\n@Entity(\"eye_product\")\r\nexport class EyeProduct {\r\n\r\n    @Column(\"int\", {\r\n        nullable: false,\r\n        name: \"productId\"\r\n    })\r\n    productId: number;\r\n\r\n    @Column(\"varchar\", {\r\n        nullable: true,\r\n        length: 255,\r\n        name: \"productTitle\"\r\n    })\r\n    titleFa: string; // Use the same key as in payloadArray\r\n\r\n    @Column(\"varchar\", {\r\n        nullable: true,\r\n        length: 255,\r\n        name: \"info\"\r\n    })\r\n    info: string | null;\r\n\r\n    @Column(\"varchar\", {\r\n        nullable: false,\r\n        length: 12,\r\n        name: \"pipelinesIds\"\r\n    })\r\n    pipelinesIds: string;\r\n\r\n    @Column(\"timestamp\", {\r\n        nullable: true,\r\n        default: () => \"CURRENT_TIMESTAMP\",\r\n        name: \"created_at\"\r\n    })\r\n    created_at: Date | null;\r\n}\r\n"
+        }
+    ]
+}

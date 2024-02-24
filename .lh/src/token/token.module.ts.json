@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/token/token.module.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1708234684281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1708235940378,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,19 @@\n \n import { Global, Module } from '@nestjs/common';\n import { TokenService } from './token.service';\n+import { APP_INTERCEPTOR } from '@nestjs/core';\n+import { TokenInterceptor } from './token.interceptor';\n \n @Global()\n @Module({\n-  providers: [TokenService],\n+  //providers: [TokenService],\n+  providers: [\n+    {\n+      provide: APP_INTERCEPTOR,\n+      useClass: TokenInterceptor,\n+    },\n+  ],\n   exports: [TokenService],\n })\n export class TokenModule {}\n \n"
+                },
+                {
+                    "date": 1708235956121,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n     {\n       provide: APP_INTERCEPTOR,\n       useClass: TokenInterceptor,\n     },\n+    TokenService\n   ],\n   exports: [TokenService],\n })\n export class TokenModule {}\n"
+                }
+            ],
+            "date": 1708234684281,
+            "name": "Commit-0",
+            "content": "\nimport { Global, Module } from '@nestjs/common';\nimport { TokenService } from './token.service';\n\n@Global()\n@Module({\n  providers: [TokenService],\n  exports: [TokenService],\n})\nexport class TokenModule {}\n\n"
+        }
+    ]
+}
