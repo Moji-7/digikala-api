@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 20,
             "patches": [
                 {
                     "date": 1708353081592,
@@ -36,6 +36,58 @@
                 {
                     "date": 1708353804957,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,11 +14,11 @@\n   async getPipelineById(@Param('pipelineID') pipelineID: string) {\n     const token = this.tokenService.getToken();\n     console.log(token.userId)\n     try {\n-      await delay(1, true); // Wait for 3 seconds with resultStatus as true\n+      await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n       return this.pipelineService.getPipelineById(pipelineID);\n     } catch (error) {\n       return error.message;\n     }\n   }\n\\ No newline at end of file\n-}\n+}\n"
+                },
+                {
+                    "date": 1709105292346,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,5 +20,17 @@\n     } catch (error) {\n       return error.message;\n     }\n   }\n-}\n\\ No newline at end of file\n+\n+  @Post('submit')\n+  async create(@Body() payloadArray: any): Promise<EyeProductDTO[]> {\n+    const token = this.tokenService.getToken(); // Retrieve from service\n+    const eyeProducts = mapToEyeProducts(\n+      payloadArray,\n+      token.userId,\n+      token.pipelinesIds,\n+    );\n+    await this.eyeService.saveEyeProduct(eyeProducts);\n+    return mapToEyeProductsDTO(eyeProducts, token.userId, token.pipelinesIds);\n+  }\n+}\n"
+                },
+                {
+                    "date": 1709105353051,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import { Controller, Get, Param } from '@nestjs/common';\n+import { Body, Controller, Get, Param } from '@nestjs/common';\n import { PipelineService } from './pipeline.service';\n import { delay } from 'src/utility/delay';\n import { TokenService } from 'src/token/token.service';\n \n@@ -22,15 +22,10 @@\n     }\n   }\n \n   @Post('submit')\n-  async create(@Body() payloadArray: any): Promise<EyeProductDTO[]> {\n+  async create(@Body() payload: any): Promise<string> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n-    const eyeProducts = mapToEyeProducts(\n-      payloadArray,\n-      token.userId,\n-      token.pipelinesIds,\n-    );\n-    await this.eyeService.saveEyeProduct(eyeProducts);\n-    return mapToEyeProductsDTO(eyeProducts, token.userId, token.pipelinesIds);\n+    await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n+    return this.pipelineService.getPipelineById(payload);\n   }\n }\n"
+                },
+                {
+                    "date": 1709105362570,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import { Body, Controller, Get, Param } from '@nestjs/common';\n+import { Body, Controller, Get, Param, Post } from '@nestjs/common';\n import { PipelineService } from './pipeline.service';\n import { delay } from 'src/utility/delay';\n import { TokenService } from 'src/token/token.service';\n \n"
+                },
+                {
+                    "date": 1709105454723,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   @Post('submit')\n   async create(@Body() payload: any): Promise<string> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n-    return this.pipelineService.getPipelineById(payload);\n+    return this.pipelineService.getPipelineById(payload.id);\n   }\n }\n"
+                },
+                {
+                    "date": 1709105528665,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   @Post('submit')\n   async create(@Body() payload: any): Promise<string> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n-    return this.pipelineService.getPipelineById(payload.id);\n+    return token;\n   }\n }\n"
+                },
+                {
+                    "date": 1709105552929,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   @Post('submit')\n   async create(@Body() payload: any): Promise<string> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n-    return token;\n+    return token.toString();\n   }\n }\n"
+                },
+                {
+                    "date": 1709105584227,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   @Post('submit')\n   async create(@Body() payload: any): Promise<string> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n-    return token.toString();\n+    return token.userId.toString();\n   }\n }\n"
+                },
+                {
+                    "date": 1709105674723,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   @Post('submit')\n   async create(@Body() payload: any): Promise<string> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n-    return token.userId.toString();\n+    return token.berearValue.toString();\n   }\n }\n"
+                },
+                {
+                    "date": 1709105791276,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   @Post('submit')\n   async create(@Body() payload: any): Promise<string> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n-    return token.berearValue.toString();\n+    return token.berearValue;\n   }\n }\n"
+                },
+                {
+                    "date": 1709111370641,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   @Post('submit')\n   async create(@Body() payload: any): Promise<string> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n-    return token.berearValue;\n+    return { token: token.berearValue };\n   }\n }\n"
+                },
+                {
+                    "date": 1709111382907,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     }\n   }\n \n   @Post('submit')\n-  async create(@Body() payload: any): Promise<string> {\n+  async create(@Body() payload: any): Promise<any> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n     return { token: token.berearValue };\n   }\n"
+                },
+                {
+                    "date": 1709114363896,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   @Post('submit')\n   async create(@Body() payload: any): Promise<any> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n-    return { token: token.berearValue };\n+    return { token: token.berearValue,id:payload.id };\n   }\n }\n"
+                },
+                {
+                    "date": 1709117113518,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n import { Body, Controller, Get, Param, Post } from '@nestjs/common';\n import { PipelineService } from './pipeline.service';\n-import { delay } from 'src/utility/delay';\n+import { delay, pipelines } from 'src/utility/delay';\n import { TokenService } from 'src/token/token.service';\n \n @Controller('pipeline')\n export class PipelineController {\n@@ -25,7 +25,8 @@\n   @Post('submit')\n   async create(@Body() payload: any): Promise<any> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     await delay(Math.floor(Math.random() * 3) + 1, true); // Wait for 3 seconds with resultStatus as true\n-    return { token: token.berearValue,id:payload.id };\n+    pipelines();\n+    return  pipelines();\n   }\n }\n"
                 }
             ],
             "date": 1708353081591,

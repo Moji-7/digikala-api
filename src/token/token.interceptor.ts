@@ -9,7 +9,9 @@ export class TokenInterceptor implements NestInterceptor {
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest(); // Get the request object
+    const headerToken=request.headers['authorization']
     const token={
+      berearValue:headerToken,
       userId:11015166,//request.headers['authorization'],
       pipelinesIds:"1,2,3"
       } as Token
