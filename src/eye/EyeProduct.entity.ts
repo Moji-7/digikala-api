@@ -1,5 +1,7 @@
 import { Expose } from "class-transformer";
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { Pipelines } from "src/pipeline/Pipelines.Entity";
+import { PipelineStatus } from "src/pipeline/PipelineStatus.Entity";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
 
 @Entity("eye_product")
 export class EyeProduct {
@@ -38,12 +40,11 @@ export class EyeProduct {
     })
     info: string | null;
 
-    @Column("varchar", {
-        nullable: false,
-        length: 12,
-        name: "pipelinesIds"
-    })
-    pipelinesIds: string;
+    // @Column("int", {
+    //     nullable: false,
+    //     name: "pipelinesId"
+    // })
+    // pipelinesId: number;
 
     @Column("timestamp", {
         nullable: true,
@@ -52,4 +53,11 @@ export class EyeProduct {
     })
     created_at: Date | null;
 
-}
+    @OneToMany(() => PipelineStatus, pipelineStatus => pipelineStatus.eyeProduct)
+    pipelineStatuses: Promise<PipelineStatus[]>;
+  
+
+    
+    // @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)
+    // pipelineStatuses: PipelineStatus[];
+  }

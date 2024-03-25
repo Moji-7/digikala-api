@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/hamechidun/DTO/Pipelines.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1709555671106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1709713697033,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n export interface PipelineDetail {\r\n-    id: string;\r\n-    eyeProduct: string;\r\n-    lastStatus: string;\r\n-    runnedDate: string;\r\n+    id: number;\r\n+    eyeProductId: number;\r\n+    pipelineId:number;\r\n+    lastRunnedStatus: string;\r\n+    lastRunnedDate: string;\r\n   }\r\n   \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1709713911609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n-export interface PipelineDetail {\r\n+export interface PipelineStatus {\r\n     id: number;\r\n     eyeProductId: number;\r\n     pipelineId:number;\r\n     lastRunnedStatus: string;\r\n     lastRunnedDate: string;\r\n   }\r\n\\ No newline at end of file\n-  \n+  \r\n+\r\n"
+                }
+            ],
+            "date": 1709555671106,
+            "name": "Commit-0",
+            "content": "export interface PipelineDetail {\r\n    id: string;\r\n    eyeProduct: string;\r\n    lastStatus: string;\r\n    runnedDate: string;\r\n  }\r\n  "
+        }
+    ]
+}

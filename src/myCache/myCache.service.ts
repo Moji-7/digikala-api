@@ -1,6 +1,8 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, Injectable, Logger } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Cache } from 'cache-manager';
+
 @Injectable()
 export class MyCacheService {
   // Declare a class property for the redis client
@@ -33,8 +35,8 @@ export class MyCacheService {
     return new Promise((resolve, reject) => {
       // Use the internal_send_command method of the redis client
       this.client.internal_send_command({
-        command, // The command name
-        args, // The command arguments
+        command, 
+        args, 
         // The callback function that receives the error and the result
         callback: (err, res) => {
           if (err) {
@@ -49,4 +51,8 @@ export class MyCacheService {
       });
     });
   }
+  // async publishMessage(channel: string, message: string) {
+  //   // Emitting an event instead of publishing directly to Redis
+  //   this.eventEmitter.emit('message.published', { channel, message });
+  // }
 }

@@ -34,7 +34,7 @@ export class EyeController {
     private readonly eyeService: EyeService,
   ) {}
 
-  @Post('submitItems')
+  @Post('submitProducts')
   async create(@Body() payloadArray: any): Promise<EyeProductDTO[]> {
     const token = this.tokenService.getToken(); // Retrieve from service
     const eyeProducts = mapToEyeProducts(
@@ -67,8 +67,8 @@ export class EyeController {
       page: eye.page,
       length: eye.length,
     };
-    console.log(params + 'ali');
-    const [eyeProducts, count] = await this.eyeService.getEyeProduct(params);
+    //console.log(params + 'ali');
+    const [eyeProducts, count] = await this.eyeService.getEyeProduct(params,11015166);
     return { eyeProducts, count };
   }
   //http://localhost:3222/eye/?page=1&length=10&productId=123
@@ -77,7 +77,7 @@ export class EyeController {
     @Param('productId') productId: number,
   ): Promise<{ success: boolean }> {
     const searchParams = { page: 1, length: 1 } as EyeProductParams;
-    const [eyeProducts, count] = await this.eyeService.getEyeProduct(searchParams);
+    const [eyeProducts, count] = await this.eyeService.getEyeProduct(searchParams,11015166);
 
     if (count > 0) {
       const res = await this.eyeService.delete(eyeProducts[0].productId);

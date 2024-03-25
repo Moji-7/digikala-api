@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 12,
+            "activePatchIndex": 24,
             "patches": [
                 {
                     "date": 1708236930882,
@@ -56,6 +56,54 @@
                 {
                     "date": 1708335930781,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,8 +50,6 @@\n         default: () => \"CURRENT_TIMESTAMP\",\r\n         name: \"created_at\"\r\n     })\r\n     created_at: Date | null;\r\n-    \r\n-    @Exclude()\r\n-    [key: string]: any; // This will exclude all other properties\r\n+\r\n }\r\n"
+                },
+                {
+                    "date": 1709557769285,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n import { Expose } from \"class-transformer\";\r\n-import {Entity, PrimaryGeneratedColumn, Column} from \"typeorm\";\r\n+import { Pipeline } from \"src/pipeline/Pipeline.Entity\";\r\n+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from \"typeorm\";\r\n \r\n @Entity(\"eye_product\")\r\n export class EyeProduct {\r\n \r\n@@ -37,19 +38,22 @@\n         name: \"info\"\r\n     })\r\n     info: string | null;\r\n \r\n-    @Column(\"varchar\", {\r\n+    @Column(\"int\", {\r\n         nullable: false,\r\n-        length: 12,\r\n-        name: \"pipelinesIds\"\r\n+        name: \"pipelinesId\"\r\n     })\r\n-    pipelinesIds: string;\r\n+    pipelinesId: number;\r\n \r\n     @Column(\"timestamp\", {\r\n         nullable: true,\r\n         default: () => \"CURRENT_TIMESTAMP\",\r\n         name: \"created_at\"\r\n     })\r\n     created_at: Date | null;\r\n \r\n+    @OneToMany(() => Pipeline, (pipeline) => pipeline.eyeProduct)\r\n+    pipelines: Pipeline[]; // One-to-Many relationship with Pipeline entity\r\n+  }\r\n+\r\n }\r\n"
+                },
+                {
+                    "date": 1709557786191,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,6 +54,4 @@\n \r\n     @OneToMany(() => Pipeline, (pipeline) => pipeline.eyeProduct)\r\n     pipelines: Pipeline[]; // One-to-Many relationship with Pipeline entity\r\n   }\r\n-\r\n-}\r\n"
+                },
+                {
+                    "date": 1709567410381,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,7 +51,7 @@\n         name: \"created_at\"\r\n     })\r\n     created_at: Date | null;\r\n \r\n-    @OneToMany(() => Pipeline, (pipeline) => pipeline.eyeProduct)\r\n+    @OneToMany(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n     pipelines: Pipeline[]; // One-to-Many relationship with Pipeline entity\r\n   }\r\n"
+                },
+                {
+                    "date": 1709567689688,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,7 +51,9 @@\n         name: \"created_at\"\r\n     })\r\n     created_at: Date | null;\r\n \r\n+    \r\n+\r\n     @OneToMany(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n     pipelines: Pipeline[]; // One-to-Many relationship with Pipeline entity\r\n   }\r\n"
+                },
+                {
+                    "date": 1709703932392,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n import { Expose } from \"class-transformer\";\r\n import { Pipeline } from \"src/pipeline/Pipeline.Entity\";\r\n+import { PipelineStatus } from \"src/pipeline/PipelineStatus.Entity\";\r\n import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from \"typeorm\";\r\n \r\n @Entity(\"eye_product\")\r\n export class EyeProduct {\r\n@@ -52,8 +53,7 @@\n     })\r\n     created_at: Date | null;\r\n \r\n     \r\n-\r\n-    @OneToMany(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n-    pipelines: Pipeline[]; // One-to-Many relationship with Pipeline entity\r\n+    @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n+    pipelineStatuses: PipelineStatus[];\r\n   }\r\n"
+                },
+                {
+                    "date": 1709710233739,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,7 +53,7 @@\n     })\r\n     created_at: Date | null;\r\n \r\n     \r\n-    @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n-    pipelineStatuses: PipelineStatus[];\r\n+    // @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n+    // pipelineStatuses: PipelineStatus[];\r\n   }\r\n"
+                },
+                {
+                    "date": 1709710629666,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,13 +39,13 @@\n         name: \"info\"\r\n     })\r\n     info: string | null;\r\n \r\n-    @Column(\"int\", {\r\n-        nullable: false,\r\n-        name: \"pipelinesId\"\r\n-    })\r\n-    pipelinesId: number;\r\n+    // @Column(\"int\", {\r\n+    //     nullable: false,\r\n+    //     name: \"pipelinesId\"\r\n+    // })\r\n+    // pipelinesId: number;\r\n \r\n     @Column(\"timestamp\", {\r\n         nullable: true,\r\n         default: () => \"CURRENT_TIMESTAMP\",\r\n"
+                },
+                {
+                    "date": 1709712593835,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,7 +53,7 @@\n     })\r\n     created_at: Date | null;\r\n \r\n     \r\n-    // @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n-    // pipelineStatuses: PipelineStatus[];\r\n+    @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n+    pipelineStatuses: PipelineStatus[];\r\n   }\r\n"
+                },
+                {
+                    "date": 1709713360561,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,7 +53,7 @@\n     })\r\n     created_at: Date | null;\r\n \r\n     \r\n-    @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n-    pipelineStatuses: PipelineStatus[];\r\n+    // @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n+    // pipelineStatuses: PipelineStatus[];\r\n   }\r\n"
+                },
+                {
+                    "date": 1709719307351,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import { Expose } from \"class-transformer\";\r\n-import { Pipeline } from \"src/pipeline/Pipeline.Entity\";\r\n+import { Pipelines } from \"src/pipeline/Pipeline.Entity\";\r\n import { PipelineStatus } from \"src/pipeline/PipelineStatus.Entity\";\r\n import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from \"typeorm\";\r\n \r\n @Entity(\"eye_product\")\r\n"
+                },
+                {
+                    "date": 1709782158836,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import { Expose } from \"class-transformer\";\r\n-import { Pipelines } from \"src/pipeline/Pipeline.Entity\";\r\n+import { Pipelines } from \"src/pipeline/Pipelines.Entity\";\r\n import { PipelineStatus } from \"src/pipeline/PipelineStatus.Entity\";\r\n import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from \"typeorm\";\r\n \r\n @Entity(\"eye_product\")\r\n"
+                },
+                {
+                    "date": 1711356885337,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,8 +52,12 @@\n         name: \"created_at\"\r\n     })\r\n     created_at: Date | null;\r\n \r\n+    @OneToMany(() => PipelineStatus, pipelineStatus => pipelineStatus.eyeProduct)\r\n+    pipelineStatuses: Promise<PipelineStatus[]>;\r\n+  \r\n+\r\n     \r\n     // @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n     // pipelineStatuses: PipelineStatus[];\r\n   }\r\n"
                 }
             ],
             "date": 1708236930882,

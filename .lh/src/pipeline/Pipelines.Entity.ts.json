@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/pipeline/Pipelines.Entity.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1709782163187,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1709782574483,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,4 +12,5 @@\n   name: string;\r\n \r\n   @Column({ nullable: false, length: 255 })\r\n   info: string;\r\n+}\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1709782163187,
+            "name": "Commit-0",
+            "content": "\r\nimport { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';\r\nimport { PipelineStatus } from './PipelineStatus.Entity';\r\n\r\n\r\n@Entity(\"pipelines\")\r\nexport class Pipelines {\r\n  @PrimaryGeneratedColumn()\r\n  id: number;\r\n\r\n  @Column({ nullable: false, length: 50 })\r\n  name: string;\r\n\r\n  @Column({ nullable: false, length: 255 })\r\n  info: string;\r\n"
+        }
+    ]
+}

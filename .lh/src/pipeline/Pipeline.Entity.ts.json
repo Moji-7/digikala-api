@@ -1,0 +1,70 @@
+{
+    "sourceFile": "src/pipeline/Pipeline.Entity.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 13,
+            "patches": [
+                {
+                    "date": 1709557769258,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1709567264086,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,21 +1,17 @@\n import { EyeProduct } from '../eye/EyeProduct.entity';\r\n-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';\r\n+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';\r\n \r\n-\r\n @Entity()\r\n export class Pipeline {\r\n   @PrimaryGeneratedColumn()\r\n   id: number;\r\n \r\n-  @Column({ nullable: false })\r\n-  userId: string;\r\n+  @Column({ nullable: false, length: 50 })\r\n+  name: string;\r\n \r\n-  @Column({ nullable: false })\r\n-  lastStatus: string;\r\n+  @Column({ nullable: false, length: 255 })\r\n+  info: string;\r\n \r\n-  @Column({ type: 'datetime', nullable: false })\r\n-  runnedDate: Date;\r\n-\r\n-  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelines)\r\n-  eyeProduct: EyeProduct;\r\n-}\r\n+  @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.pipeline)\r\n+  pipelineStatuses: PipelineStatus[];\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1709567275359,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n import { EyeProduct } from '../eye/EyeProduct.entity';\r\n import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';\r\n+import { PipelineStatus } from './PipelineStatus.Entity';\r\n \r\n @Entity()\r\n export class Pipeline {\r\n   @PrimaryGeneratedColumn()\r\n"
+                },
+                {
+                    "date": 1709703571329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,7 +12,8 @@\n \r\n   @Column({ nullable: false, length: 255 })\r\n   info: string;\r\n \r\n-  @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.pipeline)\r\n+\r\n+  @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n   pipelineStatuses: PipelineStatus[];\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1709710349510,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,7 +13,7 @@\n   @Column({ nullable: false, length: 255 })\r\n   info: string;\r\n \r\n \r\n-  @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n-  pipelineStatuses: PipelineStatus[];\r\n+  // @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n+  // pipelineStatuses: PipelineStatus[];\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1709712622442,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,7 +13,7 @@\n   @Column({ nullable: false, length: 255 })\r\n   info: string;\r\n \r\n \r\n-  // @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n-  // pipelineStatuses: PipelineStatus[];\r\n+  @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n+  pipelineStatuses: PipelineStatus[];\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1709712635397,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,12 @@\n import { EyeProduct } from '../eye/EyeProduct.entity';\r\n-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';\r\n+import {\r\n+  Entity,\r\n+  PrimaryGeneratedColumn,\r\n+  Column,\r\n+  ManyToOne,\r\n+  OneToMany,\r\n+} from 'typeorm';\r\n import { PipelineStatus } from './PipelineStatus.Entity';\r\n \r\n @Entity()\r\n export class Pipeline {\r\n@@ -12,8 +18,10 @@\n \r\n   @Column({ nullable: false, length: 255 })\r\n   info: string;\r\n \r\n-\r\n-  @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n+  @OneToMany(\r\n+    () => PipelineStatus,\r\n\\ No newline at end of file\n+    (pipelineStatus) => pipelineStatus.eyeProduct,\r\n+  )\r\n   pipelineStatuses: PipelineStatus[];\r\n-}\n+}\r\n"
+                },
+                {
+                    "date": 1709713376243,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,6 @@\n import { EyeProduct } from '../eye/EyeProduct.entity';\r\n-import {\r\n-  Entity,\r\n-  PrimaryGeneratedColumn,\r\n-  Column,\r\n-  ManyToOne,\r\n-  OneToMany,\r\n-} from 'typeorm';\r\n+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';\r\n import { PipelineStatus } from './PipelineStatus.Entity';\r\n \r\n @Entity()\r\n export class Pipeline {\r\n@@ -18,10 +12,8 @@\n \r\n   @Column({ nullable: false, length: 255 })\r\n   info: string;\r\n \r\n-  @OneToMany(\r\n-    () => PipelineStatus,\r\n-    (pipelineStatus) => pipelineStatus.eyeProduct,\r\n-  )\r\n-  pipelineStatuses: PipelineStatus[];\r\n+\r\n+  // @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n+  // pipelineStatuses: PipelineStatus[];\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1709715314687,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,11 @@\n+\r\n+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';\r\n+\r\n import { EyeProduct } from '../eye/EyeProduct.entity';\r\n-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';\r\n import { PipelineStatus } from './PipelineStatus.Entity';\r\n \r\n-@Entity()\r\n+@Entity(\"pipelines\")\r\n export class Pipeline {\r\n   @PrimaryGeneratedColumn()\r\n   id: number;\r\n \r\n"
+                },
+                {
+                    "date": 1709716665956,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,7 @@\n \r\n import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';\r\n \r\n-import { EyeProduct } from '../eye/EyeProduct.entity';\r\n-import { PipelineStatus } from './PipelineStatus.Entity';\r\n \r\n @Entity(\"pipelines\")\r\n export class Pipeline {\r\n   @PrimaryGeneratedColumn()\r\n@@ -14,8 +12,5 @@\n \r\n   @Column({ nullable: false, length: 255 })\r\n   info: string;\r\n \r\n-\r\n-  // @OneToMany(() => PipelineStatus, (pipelineStatus) => pipelineStatus.eyeProduct)\r\n-  // pipelineStatuses: PipelineStatus[];\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1709717871174,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,5 +12,7 @@\n \r\n   @Column({ nullable: false, length: 255 })\r\n   info: string;\r\n \r\n+  @OneToMany(() => PipelineStatus, status => status.pipeline)\r\n+  statuses: PipelineStatus[]; // Make sure this property name matches the inverse side\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1709717890665,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n \r\n import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';\r\n+import { PipelineStatus } from './PipelineStatus.Entity';\r\n \r\n \r\n @Entity(\"pipelines\")\r\n export class Pipeline {\r\n"
+                },
+                {
+                    "date": 1709719227487,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n import { PipelineStatus } from './PipelineStatus.Entity';\r\n \r\n \r\n @Entity(\"pipelines\")\r\n-export class Pipeline {\r\n+export class Pipelines {\r\n   @PrimaryGeneratedColumn()\r\n   id: number;\r\n \r\n   @Column({ nullable: false, length: 50 })\r\n"
+                },
+                {
+                    "date": 1709719258578,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,7 +13,7 @@\n \r\n   @Column({ nullable: false, length: 255 })\r\n   info: string;\r\n \r\n-  @OneToMany(() => PipelineStatus, status => status.pipeline)\r\n-  statuses: PipelineStatus[]; // Make sure this property name matches the inverse side\r\n+ // @OneToMany(() => PipelineStatus, status => status.pipeline)\r\n+ // statuses: PipelineStatus[]; // Make sure this property name matches the inverse side\r\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1709557769258,
+            "name": "Commit-0",
+            "content": "import { EyeProduct } from '../eye/EyeProduct.entity';\r\nimport { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';\r\n\r\n\r\n@Entity()\r\nexport class Pipeline {\r\n  @PrimaryGeneratedColumn()\r\n  id: number;\r\n\r\n  @Column({ nullable: false })\r\n  userId: string;\r\n\r\n  @Column({ nullable: false })\r\n  lastStatus: string;\r\n\r\n  @Column({ type: 'datetime', nullable: false })\r\n  runnedDate: Date;\r\n\r\n  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelines)\r\n  eyeProduct: EyeProduct;\r\n}\r\n"
+        }
+    ]
+}

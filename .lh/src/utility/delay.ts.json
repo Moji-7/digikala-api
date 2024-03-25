@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1708353370260,
@@ -32,6 +32,10 @@
                 {
                     "date": 1709117382218,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,30 +10,29 @@\n         reject(new Error('Promise rejected'));\r\n       }\r\n     }, seconds * 1000);\r\n   });\r\n-\r\n-  export function pipelines() {\r\n-    return [\r\n-      {\r\n-        eyeProduct: '123',\r\n-        pipelines: [\r\n-          {\r\n-            id: '1',\r\n-            lastStatus: 'Active',\r\n-            runnedDate: '2023-08-01',\r\n-          },\r\n-          {\r\n-            id: '2',\r\n-            lastStatus: 'Pending',\r\n-            runnedDate: '2023-08-02',\r\n-          },\r\n-          {\r\n-            id: '3',\r\n-            lastStatus: 'Completed',\r\n-            runnedDate: '2023-08-03',\r\n-          }\r\n-        ]\r\n-      }\r\n-    ];\r\n-  }\r\n-}\n\\ No newline at end of file\n+}\r\n+export function pipelines() {\r\n+  return [\r\n+    {\r\n+      eyeProduct: '123',\r\n+      pipelines: [\r\n+        {\r\n+          id: '1',\r\n+          lastStatus: 'Active',\r\n+          runnedDate: '2023-08-01',\r\n+        },\r\n+        {\r\n+          id: '2',\r\n+          lastStatus: 'Pending',\r\n+          runnedDate: '2023-08-02',\r\n+        },\r\n+        {\r\n+          id: '3',\r\n+          lastStatus: 'Completed',\r\n+          runnedDate: '2023-08-03',\r\n+        },\r\n+      ],\r\n+    },\r\n+  ];\r\n+}\r\n"
+                },
+                {
+                    "date": 1709538957380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,27 +12,28 @@\n     }, seconds * 1000);\r\n   });\r\n }\r\n export function pipelines() {\r\n-  return [\r\n-    {\r\n-      eyeProduct: '123',\r\n-      pipelines: [\r\n-        {\r\n-          id: '1',\r\n-          lastStatus: 'Active',\r\n-          runnedDate: '2023-08-01',\r\n-        },\r\n-        {\r\n-          id: '2',\r\n-          lastStatus: 'Pending',\r\n-          runnedDate: '2023-08-02',\r\n-        },\r\n-        {\r\n-          id: '3',\r\n-          lastStatus: 'Completed',\r\n-          runnedDate: '2023-08-03',\r\n-        },\r\n-      ],\r\n-    },\r\n-  ];\r\n+  return {\r\n+    pipelines: [\r\n+      {\r\n+        id: '1',\r\n+        eyeProduct: '123',\r\n+        lastStatus: 'Active',\r\n+        runnedDate: '2023-08-01',\r\n+      },\r\n+      {\r\n+        id: '2',\r\n+        eyeProduct: '123',\r\n+        lastStatus: 'Pending',\r\n+        runnedDate: '2023-08-02',\r\n+      },\r\n+      {\r\n+        id: '3',\r\n+        eyeProduct: '123',\r\n+        lastStatus: 'Completed',\r\n+        runnedDate: '2023-08-03',\r\n+      },\r\n+    ]\r\n+  };\r\n }\r\n+\r\n"
                 }
             ],
             "date": 1708353370260,

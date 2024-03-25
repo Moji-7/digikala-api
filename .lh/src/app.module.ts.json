@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 22,
+            "activePatchIndex": 29,
             "patches": [
                 {
                     "date": 1702543799955,
@@ -96,6 +96,34 @@
                 {
                     "date": 1708234875634,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,8 @@\n import { HamechidunModule } from './hamechidun/hamechidun.module';\n import { EyeModule } from './eye/eye.module';\n import { AuthService } from './AuthService';\n import { HttpServiceAuthInterceptor } from './AuthInterceptor';\n-import { TokenService } from './interceptors/token.service';\n import { TokenModule } from './token/token.module';\n \n @Module({\n   imports: [\n"
+                },
+                {
+                    "date": 1709710050975,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n import { EyeModule } from './eye/eye.module';\n import { AuthService } from './AuthService';\n import { HttpServiceAuthInterceptor } from './AuthInterceptor';\n import { TokenModule } from './token/token.module';\n+import { PipelineModule } from './pipeline/pipeline.module';\n \n @Module({\n   imports: [\n     TypeOrmModule.forRoot({\n@@ -24,16 +25,17 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-      //  logging: true, // Enable query logging\n+      logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n     HamechidunModule,\n     EyeModule,\n-    TokenModule   \n+    TokenModule,\n+    PipelineModule   \n   ],\n   controllers: [],\n   providers: [],\n   exports: [], \n"
+                },
+                {
+                    "date": 1709710147863,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n     //MyCacheModule,\n     HamechidunModule,\n     EyeModule,\n     TokenModule,\n-    PipelineModule   \n+    //PipelineModule   \n   ],\n   controllers: [],\n   providers: [],\n   exports: [], \n"
+                },
+                {
+                    "date": 1709712472217,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n     //MyCacheModule,\n     HamechidunModule,\n     EyeModule,\n     TokenModule,\n-    //PipelineModule   \n+    PipelineModule   \n   ],\n   controllers: [],\n   providers: [],\n   exports: [], \n"
+                },
+                {
+                    "date": 1709715626117,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n       synchronize: true,\n-      logging: true, // Enable query logging\n+      //  logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n     //MyCacheModule,\n"
+                },
+                {
+                    "date": 1709719418522,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n       password: 'root',\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n-      synchronize: true,\n+     // synchronize: true,\n       //  logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n"
+                },
+                {
+                    "date": 1709780812988,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n       password: 'root',\n       database: 'digikala',\n       entities: [__dirname + '/**/*.entity*{.ts,.js}'],\n       autoLoadEntities: true,\n-     // synchronize: true,\n+     synchronize: true,\n       //  logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n"
+                },
+                {
+                    "date": 1709784499853,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n       //  logging: true, // Enable query logging\n     }),\n     \n     DigikalaModule,\n-    //MyCacheModule,\n+    MyCacheModule,\n     HamechidunModule,\n     EyeModule,\n     TokenModule,\n     PipelineModule   \n"
                 }
             ],
             "date": 1702543799955,

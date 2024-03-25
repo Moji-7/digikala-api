@@ -35,7 +35,8 @@ import { CommentsDataset, CommentsEntity } from './entity/comments.entity';
       OrderItem,
       IncrediblesEntity,
       ProductEntity,
-      CommentsEntity,CommentsDataset
+      CommentsEntity,
+      CommentsDataset
     ]), // Register the entity with TypeORM
   ],
   controllers: [HamechidunController,IncrediblesController,ProductController],

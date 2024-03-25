@@ -13,26 +13,27 @@ export function delay(
   });
 }
 export function pipelines() {
-  return [
-    {
-      eyeProduct: '123',
-      pipelines: [
-        {
-          id: '1',
-          lastStatus: 'Active',
-          runnedDate: '2023-08-01',
-        },
-        {
-          id: '2',
-          lastStatus: 'Pending',
-          runnedDate: '2023-08-02',
-        },
-        {
-          id: '3',
-          lastStatus: 'Completed',
-          runnedDate: '2023-08-03',
-        },
-      ],
-    },
-  ];
+  return {
+    pipelines: [
+      {
+        id: '1',
+        eyeProduct: '123',
+        lastStatus: 'Active',
+        runnedDate: '2023-08-01',
+      },
+      {
+        id: '2',
+        eyeProduct: '123',
+        lastStatus: 'Pending',
+        runnedDate: '2023-08-02',
+      },
+      {
+        id: '3',
+        eyeProduct: '123',
+        lastStatus: 'Completed',
+        runnedDate: '2023-08-03',
+      },
+    ]
+  };
 }
+

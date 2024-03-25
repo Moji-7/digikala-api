@@ -7,6 +7,7 @@ import { EyeService } from './eye.service';
 @Module({
   imports: [TypeOrmModule.forFeature([EyeProduct])],
   controllers: [EyeController],
-  providers: [EyeService],
+  providers: [EyeService]
 })
 export class EyeModule {}
+

@@ -2,10 +2,16 @@
 import { CacheModule, CacheModuleOptions } from '@nestjs/cache-manager';
 import { Module, Global } from '@nestjs/common';
 
+import { MyCacheService } from './myCache.service';
+
 import type { RedisClientOptions } from 'redis';
 import * as redisStore from 'cache-manager-redis-store';
-import { MyCacheService } from './myCache.service';
 import { RedisClientService } from './redisClient.service';
+import { RedisSubscriberService } from './RedisSubscriberService';
+import { MessageSenderService } from './messageHandlers/sender.service';
+import { MessageReciverService } from './messageHandlers/reciever.service';
+import { HttpModule } from '@nestjs/axios';
+
 @Global()
 @Module({
   imports: [
@@ -17,8 +23,15 @@ import { RedisClientService } from './redisClient.service';
         port: 6379,
       }),
     }),
+    HttpModule.registerAsync({
+      useFactory: () => ({
+        timeout: 5000,
+        maxRedirects: 5,
+        // ... other Axios options
+      })
+     })
   ],
-  providers: [MyCacheService,RedisClientService],
-  exports: [MyCacheService,RedisClientService],
+  providers: [MyCacheService,RedisClientService,RedisSubscriberService,MessageSenderService,MessageReciverService],
+  exports: [MyCacheService,RedisClientService,RedisSubscriberService,MessageSenderService,MessageReciverService],
 })
 export class MyCacheModule {}

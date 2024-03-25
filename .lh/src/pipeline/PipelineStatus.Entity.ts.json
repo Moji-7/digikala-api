@@ -1,0 +1,130 @@
+{
+    "sourceFile": "src/pipeline/PipelineStatus.Entity.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 28,
+            "patches": [
+                {
+                    "date": 1709567264065,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1709567271670,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n \r\n import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';\r\n-import { EyeProduct } from './eye-product.entity';\r\n import { Pipeline } from './pipeline.entity';\r\n+import { EyeProduct } from 'outputY/entities/EyeProduct';\r\n \r\n @Entity()\r\n export class PipelineStatus {\r\n   @PrimaryGeneratedColumn()\r\n"
+                },
+                {
+                    "date": 1709567689681,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n \r\n import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';\r\n import { Pipeline } from './pipeline.entity';\r\n-import { EyeProduct } from 'outputY/entities/EyeProduct';\r\n+import { EyeProduct } from 'src/eye/EyeProduct.entity';\r\n \r\n @Entity()\r\n export class PipelineStatus {\r\n   @PrimaryGeneratedColumn()\r\n@@ -19,9 +19,9 @@\n \r\n   @Column({ type: 'datetime', nullable: false })\r\n   runnedDate: Date;\r\n \r\n-  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n+  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.id)\r\n   eyeProduct: EyeProduct;\r\n \r\n   @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n   pipeline: Pipeline;\r\n"
+                },
+                {
+                    "date": 1709703571326,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,5 +24,13 @@\n   eyeProduct: EyeProduct;\r\n \r\n   @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n   pipeline: Pipeline;\r\n+\r\n+  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n+  @JoinColumn({ name: 'eyeProductId' })\r\n+  eyeProduct: EyeProduct;\r\n+\r\n+  @ManyToOne(() => Pipeline, (pipeline) => pipeline.eyeProduct)\r\n+  @JoinColumn({ name: 'pipelineId' })\r\n+  pipeline: Pipeline;\r\n }\r\n"
+                },
+                {
+                    "date": 1709703932387,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,19 +18,11 @@\n   lastStatus: string;\r\n \r\n   @Column({ type: 'datetime', nullable: false })\r\n   runnedDate: Date;\r\n-\r\n-  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.id)\r\n+  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n   eyeProduct: EyeProduct;\r\n \r\n   @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n   pipeline: Pipeline;\r\n-\r\n-  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n-  @JoinColumn({ name: 'eyeProductId' })\r\n-  eyeProduct: EyeProduct;\r\n-\r\n-  @ManyToOne(() => Pipeline, (pipeline) => pipeline.eyeProduct)\r\n-  @JoinColumn({ name: 'pipelineId' })\r\n-  pipeline: Pipeline;\r\n+  \r\n }\r\n"
+                },
+                {
+                    "date": 1709710291741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,11 +18,11 @@\n   lastStatus: string;\r\n \r\n   @Column({ type: 'datetime', nullable: false })\r\n   runnedDate: Date;\r\n-  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n-  eyeProduct: EyeProduct;\r\n+//   @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n+//   eyeProduct: EyeProduct;\r\n \r\n-  @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n-  pipeline: Pipeline;\r\n+//   @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n+//   pipeline: Pipeline;\r\n   \r\n }\r\n"
+                },
+                {
+                    "date": 1709710314663,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,8 @@\n   runnedDate: Date;\r\n //   @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n //   eyeProduct: EyeProduct;\r\n \r\n-//   @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n-//   pipeline: Pipeline;\r\n+    //   @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n+    //   pipeline: Pipeline;\r\n   \r\n }\r\n"
+                },
+                {
+                    "date": 1709712586457,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,11 +18,11 @@\n   lastStatus: string;\r\n \r\n   @Column({ type: 'datetime', nullable: false })\r\n   runnedDate: Date;\r\n-//   @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n-//   eyeProduct: EyeProduct;\r\n+  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n+  eyeProduct: EyeProduct;\r\n \r\n-    //   @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n-    //   pipeline: Pipeline;\r\n+      @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n+      pipeline: Pipeline;\r\n   \r\n }\r\n"
+                },
+                {
+                    "date": 1709712630489,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,4 @@\n-\r\n import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';\r\n import { Pipeline } from './pipeline.entity';\r\n import { EyeProduct } from 'src/eye/EyeProduct.entity';\r\n \r\n@@ -21,8 +20,7 @@\n   runnedDate: Date;\r\n   @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n   eyeProduct: EyeProduct;\r\n \r\n-      @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n-      pipeline: Pipeline;\r\n-  \r\n+  @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n+  pipeline: Pipeline;\r\n }\r\n"
+                },
+                {
+                    "date": 1709713320771,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,10 +17,15 @@\n   lastStatus: string;\r\n \r\n   @Column({ type: 'datetime', nullable: false })\r\n   runnedDate: Date;\r\n-  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n+  //   @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n+  //   eyeProduct: EyeProduct;\r\n+\r\n+  //   @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n+  //   pipeline: Pipeline;\r\n+  @ManyToOne(() => EyeProduct)\r\n   eyeProduct: EyeProduct;\r\n \r\n-  @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n+  @ManyToOne(() => Pipeline)\r\n   pipeline: Pipeline;\r\n }\r\n"
+                },
+                {
+                    "date": 1709713696927,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,12 +13,12 @@\n   @Column({ nullable: false })\r\n   pipelineId: number;\r\n \r\n   @Column({ nullable: false, length: 255 })\r\n-  lastStatus: string;\r\n+  lastRunnedStatus: string;\r\n \r\n   @Column({ type: 'datetime', nullable: false })\r\n-  runnedDate: Date;\r\n+  lastRunnedDate: Date;\r\n   //   @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n   //   eyeProduct: EyeProduct;\r\n \r\n   //   @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n"
+                },
+                {
+                    "date": 1709715171607,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';\r\n import { Pipeline } from './pipeline.entity';\r\n import { EyeProduct } from 'src/eye/EyeProduct.entity';\r\n \r\n-@Entity()\r\n+@Entity(\"pipelineStatus\")\r\n export class PipelineStatus {\r\n   @PrimaryGeneratedColumn()\r\n   id: number;\r\n \r\n"
+                },
+                {
+                    "date": 1709715396719,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   //   pipeline: Pipeline;\r\n   @ManyToOne(() => EyeProduct)\r\n   eyeProduct: EyeProduct;\r\n \r\n-  @ManyToOne(() => Pipeline)\r\n-  pipeline: Pipeline;\r\n+//   @ManyToOne(() => Pipeline)\r\n+//   pipeline: Pipeline;\r\n }\r\n"
+                },
+                {
+                    "date": 1709715780248,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n \r\n   @Column({ nullable: false, length: 255 })\r\n   lastRunnedStatus: string;\r\n \r\n-  @Column({ type: 'datetime', nullable: false })\r\n+  @Column({ type: 'datetime', nullable: true })\r\n   lastRunnedDate: Date;\r\n   //   @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n   //   eyeProduct: EyeProduct;\r\n \r\n"
+                },
+                {
+                    "date": 1709716291963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n \r\n   @Column({ nullable: false })\r\n   pipelineId: number;\r\n \r\n-  @Column({ nullable: false, length: 255 })\r\n+  @Column({ nullable: false, length: 255 ,default:'Pending'})\r\n   lastRunnedStatus: string;\r\n \r\n   @Column({ type: 'datetime', nullable: true })\r\n   lastRunnedDate: Date;\r\n"
+                },
+                {
+                    "date": 1709716301221,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   //   pipeline: Pipeline;\r\n   @ManyToOne(() => EyeProduct)\r\n   eyeProduct: EyeProduct;\r\n \r\n-//   @ManyToOne(() => Pipeline)\r\n-//   pipeline: Pipeline;\r\n+  @ManyToOne(() => Pipeline)\r\n+  pipeline: Pipeline;\r\n }\r\n"
+                },
+                {
+                    "date": 1709716425187,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,6 +26,6 @@\n   @ManyToOne(() => EyeProduct)\r\n   eyeProduct: EyeProduct;\r\n \r\n   @ManyToOne(() => Pipeline)\r\n-  pipeline: Pipeline;\r\n+  pipelines: Pipeline;\r\n }\r\n"
+                },
+                {
+                    "date": 1709716665959,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,6 +26,6 @@\n   @ManyToOne(() => EyeProduct)\r\n   eyeProduct: EyeProduct;\r\n \r\n   @ManyToOne(() => Pipeline)\r\n-  pipelines: Pipeline;\r\n+  pipeline: Pipeline;\r\n }\r\n"
+                },
+                {
+                    "date": 1709716854313,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   //   pipeline: Pipeline;\r\n   @ManyToOne(() => EyeProduct)\r\n   eyeProduct: EyeProduct;\r\n \r\n-  @ManyToOne(() => Pipeline)\r\n-  pipeline: Pipeline;\r\n+//   @ManyToOne(() => Pipeline)\r\n+//   pipeline: Pipeline;\r\n }\r\n"
+                },
+                {
+                    "date": 1709717396157,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,7 +25,7 @@\n   //   pipeline: Pipeline;\r\n   @ManyToOne(() => EyeProduct)\r\n   eyeProduct: EyeProduct;\r\n \r\n-//   @ManyToOne(() => Pipeline)\r\n-//   pipeline: Pipeline;\r\n+  @ManyToOne(() => Pipeline)\r\n+  pipeline: Pipeline;\r\n }\r\n"
+                },
+                {
+                    "date": 1709717457539,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';\r\n+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';\r\n import { Pipeline } from './pipeline.entity';\r\n import { EyeProduct } from 'src/eye/EyeProduct.entity';\r\n \r\n @Entity(\"pipelineStatus\")\r\n@@ -25,7 +25,8 @@\n   //   pipeline: Pipeline;\r\n   @ManyToOne(() => EyeProduct)\r\n   eyeProduct: EyeProduct;\r\n \r\n-  @ManyToOne(() => Pipeline)\r\n+  @ManyToOne(() => Pipeline) // Unchanged\r\n+  @JoinColumn({ name: 'pipelineId' }) // Add JoinColumn decorator\r\n   pipeline: Pipeline;\r\n }\r\n"
+                },
+                {
+                    "date": 1709717871257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,13 +17,9 @@\n   lastRunnedStatus: string;\r\n \r\n   @Column({ type: 'datetime', nullable: true })\r\n   lastRunnedDate: Date;\r\n-  //   @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n-  //   eyeProduct: EyeProduct;\r\n \r\n-  //   @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n-  //   pipeline: Pipeline;\r\n   @ManyToOne(() => EyeProduct)\r\n   eyeProduct: EyeProduct;\r\n \r\n   @ManyToOne(() => Pipeline) // Unchanged\r\n"
+                },
+                {
+                    "date": 1709717879866,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,10 @@\n \r\n   @ManyToOne(() => EyeProduct)\r\n   eyeProduct: EyeProduct;\r\n \r\n-  @ManyToOne(() => Pipeline) // Unchanged\r\n-  @JoinColumn({ name: 'pipelineId' }) // Add JoinColumn decorator\r\n-  pipeline: Pipeline;\r\n+//   @ManyToOne(() => Pipeline) // Unchanged\r\n+//   @JoinColumn({ name: 'pipelineId' }) // Add JoinColumn decorator\r\n+//   pipeline: Pipeline;\r\n+@ManyToOne(() => Pipeline)\r\n+pipeline: Pipeline; // Make sure this property name matches the inverse side\r\n }\r\n"
+                },
+                {
+                    "date": 1709719227486,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';\r\n-import { Pipeline } from './pipeline.entity';\r\n+import { Pipelines } from './pipeline.entity';\r\n import { EyeProduct } from 'src/eye/EyeProduct.entity';\r\n \r\n @Entity(\"pipelineStatus\")\r\n export class PipelineStatus {\r\n@@ -24,7 +24,7 @@\n \r\n //   @ManyToOne(() => Pipeline) // Unchanged\r\n //   @JoinColumn({ name: 'pipelineId' }) // Add JoinColumn decorator\r\n //   pipeline: Pipeline;\r\n-@ManyToOne(() => Pipeline)\r\n-pipeline: Pipeline; // Make sure this property name matches the inverse side\r\n+@ManyToOne(() => Pipelines)\r\n+pipeline: Pipelines; // Make sure this property name matches the inverse side\r\n }\r\n"
+                },
+                {
+                    "date": 1709781531490,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,6 +25,6 @@\n //   @ManyToOne(() => Pipeline) // Unchanged\r\n //   @JoinColumn({ name: 'pipelineId' }) // Add JoinColumn decorator\r\n //   pipeline: Pipeline;\r\n @ManyToOne(() => Pipelines)\r\n-pipeline: Pipelines; // Make sure this property name matches the inverse side\r\n+pipelines: Pipelines; // Make sure this property name matches the inverse side\r\n }\r\n"
+                },
+                {
+                    "date": 1709781566710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,6 +25,6 @@\n //   @ManyToOne(() => Pipeline) // Unchanged\r\n //   @JoinColumn({ name: 'pipelineId' }) // Add JoinColumn decorator\r\n //   pipeline: Pipeline;\r\n @ManyToOne(() => Pipelines)\r\n-pipelines: Pipelines; // Make sure this property name matches the inverse side\r\n+//pipelines: Pipelines; // Make sure this property name matches the inverse side\r\n }\r\n"
+                },
+                {
+                    "date": 1709781627044,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,6 +25,6 @@\n //   @ManyToOne(() => Pipeline) // Unchanged\r\n //   @JoinColumn({ name: 'pipelineId' }) // Add JoinColumn decorator\r\n //   pipeline: Pipeline;\r\n @ManyToOne(() => Pipelines)\r\n-//pipelines: Pipelines; // Make sure this property name matches the inverse side\r\n+pipelines: Pipelines; // Make sure this property name matches the inverse side\r\n }\r\n"
+                },
+                {
+                    "date": 1709782162342,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';\r\n-import { Pipelines } from './pipeline.entity';\r\n+import { Pipelines } from './Pipelines.Entity';\r\n import { EyeProduct } from 'src/eye/EyeProduct.entity';\r\n \r\n @Entity(\"pipelineStatus\")\r\n export class PipelineStatus {\r\n@@ -21,10 +21,7 @@\n \r\n   @ManyToOne(() => EyeProduct)\r\n   eyeProduct: EyeProduct;\r\n \r\n-//   @ManyToOne(() => Pipeline) // Unchanged\r\n-//   @JoinColumn({ name: 'pipelineId' }) // Add JoinColumn decorator\r\n-//   pipeline: Pipeline;\r\n @ManyToOne(() => Pipelines)\r\n-pipelines: Pipelines; // Make sure this property name matches the inverse side\r\n+pipelines: Pipelines; \r\n }\r\n"
+                },
+                {
+                    "date": 1711356885335,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,15 @@\n-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';\r\n+import {\r\n+  Entity,\r\n+  PrimaryGeneratedColumn,\r\n+  Column,\r\n+  ManyToOne,\r\n+  JoinColumn,\r\n+} from 'typeorm';\r\n import { Pipelines } from './Pipelines.Entity';\r\n import { EyeProduct } from 'src/eye/EyeProduct.entity';\r\n \r\n-@Entity(\"pipelineStatus\")\r\n+@Entity('pipelineStatus')\r\n export class PipelineStatus {\r\n   @PrimaryGeneratedColumn()\r\n   id: number;\r\n \r\n@@ -12,16 +18,17 @@\n \r\n   @Column({ nullable: false })\r\n   pipelineId: number;\r\n \r\n-  @Column({ nullable: false, length: 255 ,default:'Pending'})\r\n+  @Column({ nullable: false, length: 255, default: 'Pending' })\r\n   lastRunnedStatus: string;\r\n \r\n   @Column({ type: 'datetime', nullable: true })\r\n   lastRunnedDate: Date;\r\n \r\n-  @ManyToOne(() => EyeProduct)\r\n-  eyeProduct: EyeProduct;\r\n-\r\n-@ManyToOne(() => Pipelines)\r\n-pipelines: Pipelines; \r\n+  // @ManyToOne(() => EyeProduct)\r\n+  // eyeProduct: EyeProduct;\r\n+  @ManyToOne(() => EyeProduct, eyeProduct => eyeProduct.pipelineStatuses, { lazy: true })\r\n+  eyeProduct: Promise<EyeProduct>;\r\n+  @ManyToOne(() => Pipelines)\r\n+  pipelines: Pipelines;\r\n }\r\n"
+                }
+            ],
+            "date": 1709567264065,
+            "name": "Commit-0",
+            "content": "\r\nimport { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';\r\nimport { EyeProduct } from './eye-product.entity';\r\nimport { Pipeline } from './pipeline.entity';\r\n\r\n@Entity()\r\nexport class PipelineStatus {\r\n  @PrimaryGeneratedColumn()\r\n  id: number;\r\n\r\n  @Column({ nullable: false })\r\n  eyeProductId: number;\r\n\r\n  @Column({ nullable: false })\r\n  pipelineId: number;\r\n\r\n  @Column({ nullable: false, length: 255 })\r\n  lastStatus: string;\r\n\r\n  @Column({ type: 'datetime', nullable: false })\r\n  runnedDate: Date;\r\n\r\n  @ManyToOne(() => EyeProduct, (eyeProduct) => eyeProduct.pipelineStatuses)\r\n  eyeProduct: EyeProduct;\r\n\r\n  @ManyToOne(() => Pipeline, (pipeline) => pipeline.pipelineStatuses)\r\n  pipeline: Pipeline;\r\n}\r\n"
+        }
+    ]
+}

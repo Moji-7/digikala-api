@@ -3,11 +3,79 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 17,
             "patches": [
                 {
                     "date": 1708353091802,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1709557769278,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,15 @@\n import { Injectable } from '@nestjs/common';\n+import { PipelineDetail } from 'src/hamechidun/DTO/Pipelines';\n \n @Injectable()\n export class PipelineService {\n   async getPipelineById(pipelineID: string) {\n     // Add your logic here to fetch and return the pipeline by ID\n     return `Fetching pipeline with ID ${pipelineID}`;\n   }\n+\n+  async saveEyeProduct(eye: PipelineDetail): Promise<> {\n+    return await this.eyeProductRepository.save(eye);\n+  }\n+\n }\n"
+                },
+                {
+                    "date": 1709558095644,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,23 @@\n import { Injectable } from '@nestjs/common';\n+import { InjectRepository } from '@nestjs/typeorm';\n import { PipelineDetail } from 'src/hamechidun/DTO/Pipelines';\n+import { Pipeline } from './Pipeline.Entity';\n+import { Repository } from 'typeorm';\n \n @Injectable()\n export class PipelineService {\n   async getPipelineById(pipelineID: string) {\n     // Add your logic here to fetch and return the pipeline by ID\n     return `Fetching pipeline with ID ${pipelineID}`;\n   }\n+  constructor(\n+    @InjectRepository(Pipeline)\n+    private pipelineRepository: Repository<Pipeline>,\n+  ) {}\n \n-  async saveEyeProduct(eye: PipelineDetail): Promise<> {\n-    return await this.eyeProductRepository.save(eye);\n+\n+  async saveEyeProduct(pipeline: Pipeline): Promise<Pipeline> {\n+    return await this.pipelineRepository.save(pipeline);\n   }\n \n }\n"
+                },
+                {
+                    "date": 1709713514135,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n import { InjectRepository } from '@nestjs/typeorm';\n import { PipelineDetail } from 'src/hamechidun/DTO/Pipelines';\n import { Pipeline } from './Pipeline.Entity';\n import { Repository } from 'typeorm';\n+import { PipelineStatus } from './PipelineStatus.Entity';\n \n @Injectable()\n export class PipelineService {\n   async getPipelineById(pipelineID: string) {\n@@ -15,9 +16,9 @@\n     private pipelineRepository: Repository<Pipeline>,\n   ) {}\n \n \n-  async saveEyeProduct(pipeline: Pipeline): Promise<Pipeline> {\n+  async saveEyeProduct(pipeline: PipelineStatus): Promise<PipelineStatus> {\n     return await this.pipelineRepository.save(pipeline);\n   }\n \n }\n"
+                },
+                {
+                    "date": 1709713525098,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     private pipelineRepository: Repository<Pipeline>,\n   ) {}\n \n \n-  async saveEyeProduct(pipeline: PipelineStatus): Promise<PipelineStatus> {\n-    return await this.pipelineRepository.save(pipeline);\n+  async saveEyeProduct(pipelineStatus: PipelineStatus): Promise<PipelineStatus> {\n+    return await this.pipelineRepository.save(pipelineStatus);\n   }\n \n }\n"
+                },
+                {
+                    "date": 1709713930405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n import { Injectable } from '@nestjs/common';\n import { InjectRepository } from '@nestjs/typeorm';\n-import { PipelineDetail } from 'src/hamechidun/DTO/Pipelines';\n+import { PipelineDetail } from 'src/hamechidun/DTO/Pipelines.dto';\n import { Pipeline } from './Pipeline.Entity';\n import { Repository } from 'typeorm';\n import { PipelineStatus } from './PipelineStatus.Entity';\n \n"
+                },
+                {
+                    "date": 1709714886380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n import { Injectable } from '@nestjs/common';\n import { InjectRepository } from '@nestjs/typeorm';\n-import { PipelineDetail } from 'src/hamechidun/DTO/Pipelines.dto';\n+import { PipelineStatusDto } from 'src/hamechidun/DTO/Pipelines.dto';\n import { Pipeline } from './Pipeline.Entity';\n import { Repository } from 'typeorm';\n import { PipelineStatus } from './PipelineStatus.Entity';\n \n@@ -16,9 +16,9 @@\n     private pipelineRepository: Repository<Pipeline>,\n   ) {}\n \n \n-  async saveEyeProduct(pipelineStatus: PipelineStatus): Promise<PipelineStatus> {\n+  async saveEyeProduct(pipelineStatus: PipelineStatusDto): Promise<PipelineStatusDto> {\n     return await this.pipelineRepository.save(pipelineStatus);\n   }\n \n }\n"
+                },
+                {
+                    "date": 1709715059860,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,14 +11,14 @@\n     // Add your logic here to fetch and return the pipeline by ID\n     return `Fetching pipeline with ID ${pipelineID}`;\n   }\n   constructor(\n-    @InjectRepository(Pipeline)\n-    private pipelineRepository: Repository<Pipeline>,\n+    @InjectRepository(PipelineStatus)\n+    private pipelineStatusRepository: Repository<PipelineStatus>,\n   ) {}\n \n \n   async saveEyeProduct(pipelineStatus: PipelineStatusDto): Promise<PipelineStatusDto> {\n-    return await this.pipelineRepository.save(pipelineStatus);\n+    return await this.pipelineStatusRepository.save(pipelineStatus);\n   }\n \n }\n"
+                },
+                {
+                    "date": 1709716035264,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     private pipelineStatusRepository: Repository<PipelineStatus>,\n   ) {}\n \n \n-  async saveEyeProduct(pipelineStatus: PipelineStatusDto): Promise<PipelineStatusDto> {\n+  async savePipelineStatus(pipelineStatus: PipelineStatusDto): Promise<PipelineStatusDto> {\n     return await this.pipelineStatusRepository.save(pipelineStatus);\n   }\n \n }\n"
+                },
+                {
+                    "date": 1709719351344,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import { Injectable } from '@nestjs/common';\n import { InjectRepository } from '@nestjs/typeorm';\n import { PipelineStatusDto } from 'src/hamechidun/DTO/Pipelines.dto';\n-import { Pipeline } from './Pipeline.Entity';\n+import { Pipelines } from './Pipeline.Entity';\n import { Repository } from 'typeorm';\n import { PipelineStatus } from './PipelineStatus.Entity';\n \n @Injectable()\n"
+                },
+                {
+                    "date": 1709782158837,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import { Injectable } from '@nestjs/common';\n import { InjectRepository } from '@nestjs/typeorm';\n import { PipelineStatusDto } from 'src/hamechidun/DTO/Pipelines.dto';\n-import { Pipelines } from './Pipeline.Entity';\n+import { Pipelines } from './Pipelines.Entity';\n import { Repository } from 'typeorm';\n import { PipelineStatus } from './PipelineStatus.Entity';\n \n @Injectable()\n"
+                },
+                {
+                    "date": 1711356806120,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,20 +3,54 @@\n import { PipelineStatusDto } from 'src/hamechidun/DTO/Pipelines.dto';\n import { Pipelines } from './Pipelines.Entity';\n import { Repository } from 'typeorm';\n import { PipelineStatus } from './PipelineStatus.Entity';\n+import { EyeProduct } from 'src/eye/EyeProduct.entity';\n \n @Injectable()\n export class PipelineService {\n-  async getPipelineById(pipelineID: string) {\n-    // Add your logic here to fetch and return the pipeline by ID\n-    return `Fetching pipeline with ID ${pipelineID}`;\n-  }\n+\n   constructor(\n     @InjectRepository(PipelineStatus)\n     private pipelineStatusRepository: Repository<PipelineStatus>,\n+ \n+    @InjectRepository(EyeProduct)\n+    private eyeProductRepository: Repository<EyeProduct>,\n   ) {}\n+ \n \n+  async findAllPipelineStatusByUser(userId: number): Promise<PipelineStatus[]> {\n+    return this.pipelineStatusRepository\n+      .createQueryBuilder('ps')\n+      .innerJoin(\n+        (subQuery) => {\n+          return subQuery\n+            .select('eyeProductId, MAX(lastRunnedDate) AS MaxDate')\n+            .from(PipelineStatus, 'pipelineStatus')\n+            .groupBy('eyeProductId');\n+        },\n+        'latestPS',\n+        'ps.eyeProductId = latestPS.eyeProductId AND ps.lastRunnedDate = latestPS.MaxDate'\n+      )\n+      .innerJoinAndSelect('ps.eyeProduct', 'ep', 'ep.userId = :userId', { userId })\n+      .getMany();\n+  }\n+    async findLatestPipelineStatusByUser(userId: number): Promise<PipelineStatus[]> {\n+    return this.pipelineStatusRepository\n+      .createQueryBuilder('ps')\n+      .innerJoin(\n+        (subQuery) => {\n+          return subQuery\n+            .select('eyeProductId, MAX(lastRunnedDate) AS MaxDate')\n+            .from(PipelineStatus, 'pipelineStatus')\n+            .groupBy('eyeProductId');\n+        },\n+        'latestPS',\n+        'ps.eyeProductId = latestPS.eyeProductId AND ps.lastRunnedDate = latestPS.MaxDate'\n+      )\n+      .innerJoinAndSelect('ps.eyeProduct', 'ep', 'ep.userId = :userId', { userId })\n+      .getMany();\n+  }\n \n   async savePipelineStatus(pipelineStatus: PipelineStatusDto): Promise<PipelineStatusDto> {\n     return await this.pipelineStatusRepository.save(pipelineStatus);\n   }\n"
+                },
+                {
+                    "date": 1711357027098,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     private eyeProductRepository: Repository<EyeProduct>,\n   ) {}\n  \n \n-  async findAllPipelineStatusByUser(userId: number): Promise<PipelineStatus[]> {\n+  async findSummeryPipelineStatusByUser(userId: number): Promise<PipelineStatus[]> {\n     return this.pipelineStatusRepository\n       .createQueryBuilder('ps')\n       .innerJoin(\n         (subQuery) => {\n"
+                },
+                {
+                    "date": 1711357157863,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,10 @@\n         },\n         'latestPS',\n         'ps.eyeProductId = latestPS.eyeProductId AND ps.lastRunnedDate = latestPS.MaxDate'\n       )\n-      .innerJoinAndSelect('ps.eyeProduct', 'ep', 'ep.userId = :userId', { userId })\n+      .innerJoin('ps.eyeProduct', 'ep', 'ep.userId = :userId', { userId })\n+     // .innerJoinAndSelect('ps.eyeProduct', 'ep', 'ep.userId = :userId', { userId })\n       .getMany();\n   }\n     async findLatestPipelineStatusByUser(userId: number): Promise<PipelineStatus[]> {\n     return this.pipelineStatusRepository\n"
+                },
+                {
+                    "date": 1711358224464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         },\n         'latestPS',\n         'ps.eyeProductId = latestPS.eyeProductId AND ps.lastRunnedDate = latestPS.MaxDate'\n       )\n-      .innerJoin('ps.eyeProduct', 'ep', 'ep.userId = :userId', { userId })\n+      .innerJoin('ps.eyeProduct', 'ep', 'ep.id = :eyeProductId', { eyeProductId })\n      // .innerJoinAndSelect('ps.eyeProduct', 'ep', 'ep.userId = :userId', { userId })\n       .getMany();\n   }\n     async findLatestPipelineStatusByUser(userId: number): Promise<PipelineStatus[]> {\n"
+                },
+                {
+                    "date": 1711358242870,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     private eyeProductRepository: Repository<EyeProduct>,\n   ) {}\n  \n \n-  async findSummeryPipelineStatusByUser(userId: number): Promise<PipelineStatus[]> {\n+  async findSummeryPipelineStatusByUser(userId: number,eyeProductId:number): Promise<PipelineStatus[]> {\n     return this.pipelineStatusRepository\n       .createQueryBuilder('ps')\n       .innerJoin(\n         (subQuery) => {\n"
+                },
+                {
+                    "date": 1711358291575,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         },\n         'latestPS',\n         'ps.eyeProductId = latestPS.eyeProductId AND ps.lastRunnedDate = latestPS.MaxDate'\n       )\n-      .innerJoin('ps.eyeProduct', 'ep', 'ep.id = :eyeProductId', { eyeProductId })\n+      .innerJoin('ps.eyeProduct', 'ep', 'ep.userId = :userId AND ep.id = :eyeProductId', { userId, eyeProductId })\n      // .innerJoinAndSelect('ps.eyeProduct', 'ep', 'ep.userId = :userId', { userId })\n       .getMany();\n   }\n     async findLatestPipelineStatusByUser(userId: number): Promise<PipelineStatus[]> {\n"
+                },
+                {
+                    "date": 1711376145266,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n         (subQuery) => {\n           return subQuery\n             .select('eyeProductId, MAX(lastRunnedDate) AS MaxDate')\n             .from(PipelineStatus, 'pipelineStatus')\n-            .groupBy('eyeProductId');\n+            .groupBy('eyeProductId,pipelineId');\n         },\n         'latestPS',\n         'ps.eyeProductId = latestPS.eyeProductId AND ps.lastRunnedDate = latestPS.MaxDate'\n       )\n"
                 }
             ],
             "date": 1708353091802,

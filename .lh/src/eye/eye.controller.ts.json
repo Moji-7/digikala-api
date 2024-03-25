@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 27,
+            "activePatchIndex": 28,
             "patches": [
                 {
                     "date": 1708231573922,
@@ -116,6 +116,10 @@
                 {
                     "date": 1708347027712,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,9 @@\n   Controller,\n   Delete,\n   Get,\n   NotFoundException,\n+  Param,\n   Post,\n   Query,\n   Req,\n   UseInterceptors,\n@@ -70,15 +71,14 @@\n     const [eyeProducts, count] = await this.eyeService.getEyeProduct(params);\n     return { eyeProducts, count };\n   }\n   //http://localhost:3222/eye/?page=1&length=10&productId=123\n-  @Delete('')\n+  @Delete('/:productId')\n   async delete(\n-    @Query() params: EyeProductParams,\n+    @Param('productId') productId: number,\n   ): Promise<{ success: boolean }> {\n-    params.page = 1;\n-    params.length = 1;\n-    const [eyeProducts, count] = await this.eyeService.getEyeProduct(params);\n+    const searchParams = { page: 1, length: 1 } as EyeProductParams;\n+    const [eyeProducts, count] = await this.eyeService.getEyeProduct(searchParams);\n \n     if (count > 0) {\n       const res = await this.eyeService.delete(eyeProducts[0].productId);\n       return res;\n"
+                },
+                {
+                    "date": 1709704351212,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n     private readonly tokenService: TokenService,\n     private readonly eyeService: EyeService,\n   ) {}\n \n-  @Post('submitItems')\n+  @Post('submitProducts')\n   async create(@Body() payloadArray: any): Promise<EyeProductDTO[]> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     const eyeProducts = mapToEyeProducts(\n       payloadArray,\n"
                 }
             ],
             "date": 1708231573922,

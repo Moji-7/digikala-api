@@ -11,15 +11,26 @@ export class RedisClientService {
   // Declare a private variable for the Redis client
   private client: Redis.Redis;
 
-   constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {
-    // Get the Redis client from the Redis service
-    this.getClient().then((client) => (this.client = client));
+  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {
+    this.getClient().then((client) => {
+      this.client = client;
+      // Listen to the channel
+      this.client.on('message', (channel, message) => {
+        if (channel === 'channel_name') {
+          const data = JSON.parse(message);
+          // Process the data and add the result_sum property
+          data.result_sum = calculateSum(data); // replace calculateSum with your actual function
+
+          // Publish the processed data back to another channel
+          this.client.publish('processed_channel_name', JSON.stringify(data));
+          
+        }
+      });
+    });
   }
 
-  // Define a method to get the Redis client
   async getClient(): Promise<Redis.Redis> {
-    // Use the nestjs-redis package to get the Redis client
-    const client =this.cacheManager.store.getClient();
+    const client = this.cacheManager.store.getClient();
     return client;
   }
 
@@ -50,4 +61,11 @@ export class RedisClientService {
     // Use the set method of the Redis client with the EX option to set the value with an expiry time
     await this.client.set(key, value, 'EX', expiry);
   }
+
+  
 }
+
+function calculateSum(data: any): any {
+  return "ali"
+}
+

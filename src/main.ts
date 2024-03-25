@@ -1,25 +1,26 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as proxy from 'http-proxy-middleware';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+//import * as proxy from 'http-proxy-middleware';
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule,{cors: true});
+  // Create the HTTP application
+  const app = await NestFactory.create(AppModule, { cors: true });
+app.enableCors();
+  // Create the microservice
+  const microservice = app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.REDIS,
+    options: {
+      host: '127.0.0.1',
+      port: 6379,
+    },
+  });
 
-  // app.use(
-  //   '/api/v1/todos-api',
-  //   proxy.createProxyMiddleware({
-  //     target: 'http://localhost:8090/api',
-  //     pathRewrite: {
-  //       '/api/v1/todos-api': '',
-  //     },
-  //     secure: false,
-  //     onProxyReq: (proxyReq, req, res) => {
-  //       console.log(
-  //         ` [Global Functional Middlware]: Proxying ${req} request originally made to '${req}'...`,
-  //       );
-  //     },
-  //   }),
-  // );
+  // Start the microservice
+  await app.startAllMicroservices();
 
+  // Start listening for HTTP requests
   await app.listen(3222);
 }
+
 bootstrap();
