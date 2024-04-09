@@ -1,0 +1,38 @@
+{
+    "sourceFile": "src/myCache/messageHandlers/sender.service.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1712646049937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1712646134541,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n     ) {}\r\n \r\n   @OnEvent('pipeline.status.submitted')\r\n   async handleMessagePublishedEvent(payload: { channel: string; message: string }) {\r\n-    console.log('ali; pipeline.status.submitted')\r\n+    //console.log('ali; pipeline.status.submitted')\r\n     console.log('Step 2 ==>from Nest to Redis ***Pub/sub***');\r\n     // Logic to publish the message to Redis\r\n     await this.redisSubscriberService_publish.publishMessage(payload.channel, payload.message);\r\n   }\r\n"
+                },
+                {
+                    "date": 1712656266415,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,10 @@\n \r\n   @OnEvent('pipeline.status.submitted')\r\n   async handleMessagePublishedEvent(payload: { channel: string; message: string }) {\r\n     //console.log('ali; pipeline.status.submitted')\r\n-    console.log('Step 2 ==>from Nest to Redis ***Pub/sub***');\r\n+    console.log('Step 2 ==>from Nest to Redis ***Pub/sub***' );\r\n+    console.log(\"data is\"+payload.message)\r\n     // Logic to publish the message to Redis\r\n     await this.redisSubscriberService_publish.publishMessage(payload.channel, payload.message);\r\n   }\r\n \r\n"
+                },
+                {
+                    "date": 1712656556361,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n   @OnEvent('pipeline.status.submitted')\r\n   async handleMessagePublishedEvent(payload: { channel: string; message: string }) {\r\n     //console.log('ali; pipeline.status.submitted')\r\n     console.log('Step 2 ==>from Nest to Redis ***Pub/sub***' );\r\n-    console.log(\"data is\"+payload.message)\r\n+    console.log(payload.message)\r\n     // Logic to publish the message to Redis\r\n     await this.redisSubscriberService_publish.publishMessage(payload.channel, payload.message);\r\n   }\r\n \r\n"
+                },
+                {
+                    "date": 1712656645287,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n   @OnEvent('pipeline.status.submitted')\r\n   async handleMessagePublishedEvent(payload: { channel: string; message: string }) {\r\n     //console.log('ali; pipeline.status.submitted')\r\n     console.log('Step 2 ==>from Nest to Redis ***Pub/sub***' );\r\n-    console.log(payload.message)\r\n+    console.log(JSON.stringify(payload.message))\r\n     // Logic to publish the message to Redis\r\n     await this.redisSubscriberService_publish.publishMessage(payload.channel, JSON.stringify(payload.message));\r\n   }\r\n \r\n"
+                },
+                {
+                    "date": 1712657020124,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n   @OnEvent('pipeline.status.submitted')\r\n   async handleMessagePublishedEvent(payload: { channel: string; message: any }) {\r\n     //console.log('ali; pipeline.status.submitted')\r\n     console.log('Step 2 ==>from Nest to Redis ***Pub/sub***' );\r\n-    console.log(JSON.stringify(payload.message))\r\n+    console.log(\"WHY🧨: \"+JSON.stringify(payload.message))\r\n     // Logic to publish the message to Redis\r\n     await this.redisSubscriberService_publish.publishMessage(payload.channel, JSON.stringify(payload.message));\r\n   }\r\n \r\n"
+                }
+            ],
+            "date": 1712646049937,
+            "name": "Commit-0",
+            "content": "\r\n// message-handler.service.ts\r\nimport { Injectable } from '@nestjs/common';\r\nimport { OnEvent } from '@nestjs/event-emitter';\r\nimport { RedisSubscriberService } from 'src/myCache/RedisSubscriberService';\r\n\r\n@Injectable()\r\nexport class MessageSenderService {\r\n  constructor(\r\n    private redisSubscriberService_publish:RedisSubscriberService \r\n    ) {}\r\n\r\n  @OnEvent('pipeline.status.submitted')\r\n  async handleMessagePublishedEvent(payload: { channel: string; message: string }) {\r\n    console.log('ali; pipeline.status.submitted')\r\n    console.log('Step 2 ==>from Nest to Redis ***Pub/sub***');\r\n    // Logic to publish the message to Redis\r\n    await this.redisSubscriberService_publish.publishMessage(payload.channel, payload.message);\r\n  }\r\n\r\n  \r\n}\r\n"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/notification/notification.gateway.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1712646119945,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1712646119944,
+            "name": "Commit-0",
+            "content": "import { Logger, OnModuleInit } from '@nestjs/common';\nimport { EventEmitter2 } from '@nestjs/event-emitter';\nimport {\n  OnGatewayConnection,\n  OnGatewayDisconnect,\n  OnGatewayInit,\n  SubscribeMessage,\n  WebSocketGateway,\n  WebSocketServer,\n} from '@nestjs/websockets';\n\nimport { Server } from 'socket.io';\n\n//@WebSocketGateway()\n@WebSocketGateway({ cors: { origin: 'http://localhost:19006' } }) \nexport class NotificationGateway\n  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect , OnModuleInit \n{\n   @WebSocketServer() io: Server;\n  private readonly logger = new Logger(NotificationGateway.name);\n  constructor(private eventEmitter: EventEmitter2) {}\n  \n  \n  onModuleInit() {\n    this.eventEmitter.on('published_from_NestToSocket_pipelineStatus', (data: any) => {\n      console.log('Step 4 ==>from Nest to Client;'+ data +\"***Socket***\")\n      // Emit the data to all connected WebSocket clients\n      this.io.emit('published_from_SocketToClient_pipelineStatus', data);\n    });\n  }\n\n\n  afterInit() {\n    this.logger.log('Initialized');\n  }\n\n  handleConnection(client: any, ...args: any[]) {\n    const { sockets } = this.io.sockets;\n\n    this.logger.log(`Client id: ${client.id} connected`);\n    this.logger.debug(`Number of connected clients: ${sockets.size}`);\n  }\n\n  handleDisconnect(client: any) {\n    this.logger.log(`Cliend id:${client.id} disconnected`);\n  }\n\n  @SubscribeMessage('ping')\n  handleMessage(client: any, data: any) {\n    this.logger.log(`Message received from client id: ${client.id}`);\n    this.logger.debug(`Payload: ${data}`);\n    return {\n      event: 'pong',\n      data,\n    };\n  }\n  @SubscribeMessage('processed_and_Published_by_python')\n  handleProcessedResults(client: any, data: any) {\n    this.logger.log(`processed_and_Published_by_pythonreceived: ${data}`);\n    // Emitting a message back to the client\n    this.io.to(client.id).emit('notify_clinet_for_processed', data);\n  }\n}\n"
+        }
+    ]
+}

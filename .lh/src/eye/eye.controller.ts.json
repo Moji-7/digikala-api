@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 28,
+            "activePatchIndex": 29,
             "patches": [
                 {
                     "date": 1708231573922,
@@ -120,6 +120,10 @@
                 {
                     "date": 1709704351212,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n     private readonly tokenService: TokenService,\n     private readonly eyeService: EyeService,\n   ) {}\n \n-  @Post('submitItems')\n+  @Post('submitProducts')\n   async create(@Body() payloadArray: any): Promise<EyeProductDTO[]> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     const eyeProducts = mapToEyeProducts(\n       payloadArray,\n"
+                },
+                {
+                    "date": 1712561797792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,8 +33,9 @@\n     private readonly tokenService: TokenService,\n     private readonly eyeService: EyeService,\n   ) {}\n \n+\n   @Post('submitProducts')\n   async create(@Body() payloadArray: any): Promise<EyeProductDTO[]> {\n     const token = this.tokenService.getToken(); // Retrieve from service\n     const eyeProducts = mapToEyeProducts(\n@@ -48,9 +49,13 @@\n   // saveMultipleItems(@Body() payloadArray: SaveEyeProductDto[]): Observable<EyeProduct[]> {\n   //   const eyeProducts = mapToEyeProducts(payloadArray);\n   //   return new Observable((observer) => observer.next(eyeProducts));\n   // }\n-\n+ @Get('test')\n+ async testi(): Promise<any> {\n+  \n+  return null;\n+ }\n   //http://localhost:3222/eye/?page=1&length=10&productId=123\n   @Get('')\n   @ApiQuery({ name: 'productId', type: Number, required: false })\n   @ApiQuery({ name: 'productTitle', type: String, required: false })\n@@ -66,19 +71,19 @@\n       createdAt: eye.createdAt,\n       page: eye.page,\n       length: eye.length,\n     };\n-    console.log(params + 'ali');\n-    const [eyeProducts, count] = await this.eyeService.getEyeProduct(params);\n+    //console.log(params + 'ali');\n+    const [eyeProducts, count] = await this.eyeService.getEyeProduct(params,11015166);\n     return { eyeProducts, count };\n   }\n   //http://localhost:3222/eye/?page=1&length=10&productId=123\n   @Delete('/:productId')\n   async delete(\n     @Param('productId') productId: number,\n   ): Promise<{ success: boolean }> {\n     const searchParams = { page: 1, length: 1 } as EyeProductParams;\n-    const [eyeProducts, count] = await this.eyeService.getEyeProduct(searchParams);\n+    const [eyeProducts, count] = await this.eyeService.getEyeProduct(searchParams,11015166);\n \n     if (count > 0) {\n       const res = await this.eyeService.delete(eyeProducts[0].productId);\n       return res;\n"
                 }
             ],
             "date": 1708231573922,

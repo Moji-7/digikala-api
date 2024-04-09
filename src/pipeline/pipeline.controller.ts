@@ -43,7 +43,10 @@ export class PipelineController {
     try {
       let payload = {
         channel: 'nest_redis_channel',
-        message: `${pipelineStatusRequest.eyeProductId}-${pipelineStatusRequest.pipelineId}`,
+        message: {
+          pipelineId: pipelineStatusRequest.pipelineId.toString(),
+          eyeProductId: pipelineStatusRequest.eyeProductId.toString()
+        }
       };
       this.eventEmitter.emit('pipeline.status.submitted', payload);
       return 'pipeline';
@@ -70,7 +73,10 @@ export class PipelineController {
       console.log('Step 1 ==>from clinet to Nest ***Rest***');
       let payload = {
         channel: 'nest_redis_channel',
-        message: `${pipelineStatusRequest.eyeProductId}-${pipelineStatusRequest.pipelineId}`,
+        message: {
+          pipelineId: pipelineStatusRequest.pipelineId,
+          eyeProductId: 12017522//pipelineStatusRequest.eyeProductId
+        }
       };
       this.eventEmitter.emit('pipeline.status.submitted', payload);
 
@@ -109,8 +115,7 @@ export class PipelineController {
     @Payload() data: any,
     @Ctx() context: RedisContext,
   ) {
-    console.log('Step 2 ==>from python to Nest, data==> ' + data + '***Subscribe***');
-    await delay(Math.floor(Math.random() * 2) + 1, true);
+    console.log('Step 3 ==> Reply back from Python to Nest, data==> ' + data + '***Redis Pub/Sub***');
     this.eventEmitter.emit('published_from_NestToSocket_pipelineStatus', data);
   }
 }

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 139,
+            "activePatchIndex": 140,
             "patches": [
                 {
                     "date": 1704529483035,
@@ -564,6 +564,10 @@
                 {
                     "date": 1706100196750,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -225,7 +225,7 @@\n     @Query('productId') productId: number, // get the orderBy query parameter, if any\n   ): Promise<IIncrediblesWithProducts[]> {\n     const res = await this.incrediblesService.findWithProducts(productId);\n     //console.log(res)\n-    return null;// this.proccessingService.IncrediblesWithSameProducts(res);\n+    return this.proccessingService.IncrediblesWithSameProducts(res);\n   }\n }\n"
+                },
+                {
+                    "date": 1712562079503,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,19 +27,30 @@\n import { OrderItem } from './entity/OrderItem';\n import { OrderItemService } from './orderItems.service';\n import { ObjectLiteral } from 'typeorm';\n import { OrderItemDto } from './DTO/OrderItemDto';\n-import { ProcessingService } from './proccessing/hamechidun.process.service';\n import { IncrediblesService } from './incredibles.service';\n+import { CommentsDataset } from './entity/comments.entity';\n \n+import { ProcessingService } from './proccessing/hamechidun.process.service';\n+import { ProccessedService } from './proccessed/hamechidun.processed.service';\n+// import { ProccessedService } from './proccessed/hamechidun.processed.service';\n+\n+\n+interface CommentsDatasetResponse {\n+  dataset: CommentsDataset[];\n+  count: number;\n+}\n+\n @UseFilters(RedisExceptionFilter)\n @Controller('hamechidun')\n export class HamechidunController {\n   constructor(\n     private readonly hamechidunService: HamechidunService,\n     private readonly orderItemService: OrderItemService,\n     private readonly incrediblesService: IncrediblesService,\n     private readonly proccessingService: ProcessingService,\n+   private readonly processedService: ProccessedService,\n   ) {}\n   private readonly logger = new Logger(HamechidunController.name);\n \n   @Get('top-selling')\n@@ -219,13 +230,25 @@\n       sortType,\n     );\n   }\n \n-  @Get('with-products')\n+  @Get('otherSellers')\n   async IncrediblesWithSameProducts(\n     @Query('productId') productId: number, // get the orderBy query parameter, if any\n-  ): Promise<IIncrediblesWithProducts[]> {\n+  ): Promise<any[]> {\n     const res = await this.incrediblesService.findWithProducts(productId);\n-    //console.log(res)\n+    //console.log(JSON.stringify(res))\n     return this.proccessingService.IncrediblesWithSameProducts(res);\n   }\n+\n+  \n+ \n+  \n+  @Get('commentsdataset')\n+  async comments(\n+    @Query('productId') productId: number, // get the orderBy query parameter, if any\n+  ): Promise<CommentsDatasetResponse> {\n+    const [dataset, count] = await this.processedService.getCommentsDataset(806044, 1, 3);\n+    return { dataset, count };\n+  }\n+  \n }\n"
                 }
             ],
             "date": 1704529483035,

@@ -34,6 +34,7 @@ export class EyeController {
     private readonly eyeService: EyeService,
   ) {}
 
+
   @Post('submitProducts')
   async create(@Body() payloadArray: any): Promise<EyeProductDTO[]> {
     const token = this.tokenService.getToken(); // Retrieve from service
@@ -49,7 +50,11 @@ export class EyeController {
   //   const eyeProducts = mapToEyeProducts(payloadArray);
   //   return new Observable((observer) => observer.next(eyeProducts));
   // }
-
+ @Get('test')
+ async testi(): Promise<any> {
+  
+  return null;
+ }
   //http://localhost:3222/eye/?page=1&length=10&productId=123
   @Get('')
   @ApiQuery({ name: 'productId', type: Number, required: false })
