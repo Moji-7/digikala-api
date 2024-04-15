@@ -29,38 +29,32 @@ export class PipelineController {
   //   await this.redisSubscriberService.subscribeToChannel('response_received');
   // }
   @Get('pipelineStatusSummery/:eyeProductId')
-  async get(@Param('eyeProductId') eyeProductId: number): Promise<PipelineStatus[]> {
-    return this.pipelineService.findSummeryPipelineStatusByUser(11015166,eyeProductId);
-  }
-  
-  @Post('submitProccess')
-  async submitProccess(
-    @Body() pipelineStatusRequest: PipelineStatusDto,
-  ): Promise<any> {
-    const token = this.tokenService.getToken(); // Retrieve from service
-
-    await this.pipelineService.savePipelineStatus(pipelineStatusRequest);
-    try {
-      let payload = {
-        channel: 'nest_redis_channel',
-        message: {
-          pipelineId: pipelineStatusRequest.pipelineId.toString(),
-          eyeProductId: pipelineStatusRequest.eyeProductId.toString()
-        }
-      };
-      this.eventEmitter.emit('pipeline.status.submitted', payload);
-      return 'pipeline';
-    } catch (error) {
-      console.error('Error storing data in Redis:', error);
-      // Implement retry logic or alternative strategy if needed
-    }
+  async get(
+    @Param('eyeProductId') eyeProductId: number,
+  ): Promise<PipelineStatus[]> {
+    const pipelineStatuses =
+      await this.pipelineService.findSummeryPipelineStatusByUser(
+        11015166,
+        eyeProductId,
+      );
+    //for Lazy=true promise response!
+    const results = await Promise.all(
+      pipelineStatuses.map(async (status) => {
+        const eyeProduct = await status.eyeProduct;
+        return {
+          ...status,
+          productId: eyeProduct.productId,
+        };
+      }),
+    );
+    return results;
   }
 
   @Post('submitStatus')
   async create(@Body() pipelineStatusRequest: PipelineStatusDto): Promise<any> {
     const token = this.tokenService.getToken(); // Retrieve from service
 
-   // await this.pipelineService.savePipelineStatus(pipelineStatusRequest);
+    // await this.pipelineService.savePipelineStatus(pipelineStatusRequest);
     try {
       //await this.sendRedis('pipeline_', pipelineStatusRequest);
 
@@ -72,15 +66,16 @@ export class PipelineController {
 
       console.log('Step 1 ==>from clinet to Nest ***Rest***');
       let payload = {
-        channel: 'nest_redis_channel',
+        channel: 'rest_redis_channel',
         message: {
           pipelineId: pipelineStatusRequest.pipelineId,
-          eyeProductId: 12017522//pipelineStatusRequest.eyeProductId
-        }
+          eyeProductId: pipelineStatusRequest.eyeProductId,
+          productId: pipelineStatusRequest.productId,
+        },
       };
       this.eventEmitter.emit('pipeline.status.submitted', payload);
 
-      await delay(Math.floor(Math.random() * 2) + 5, true); // Wait for 3 seconds with resultStatus as true
+      //await delay(Math.floor(Math.random() * 2) + 5, true); // Wait for 3 seconds with resultStatus as true
     } catch (error) {
       console.error('Error storing data in Redis:', error);
       // Implement retry logic or alternative strategy if needed
@@ -96,7 +91,6 @@ export class PipelineController {
       pipelineId: 456,
       processResult: processResult,
     };
-    
   }
   async sendRedis(preKey: string, pipelineStatusRequest: PipelineStatusDto) {
     const client = await this.myCacheService.getClient();
@@ -115,7 +109,11 @@ export class PipelineController {
     @Payload() data: any,
     @Ctx() context: RedisContext,
   ) {
-    console.log('Step 3 ==> Reply back from Python to Nest, data==> ' + data + '***Redis Pub/Sub***');
+    console.log(
+      'Step 3 ==> Reply back from Python to Nest, data==> ' +
+        data +
+        ' ***Redis Pub/Sub***',
+    );
     this.eventEmitter.emit('published_from_NestToSocket_pipelineStatus', data);
   }
 }

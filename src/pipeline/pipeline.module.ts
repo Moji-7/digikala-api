@@ -7,10 +7,12 @@ import { Pipelines } from './Pipelines.Entity';
 import { PipelineStatus } from './PipelineStatus.Entity';
 import { EyeModule } from 'src/eye/eye.module';
 import { EyeProduct } from 'src/eye/EyeProduct.entity';
+import { PipelineStatusService } from './pipelineStatus.service';
+import { PipelineStatusController } from './pipelineStatus.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Pipelines, PipelineStatus,EyeProduct])],
-  providers: [PipelineService],
-  controllers: [PipelineController],
+  providers: [PipelineService,PipelineStatusService],
+  controllers: [PipelineController,PipelineStatusController],
 })
 export class PipelineModule {}

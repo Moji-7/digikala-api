@@ -16,7 +16,7 @@ export class RedisSubscriberService  implements OnModuleInit {
   }
 
   async onModuleInit() {
-    await this.subscribeToChannel('nest_redis_channel');
+    await this.subscribeToChannel('rest_redis_channel');
   }
 
   async subscribeToChannel(channel: string): Promise<void> {

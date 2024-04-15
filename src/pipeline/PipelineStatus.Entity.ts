@@ -27,7 +27,7 @@ export class PipelineStatus {
 
   // @ManyToOne(() => EyeProduct)
   // eyeProduct: EyeProduct;
-  @ManyToOne(() => EyeProduct, eyeProduct => eyeProduct.pipelineStatuses, { lazy: true })
+  @ManyToOne(() => EyeProduct, eyeProduct => eyeProduct.pipelineStatuses, { lazy: true,onDelete:'CASCADE' })
   eyeProduct: Promise<EyeProduct>;
   @ManyToOne(() => Pipelines)
   pipelines: Pipelines;

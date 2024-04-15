@@ -21,6 +21,7 @@ import { ProductEntity } from './entity/product.entity';
 import { ProcessingService } from './proccessing/hamechidun.process.service';
 import { ProccessedService } from './proccessed/hamechidun.processed.service';
 import { CommentsDataset, CommentsEntity } from './entity/comments.entity';
+import { CommentsController } from './comments.controller';
 
 
 
@@ -39,7 +40,7 @@ import { CommentsDataset, CommentsEntity } from './entity/comments.entity';
       CommentsDataset
     ]), // Register the entity with TypeORM
   ],
-  controllers: [HamechidunController,IncrediblesController,ProductController],
+  controllers: [HamechidunController,IncrediblesController,ProductController,CommentsController],
   providers: [HamechidunService,
     ProcessingService,ProccessedService,
     OrderItemService,IncrediblesService,ProductService,CommentsService

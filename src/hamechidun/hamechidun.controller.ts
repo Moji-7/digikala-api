@@ -247,7 +247,7 @@ export class HamechidunController {
   async comments(
     @Query('productId') productId: number, // get the orderBy query parameter, if any
   ): Promise<CommentsDatasetResponse> {
-    const [dataset, count] = await this.processedService.getCommentsDataset(806044, 1, 3);
+    const [dataset, count] = await this.processedService.getCommentsDataset(productId, 1, 3);
     return { dataset, count };
   }
   

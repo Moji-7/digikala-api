@@ -37,7 +37,7 @@ export class EyeService {
   }
   async delete(productId: number): Promise<{ success: boolean }> {
     const deleteResult: DeleteResult = await this.eyeProductRepository.delete({
-      productId, // Assuming "productId" is the primary key or unique identifier
+      productId, 
     });
 
     if (deleteResult.affected > 0) {

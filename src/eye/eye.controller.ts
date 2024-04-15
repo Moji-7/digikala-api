@@ -21,6 +21,7 @@ import {
   mapToEyeProductsDTO,
 } from './EyeProduct.dto';
 import { TokenService } from 'src/token/token.service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 // import { HttpServiceAuthInterceptor } from 'src/AuthInterceptor';
 // import { AuthService } from 'src/AuthService';
@@ -32,6 +33,7 @@ export class EyeController {
     // private authService: AuthService,
     private readonly tokenService: TokenService,
     private readonly eyeService: EyeService,
+    private eventEmitter: EventEmitter2,
   ) {}
 
 
@@ -43,7 +45,18 @@ export class EyeController {
       token.userId,
       token.pipelinesIds,
     );
-    await this.eyeService.saveEyeProduct(eyeProducts);
+
+    const savedEyeProducts = await this.eyeService.saveEyeProduct(eyeProducts);
+
+    let payload = {
+      channel: 'nest_nest_channel',
+      message: {
+        eyeProductId:savedEyeProducts[0].id,
+        pipelineId: [4, 5, 6]
+      }
+    }
+    console.log("WHY A🧨: "+JSON.stringify(payload.message))
+    this.eventEmitter.emit('eye.submitted.add.pipelineStatus',payload) ;
     return mapToEyeProductsDTO(eyeProducts, token.userId, token.pipelinesIds);
   }
   // saveMultipleItems(@Body() payloadArray: SaveEyeProductDto[]): Observable<EyeProduct[]> {

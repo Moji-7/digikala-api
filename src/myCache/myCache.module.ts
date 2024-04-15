@@ -11,6 +11,7 @@ import { RedisSubscriberService } from './RedisSubscriberService';
 import { MessageSenderService } from './messageHandlers/sender.service';
 import { MessageReciverService } from './messageHandlers/reciever.service';
 import { HttpModule } from '@nestjs/axios';
+import { InterNestcommunicatinService } from './inter.nestCommunication.service';
 
 @Global()
 @Module({
@@ -31,7 +32,7 @@ import { HttpModule } from '@nestjs/axios';
       })
      })
   ],
-  providers: [MyCacheService,RedisClientService,RedisSubscriberService,MessageSenderService,MessageReciverService],
-  exports: [MyCacheService,RedisClientService,RedisSubscriberService,MessageSenderService,MessageReciverService],
+  providers: [MyCacheService,RedisClientService,RedisSubscriberService,MessageSenderService,MessageReciverService,InterNestcommunicatinService],
+  exports: [MyCacheService,RedisClientService,RedisSubscriberService,MessageSenderService,MessageReciverService,InterNestcommunicatinService],
 })
 export class MyCacheModule {}

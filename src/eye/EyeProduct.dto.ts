@@ -32,6 +32,9 @@ export type EyeProductParams = {
   
     @Expose()
     public pipelinesIds!: string;
+    
+    @Expose()
+    public created_at!: Date | null;
   }
 
   export function mapToEyeProducts(payloadItems: any[], userId: number,pipelinesIds:string): EyeProduct[] {

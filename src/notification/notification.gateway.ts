@@ -23,7 +23,7 @@ export class NotificationGateway
   
   onModuleInit() {
     this.eventEmitter.on('published_from_NestToSocket_pipelineStatus', (data: any) => {
-      console.log('Step 4 ==>from Nest to Client;'+ data +"***Socket***")
+      console.log('Step 4 ==>from Nest to Client;'+ JSON.stringify(data) +"***Socket***")
       // Emit the data to all connected WebSocket clients
       this.io.emit('published_from_SocketToClient_pipelineStatus', data);
     });

@@ -19,5 +19,4 @@ export class MessageSenderService {
     await this.redisSubscriberService_publish.publishMessage(payload.channel, payload.message);
   }
 
-  
 }
