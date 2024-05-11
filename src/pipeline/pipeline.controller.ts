@@ -111,7 +111,7 @@ export class PipelineController {
   ) {
     console.log(
       'Step 3 ==> Reply back from Python to Nest, data==> ' +
-        data +
+      JSON.stringify(data) +
         ' ***Redis Pub/Sub***',
     );
     this.eventEmitter.emit('published_from_NestToSocket_pipelineStatus', data);

@@ -18,5 +18,14 @@ export class MessageSenderService {
     // Logic to publish the message to Redis
     await this.redisSubscriberService_publish.publishMessage(payload.channel, payload.message);
   }
+  
+  @OnEvent('pipeline.incredibles.request')
+  async handleIncrediblesPublishedEvent(payload: { channel: string; message: any }) {
+    //console.log('ali; pipeline.status.submitted')
+    console.log('Step 2 ==>from Nest to Redis ***Pub/sub***' );
+    console.log("WHY🧨: "+JSON.stringify(payload.message))
+    // Logic to publish the message to Redis
+    await this.redisSubscriberService_publish.publishMessage(payload.channel, payload.message);
+  }
 
 }

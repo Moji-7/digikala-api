@@ -25,4 +25,8 @@ type IIncredibles = {
     shipment_description: string | null;
     has_lead_time: number | null;
   };
-  
+
+  type IIncrediblesRequest = {
+    category: string | null;
+    date:Date| null
+  }
